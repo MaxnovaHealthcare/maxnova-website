@@ -1,19 +1,20 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 
 export default function Nav() {
   return (
     <nav className="w-full h-fit px-12 py-4">
       <ul className="flex justify-between items-center">
         <li>
-          <a href="/">Home</a>
+          <Link href="/">Home</Link>
         </li>
         <li>
-          <a href="/about">About</a>
+          <Link href="/about">About</Link>
         </li>
         <li>
-          <a href="/contact">Contact</a>
+          <Link href="/contact">Contact</Link>
         </li>
       </ul>
     </nav>

@@ -1,9 +1,12 @@
-import Image from "next/image";
+"use client";
+
+import React from "react";
+import Hero from "./(home_components)/hero";
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
-      <h1>this is page</h1>
+    <main className="min-h-screen snap-y">
+      <Hero />
     </main>
   );
 }
