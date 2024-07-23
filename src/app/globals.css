@@ -2,13 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
-  background: linear-gradient(
-    rgba(242, 240, 234, 1) 0%,
-    rgba(242, 240, 234, 1) 50%,
-    rgba(39, 37, 31, 1) 50%,
-    rgba(39, 37, 31, 1) 100%
-  );
-  background-color: rgba(242, 240, 234, 1);
+  @apply relative m-0 flex w-full flex-col items-center justify-center overflow-x-hidden bg-primary p-0;
+}
+
+.bg-prim {
+  @apply bg-primary text-primary;
+}
+
+.bg-seco {
+  @apply bg-secondary text-secondary;
+}
+
+.bg-footer {
+  @apply bg-seco h-screen w-full bg-cover bg-fixed bg-no-repeat;
+  background-image: url("../../public/images/footerbg.png");
 }
