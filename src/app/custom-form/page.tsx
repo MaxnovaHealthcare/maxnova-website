@@ -15,7 +15,7 @@ export default function PrivateLabelPage() {
           </h1>
         </div>
       </section>
-      <section className="bg-prim -mb-24 flex min-h-screen flex-col items-start justify-start p-12 px-0">
+      <section className="bg-prim flex min-h-screen flex-col items-start justify-start p-12 px-0">
         <div className="z-10 flex w-full flex-col items-center justify-center">
           <h1 className="font-humane text-max font-semibold">
             HOW DOES IT WORK?

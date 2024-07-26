@@ -2,9 +2,10 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import CTAButtons from "./buttons";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import ContactPage from "./contact";
+import logo from "../../public/images/logowhite.png";
 
 export default function Nav() {
   let [isOpen, setOpen] = useState(false);
@@ -16,11 +17,15 @@ export default function Nav() {
       <nav className="bg-seco z-50 mt-4 flex h-fit w-10/12 items-center justify-between gap-6 rounded-full py-1 md:px-12">
         <Link
           href="/"
-          className="flex w-1/6 items-center justify-start font-humane text-5xl font-bold"
+          className="flex h-full w-1/6 items-center justify-start gap-2 py-2 font-humane font-semibold"
         >
-          logo
+          {logo ? (
+            <Image src={logo} alt="MAXNOVA" className="h-7 w-auto" />
+          ) : (
+            <span>MAXNOVA HEALTHCARE</span>
+          )}
         </Link>
-        <motion.div className="flex w-4/6 items-center justify-around gap-6 text-min font-medium">
+        <motion.div className="flex w-4/6 items-center justify-around text-min font-medium">
           <motion.span>
             <Link href="/about">ABOUT</Link>
           </motion.span>
@@ -34,7 +39,7 @@ export default function Nav() {
             <Link href="/custom-form">CUSTOM FORMULATIONS</Link>
           </motion.span>
         </motion.div>
-        <div className="flex w-1/6 items-center justify-end">
+        <div className="flex h-fit w-1/6 items-center justify-end py-2">
           <span
             onClick={HandleOnClick}
             className="flex h-fit w-fit items-center justify-center rounded-3xl"

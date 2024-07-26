@@ -3,62 +3,14 @@
 import { motion, useTransform, useScroll } from "framer-motion";
 import React, { useRef, JSX } from "react";
 
-export default function HorizontalScrollCarousel(): JSX.Element {
-  const targetRef = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-  });
-
-  const x = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["1%", `-${cards.length * 9.5}%`],
-  );
-  return (
-    <section
-      ref={targetRef}
-      className={`bg-prim relative h-[${cards.length * 100}vh]`}
-    >
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-        <motion.div style={{ x }} className="flex space-x-24">
-          {cards.map((card) => {
-            return <Card card={card} key={card.id} />;
-          })}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-let Card = ({ card }: { card: CardType }): JSX.Element => {
-  return (
-    <div
-      key={card.id}
-      className="bg-prim flex h-max min-h-[42rem] w-[28rem] flex-col items-start justify-between overflow-hidden rounded-3xl border-[0.5px] border-[#27251f] p-6"
-    >
-      <div className="flex h-fit w-full flex-col items-start justify-start">
-        <p className="font-humane text-[3rem] uppercase">
-          {card.id < 10 ? "0" : ""}
-          {card.id}
-        </p>
-        <p className="font-humane text-8xl font-semibold uppercase">
-          {card.title}
-        </p>
-      </div>
-      <div className="flex w-full flex-col items-start justify-start gap-2">
-        <p className="text-para">{card.desc}</p>
-      </div>
-    </div>
-  );
-};
-type CardType = {
+interface CardProps {
   url: string;
   title: string;
   desc: string;
   id: number;
-};
+}
 
-let cards: CardType[] = [
+const cards: CardProps[] = [
   {
     url: "",
     title: "Understanding your requirements",
@@ -102,3 +54,51 @@ let cards: CardType[] = [
     id: 7,
   },
 ];
+
+const Card = ({ card }: { card: CardProps }): JSX.Element => (
+  <div
+    key={card.id}
+    className="bg-prim flex h-max min-h-[42rem] w-[28rem] flex-col items-start justify-between overflow-hidden rounded-3xl border-[0.5px] border-[#27251f] p-6"
+  >
+    <div className="flex h-fit w-full flex-col items-start justify-start">
+      <p className="font-humane text-[3rem] uppercase">
+        {card.id < 10 ? "0" : ""}
+        {card.id}
+      </p>
+      <p className="font-humane text-8xl font-semibold uppercase">
+        {card.title}
+      </p>
+    </div>
+    <div className="flex w-full flex-col items-start justify-start gap-2">
+      <p className="text-para">{card.desc}</p>
+    </div>
+  </div>
+);
+
+export default function HorizontalScrollCarousel(): JSX.Element {
+  const targetRef = useRef<HTMLDivElement | null>(null);
+  const { scrollYProgress } = useScroll({ target: targetRef });
+  const x = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["1%", `-${cards.length * 11}%`],
+  );
+
+  const sectionHeight = `${cards.length * 100}vh`;
+
+  return (
+    <section
+      ref={targetRef}
+      className="bg-prim relative"
+      style={{ height: sectionHeight }}
+    >
+      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+        <motion.div style={{ x }} className="flex space-x-24">
+          {cards.map((card) => (
+            <Card card={card} key={card.id} />
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
