@@ -6,6 +6,8 @@ import React, { Suspense } from "react";
 import Nav from "./nav";
 import Footer from "./footer";
 import Loading from "./loading";
+import { ContactContextProvider, useContactContext } from "../../context/contact-context";
+import ContactPage from "./contact";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,14 +21,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <body className={`font-helvetica ${inter.className}`}>
-        <Suspense fallback={<Loading />}>
-          <Nav />
-          {children}
-          <Footer />
-        </Suspense>
+        <ContactContextProvider>
+          <Suspense fallback={<Loading />}>
+            <Nav />
+            {children}
+            <Footer />
+          </Suspense>
+        </ContactContextProvider>
       </body>
     </html>
   );

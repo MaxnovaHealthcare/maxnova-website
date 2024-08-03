@@ -3,19 +3,16 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import CTAButtons from "./buttons";
+import { useContactContext } from "../../context/contact-context";
 
 interface ContactPageProps {
-  product?: {
-    company_name: string;
-    category_name: string;
-    name: string;
-  };
   className?: string;
   onClick?: () => void;
   address?: string;
   numb1?: string;
   numb2?: string;
   mail?: string;
+  isGeneral?: boolean;
 }
 
 const formFields = [
@@ -51,13 +48,12 @@ const contactInfo = [
 
 export default function ContactPage(props: ContactPageProps) {
   const {
-    product,
     className,
     onClick,
     address = "",
     numb1 = "",
     numb2 = "",
-    mail = "",
+    mail = ""
   } = props;
 
   const [formData, setFormData] = useState({
@@ -66,6 +62,8 @@ export default function ContactPage(props: ContactPageProps) {
     email: "",
     message: "",
   });
+
+  const { data } = useContactContext()
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -124,8 +122,8 @@ export default function ContactPage(props: ContactPageProps) {
         </div>
         <div className="flex h-full w-3/4 flex-col items-start justify-start gap-12">
           <div className="text-para font-medium">
-            {product
-              ? `${product.company_name} > ${product.category_name} > ${product.name}`
+            {data
+              ? `${data.company_name} > ${data.category_name} > ${data.name}`
               : `General Form`}
           </div>
           <h1 className="text-subhead font-semibold">

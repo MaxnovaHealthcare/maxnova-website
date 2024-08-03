@@ -42,7 +42,6 @@ export default function PCDFranchisePage() {
 
   const toggleEnquire = () => {
     setEnquireOpen((prev) => !prev);
-
   };
 
   useEffect(() => {
@@ -70,7 +69,6 @@ export default function PCDFranchisePage() {
 
   return (
     <main className="bg-prim z-0 flex min-h-screen w-screen snap-y flex-col">
-      
       <section className="flex h-screen min-h-screen w-screen flex-col items-center justify-center p-12 px-6 md:mt-10 md:p-12">
         <div className="relative flex h-full w-full items-center justify-center rounded-3xl bg-accent1">
           <h1 className="text-center font-humane text-max font-bold">

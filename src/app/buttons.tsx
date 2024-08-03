@@ -5,7 +5,7 @@ import Link from "next/link";
 
 interface CTAButtonsProps {
   text: string;
-  onClick?: () => void;
+  onClick?: () => any;
   bgcolor: string;
   cta: string;
 }

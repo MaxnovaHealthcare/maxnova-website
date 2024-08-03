@@ -6,13 +6,10 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import ContactPage from "./contact";
 import logo from "../../public/images/logowhite.png";
+import { useContactContext } from "../../context/contact-context";
 
 export default function Nav() {
-  const [contactOpen, setContactOpen] = useState(false);
-
-  const toggleContact = () => {
-    setContactOpen((prev) => !prev);
-  };
+  const { open, toggleContact } = useContactContext();
 
   return (
     <main className="fixed top-0 z-50 flex h-fit w-screen items-center justify-center">
@@ -48,8 +45,8 @@ export default function Nav() {
         </div>
       </nav>
       <ContactPage
-        className={contactOpen ? "block" : "hidden"}
-        onClick={toggleContact}
+        className={open ? "block" : "hidden"}
+        onClick={toggleContact} 
       />
     </main>
   );

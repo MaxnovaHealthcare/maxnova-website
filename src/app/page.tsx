@@ -11,12 +11,12 @@ import ProductOverview from "./(home_components)/product";
 export default function HomePage() {
   return (
     <main className="bg-prim z-0 flex min-h-screen w-screen snap-y flex-col">
-      <HeroSection />
-      <AboutSection />
-      <Showreel />
-      <WhyUS />
-      <OtherServices />
-      <ProductOverview />
+        <HeroSection />
+        <AboutSection />
+        <Showreel />
+        <WhyUS />
+        <OtherServices />
+        <ProductOverview />
     </main>
   );
 }

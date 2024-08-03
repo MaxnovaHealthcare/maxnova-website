@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import dropper from "../../public/images/dropper.png";
 import CTAButtons from "./buttons";
+import { useContactContext } from "../../context/contact-context";
 
 interface ProductCardProps {
   name: string;
@@ -26,6 +27,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const ingredientList = ingredients.split("-");
   const uspList = usp.split("-");
+  const { open, setCompanyData, toggleContact } = useContactContext();
+
+  const dataCompany = {
+    company_name: subbrand,
+    category_name: category,
+    name: name
+  }
+
+  const setData = () => {
+    setCompanyData(dataCompany)
+  }
 
   return (
     <motion.div className="relative z-50 flex h-[32rem] w-[22rem] flex-col items-center justify-center gap-4 overflow-hidden rounded-3xl bg-accent2 p-6 text-secondary">
@@ -66,9 +78,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
               <p className="font-semibold">Ingredients:</p>
               {ingredientList.map((item, index) => (
                 <p className="text-wrap capitalize" key={index}>
-                  {`${index === 0 ? " " : ""}${item}${
-                    index === ingredientList.length - 1 ? "" : ", "
-                  }`}
+                  {`${index === 0 ? " " : ""}${item}${index === ingredientList.length - 1 ? "" : ", "
+                    }`}
                 </p>
               ))}
             </span>
@@ -79,7 +90,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             bgcolor="bg-accent2 text-secondary"
             text="Ask Us"
             cta=""
-            onClick={toogleEnquire}
+            onClick={setData}
           />
           <h1 className="text-para font-medium capitalize">{category}</h1>
         </div>
