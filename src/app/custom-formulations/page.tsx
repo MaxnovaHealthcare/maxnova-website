@@ -3,20 +3,22 @@
 import React from "react";
 import HorizontalScrollCarousel from "./horizontal-scroll";
 import CTAButtons from "../buttons";
+import WhyUS from "../whyus";
+import OtherServices from "../(home_components)/ourservices";
 
-export default function PrivateLabelPage() {
+export default function CustomFormulationsPage() {
   return (
-    <main className="-z-10 flex min-h-screen w-screen snap-y flex-col">
-      <section className="bg-prim flex h-screen min-h-screen w-screen flex-col items-center justify-center p-12 px-6 md:mt-10 md:p-12">
+    <main className="bg-prim z-0 flex min-h-screen w-screen snap-y flex-col">
+      <section className="flex h-screen min-h-screen w-screen flex-col items-center justify-center p-12 px-6 md:mt-10 md:p-12">
         <div className="relative flex h-full w-full items-center justify-center rounded-3xl bg-accent1">
-          <h1 className="text-center font-humane text-max font-bold capitalize">
+          <h1 className="text-center font-humane text-max font-bold uppercase">
             BE DIFFERENT.
             <br /> BE A CUT ABOVE THE REST
           </h1>
         </div>
       </section>
-      <section className="bg-prim flex min-h-screen flex-col items-start justify-start p-12 px-0">
-        <div className="z-10 flex w-full flex-col items-center justify-center">
+      <section className="flex min-h-screen flex-col items-start justify-start p-12 px-0">
+        <div className="z-[1] flex w-full flex-col items-center justify-center gap-4">
           <h1 className="font-humane text-max font-semibold">
             HOW DOES IT WORK?
           </h1>
@@ -32,6 +34,12 @@ export default function PrivateLabelPage() {
           />
         </div>
         <HorizontalScrollCarousel />
+      </section>
+      <section className="-mt-24 flex min-h-screen flex-col items-start justify-start">
+        <WhyUS />
+      </section>
+      <section className="flex min-h-screen flex-col items-start justify-start">
+        <OtherServices />
       </section>
     </main>
   );

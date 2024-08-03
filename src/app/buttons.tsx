@@ -4,18 +4,27 @@ import React from "react";
 import Link from "next/link";
 
 interface CTAButtonsProps {
-  cta: string;
   text: string;
+  onClick?: () => void;
   bgcolor: string;
+  cta: string;
 }
 
-export default function CTAButtons({ cta, text, bgcolor }: CTAButtonsProps) {
+const CTAButtons: React.FC<CTAButtonsProps> = ({
+  text,
+  onClick,
+  bgcolor,
+  cta,
+}) => {
   return (
     <Link
-      className={`h-fit w-fit rounded-full px-4 py-3 text-min ${bgcolor}`}
+      onClick={onClick}
+      className={`h-fit w-fit rounded-full px-4 py-3 text-min font-medium capitalize ${bgcolor}`}
       href={cta}
     >
       {text}
     </Link>
   );
-}
+};
+
+export default CTAButtons;

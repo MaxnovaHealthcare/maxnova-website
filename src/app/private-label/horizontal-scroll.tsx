@@ -46,7 +46,7 @@ const cards: CardProps[] = [
 const Card = ({ card }: { card: CardProps }): JSX.Element => (
   <div
     key={card.id}
-    className="bg-prim flex h-max min-h-[42rem] w-[28rem] flex-col items-start justify-between overflow-hidden rounded-3xl border-[0.5px] border-[#27251f] p-6"
+    className="flex h-max min-h-[42rem] w-[28rem] flex-col items-start justify-between overflow-hidden rounded-3xl border-[0.5px] border-[#130d14] p-6 dark:border-[#f2f0ea]"
   >
     <div className="flex h-fit w-full flex-col items-start justify-start">
       <p className="font-humane text-[3rem] uppercase">
@@ -77,7 +77,7 @@ export default function HorizontalScrollCarousel(): JSX.Element {
   return (
     <section
       ref={targetRef}
-      className="bg-prim relative"
+      className="relative"
       style={{ height: sectionHeight }}
     >
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">

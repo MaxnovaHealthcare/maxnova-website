@@ -15,22 +15,25 @@ const config: Config = {
       fontSize: {
         min: ["1rem", "1rem"],
         para: ["1.125rem", "1.6875rem"],
-        subhead: ["1.25rem", "1.875rem"],
+        subhead: ["1.5rem", "1.875rem"],
         head: ["1.875rem", "2.375rem"],
         max: ["9.5rem", "7.625rem"],
       },
       backgroundColor: {
-        primary: "#f2f0ea",
-        secondary: "#27251f",
-        accent1: "#adebff",
-        accent2: "#003459",
+        primary: "#e9e3d5",
+        secondary: "#272724",
+        accent1: "#fda521",
+        accent2: "#033043",
       },
       textColor: {
-        primary: "#27251f",
-        secondary: "#f2f0ea",
+        primary: "#272724",
+        secondary: "#e9e3d5",
+        accent1: "#fda521",
+        accent2: "#033043",
       },
     },
   },
   plugins: [],
+  darkMode: ["selector", '[data-mode="dark"]'],
 };
 export default config;

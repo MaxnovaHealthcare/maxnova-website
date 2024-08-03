@@ -3,15 +3,22 @@
 import React from "react";
 import Image from "next/image";
 import CTAButtons from "../buttons";
+import maxnovabanner from "../../../public/images/maxnovabanner.jpg";
 
 export default function AboutSection() {
   return (
-    <section className="bg-prim flex h-screen min-h-screen w-screen items-center justify-center gap-12 overflow-hidden px-24 py-12">
+    <section className="flex h-screen min-h-screen w-screen items-center justify-center gap-12 overflow-hidden px-24 py-12">
       <div className="relative flex h-full w-8/12 flex-col items-start justify-start p-4">
-        <h1 className="z-10 -mb-16 w-3/4 font-humane text-max font-bold">
+        <h1 className="z-[1] -mb-16 w-3/4 font-humane text-max font-bold">
           THERE QUALITY IS GUARANTEED
         </h1>
-        <div className="h-3/4 w-4/5 rounded-3xl bg-accent1">y</div>
+        <div className="h-3/4 w-4/5 overflow-hidden rounded-3xl bg-accent1">
+          <Image
+            src={maxnovabanner}
+            alt="banner"
+            className="h-full w-full scale-125 object-cover object-right"
+          />
+        </div>
       </div>
       <div className="flex h-full w-4/12 flex-col justify-center gap-12 p-4">
         <h1 className="text-head font-semibold">
@@ -33,7 +40,7 @@ export default function AboutSection() {
           first-class cosmetic product, we are always in search of understanding
           your necessity.
         </p>
-        <CTAButtons text="LEARN MORE" cta="" bgcolor="bg-accent1" />
+        <CTAButtons text="LEARN MORE" cta="/about" bgcolor="bg-accent1" />
       </div>
     </section>
   );

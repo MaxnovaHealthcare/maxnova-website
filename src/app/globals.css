@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply relative m-0 flex w-full flex-col items-center justify-center overflow-x-hidden bg-primary p-0;
+  @apply relative m-0 flex w-full flex-col items-center justify-center overflow-x-hidden bg-primary p-0 font-helvetica;
 }
 
 .bg-prim {
@@ -18,3 +18,4 @@ body {
   @apply bg-seco h-screen w-full bg-cover bg-fixed bg-no-repeat;
   background-image: url("../../public/images/footerbg.png");
 }
+

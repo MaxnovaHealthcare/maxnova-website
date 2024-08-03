@@ -4,7 +4,7 @@ import React from "react";
 
 export default function About() {
   return (
-    <section className="bg-prim m-0 flex h-screen min-h-screen w-full items-center justify-center gap-12 px-24 py-12">
+    <section className="m-0 flex h-screen min-h-screen w-full items-center justify-center gap-12 px-24 py-12">
       <div className="flex h-full w-4/12 flex-col justify-center gap-12 p-4">
         <h1 className="text-head font-semibold">
           All the credits goes to each person working in the backend day and
@@ -27,7 +27,7 @@ export default function About() {
         </p>
       </div>
       <div className="relative flex h-full w-8/12 flex-col items-end justify-end p-4">
-        <h1 className="z-10 -mb-16 w-1/2 text-right font-humane text-max font-bold">
+        <h1 className="z-[1] -mb-16 w-1/2 text-right font-humane text-max font-bold">
           THAT&rsquo;S HOW WE GOT HERE
         </h1>
         <div className="h-3/4 w-4/5 rounded-3xl bg-accent1">y</div>
