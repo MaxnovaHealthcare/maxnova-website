@@ -34,9 +34,7 @@ export default function PCDFranchisePage() {
   const { companyId } = useParams();
   const [productData, setProductData] = useState<any[]>([]);
   const [companyData, setCompanyData] = useState<any>(null);
-  const [categoryData, setCategoryData] = useState<{ allCategory: any[] }>({
-    allCategory: [],
-  });
+  const [categoryData, setCategoryData] = useState<any[] | null>(null);
   const [currentCategory, setCurrentCategory] = useState("all");
   const [enquireOpen, setEnquireOpen] = useState(false);
 
@@ -69,15 +67,15 @@ export default function PCDFranchisePage() {
 
   return (
     <main className="bg-prim z-0 flex min-h-screen w-screen snap-y flex-col">
-      <section className="flex h-screen min-h-screen w-screen flex-col items-center justify-center p-12 px-6 md:mt-10 md:p-12">
+      <section className="flex h-screen min-h-screen w-screen flex-col items-center justify-center p-12 px-6 lg:mt-10 lg:p-12">
         <div className="relative flex h-full w-full items-center justify-center rounded-3xl bg-accent1">
-          <h1 className="text-center font-humane text-max font-bold">
+          <h1 className="text-center font-humane font-bold max-md:text-8xl lg:text-max">
             {companyData && companyData.findCompany.name}
           </h1>
         </div>
       </section>
       <section className="flex min-h-screen flex-col items-center justify-center gap-24 p-12">
-        <h1 className="text-center font-humane text-max font-bold capitalize">
+        <h1 className="text-center font-humane font-bold capitalize max-md:text-8xl lg:text-max">
           Products
         </h1>
         <div className="flex h-fit w-full items-center justify-between p-4">
@@ -88,14 +86,14 @@ export default function PCDFranchisePage() {
           </h1>
           <select
             defaultValue="all"
-            className="bg-prim rounded-xl border-[0.5px] border-[#130d14] px-4 py-3"
+            className="bg-prim border-accent1 rounded-xl border px-4 py-3"
             onChange={(e) => setCurrentCategory(e.target.value)}
           >
             <option className="w-full bg-none px-12" value="all">
               All Categories
             </option>
             {categoryData &&
-              categoryData.allCategory.map((category: any, index: number) => (
+              categoryData.map((category: any, index: number) => (
                 <option
                   className="w-full bg-none px-12 text-5xl"
                   key={index}

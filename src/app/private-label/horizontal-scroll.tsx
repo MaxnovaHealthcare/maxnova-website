@@ -46,14 +46,14 @@ const cards: CardProps[] = [
 const Card = ({ card }: { card: CardProps }): JSX.Element => (
   <div
     key={card.id}
-    className="flex h-max min-h-[42rem] w-[28rem] flex-col items-start justify-between overflow-hidden rounded-3xl border-[0.5px] border-[#130d14] p-6 dark:border-[#f2f0ea]"
+    className="border-accent1 dark:border-accent1 flex h-max min-h-[40rem] w-[27.5rem] flex-col items-start justify-between overflow-hidden rounded-3xl border p-6 max-md:min-h-[36rem] max-md:w-[22rem]"
   >
     <div className="flex h-fit w-full flex-col items-start justify-start">
       <p className="font-humane text-[3rem] uppercase">
         {card.id < 10 ? "0" : ""}
         {card.id}
       </p>
-      <p className="font-humane text-8xl font-semibold uppercase">
+      <p className="font-humane text-7xl font-semibold uppercase">
         {card.title}
       </p>
     </div>
@@ -66,11 +66,26 @@ const Card = ({ card }: { card: CardProps }): JSX.Element => (
 export default function HorizontalScrollCarousel(): JSX.Element {
   const targetRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({ target: targetRef });
-  const x = useTransform(
+
+  const x1 = useTransform(
     scrollYProgress,
     [0, 1],
-    ["1%", `-${cards.length * 11}%`],
+    ["1%", `-${cards.length * (20 - 1.81 * cards.length)}%`],
   );
+  const x2 = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["1%", `-${cards.length * (25 - 1.7625 * cards.length)}%`],
+  );
+
+  const getWindowWidth = () => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth;
+    }
+    return 0;
+  };
+
+  const x = getWindowWidth() < 768 ? x2 : x1;
 
   const sectionHeight = `${cards.length * 100}vh`;
 
@@ -81,7 +96,7 @@ export default function HorizontalScrollCarousel(): JSX.Element {
       style={{ height: sectionHeight }}
     >
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-        <motion.div style={{ x }} className="flex space-x-24">
+        <motion.div style={{ x }} className="flex space-x-24 max-md:space-x-12">
           {cards.map((card) => (
             <Card card={card} key={card.id} />
           ))}

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import dropper from "../../public/images/dropper.png";
 import CTAButtons from "./buttons";
-import { useContactContext } from "../../context/contact-context";
+import { useContactContext } from "./context/contact-context";
 
 interface ProductCardProps {
   name: string;
@@ -23,6 +23,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   ingredients = "",
   usp = "",
   category,
+  image = "",
   toogleEnquire,
 }) => {
   const ingredientList = ingredients.split("-");
@@ -32,21 +33,33 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const dataCompany = {
     company_name: subbrand,
     category_name: category,
-    name: name
-  }
+    name: name,
+  };
 
   const setData = () => {
-    setCompanyData(dataCompany)
-  }
+    setCompanyData(dataCompany);
+  };
 
   return (
-    <motion.div className="relative z-50 flex h-[32rem] w-[22rem] flex-col items-center justify-center gap-4 overflow-hidden rounded-3xl bg-accent2 p-6 text-secondary">
+    <motion.div
+      initial={{ y: 100, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{
+        delay: 0.5,
+        duration: 0.5,
+        ease: "linear",
+      }}
+      className="relative z-50 flex h-[32rem] w-[22rem] flex-col items-center justify-center gap-4 overflow-hidden rounded-3xl bg-accent2 p-6 text-secondary"
+    >
       <Image
-        src={dropper}
+        src={image}
         alt={name}
-        className="h-[90%] w-full rounded-2xl object-scale-down"
+        width={28 * 16}
+        height={19 * 16}
+        className="h-full w-full overflow-hidden rounded-3xl object-fill"
       />
-      <div className="flex h-[10%] w-full items-center justify-between">
+      <div className="flex h-[10%] w-full items-end justify-between">
         <h1 className="font-helvetica text-para font-semibold capitalize">
           {name}
         </h1>
@@ -78,8 +91,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
               <p className="font-semibold">Ingredients:</p>
               {ingredientList.map((item, index) => (
                 <p className="text-wrap capitalize" key={index}>
-                  {`${index === 0 ? " " : ""}${item}${index === ingredientList.length - 1 ? "" : ", "
-                    }`}
+                  {`${index === 0 ? " " : ""}${item}${
+                    index === ingredientList.length - 1 ? "" : ", "
+                  }`}
                 </p>
               ))}
             </span>
@@ -88,7 +102,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <div className="flex h-fit w-full items-center justify-between">
           <CTAButtons
             bgcolor="bg-accent2 text-secondary"
-            text="Ask Us"
+            text="ask us"
             cta=""
             onClick={setData}
           />

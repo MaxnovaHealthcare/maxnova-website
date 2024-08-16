@@ -3,7 +3,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import CTAButtons from "./buttons";
-import { useContactContext } from "../../context/contact-context";
+import { useContactContext } from "./context/contact-context";
+import { motion } from "framer-motion";
 
 interface ContactPageProps {
   className?: string;
@@ -53,7 +54,7 @@ export default function ContactPage(props: ContactPageProps) {
     address = "",
     numb1 = "",
     numb2 = "",
-    mail = ""
+    mail = "",
   } = props;
 
   const [formData, setFormData] = useState({
@@ -63,8 +64,7 @@ export default function ContactPage(props: ContactPageProps) {
     message: "",
   });
 
-  const { data } = useContactContext()
-
+  const { data } = useContactContext();
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -80,19 +80,24 @@ export default function ContactPage(props: ContactPageProps) {
 
   return (
     <main
-      className={`absolute top-0 z-[3] bg-secondary bg-opacity-35 p-20 pb-16 pt-24 backdrop-blur-md md:h-screen md:w-screen ${className}`}
+      className={`absolute top-0 z-[3] h-screen w-screen bg-secondary bg-opacity-35 p-20 pb-16 pt-24 backdrop-blur-md max-md:p-2 max-md:pt-24 ${className}`}
     >
-      <section className="bg-seco relative flex h-full w-full flex-row-reverse items-center justify-between gap-32 rounded-3xl p-16 py-28">
+      <motion.section
+        initial={{ scale: 0.95, opacity: 0 }}
+        whileInView={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="bg-seco relative flex h-full w-full flex-row-reverse items-center justify-between gap-32 rounded-3xl p-16 py-28 max-md:h-fit max-md:flex-col-reverse max-md:gap-12 max-md:overflow-visible max-md:p-4 max-md:pt-8"
+      >
         <span
           onClick={onClick}
-          className="absolute left-12 top-12 flex h-auto min-h-10 w-auto min-w-10 cursor-pointer items-center justify-center rounded-full border-[0.5px] border-[#f2f0ea] font-helvetica text-subhead font-light"
+          className="border-accent1 absolute top-12 flex h-auto min-h-10 w-auto min-w-10 cursor-pointer items-center justify-center rounded-3xl border font-helvetica text-subhead font-light max-md:right-4 max-md:top-4 lg:left-12"
         >
           ←
         </span>
-        <div className="flex h-full w-1/4 flex-col items-start justify-center gap-6">
+        <div className="flex h-full w-1/4 flex-col items-start justify-center gap-6 max-md:hidden">
           <div className="flex h-full w-full flex-col gap-4">
             <h1 className="text-min font-semibold">Contact Us</h1>
-            <h1 className="font-humane text-max font-semibold">
+            <h1 className="font-humane font-semibold max-md:text-8xl lg:text-max">
               WHERE DO WE START?
             </h1>
           </div>
@@ -120,7 +125,7 @@ export default function ContactPage(props: ContactPageProps) {
             </div>
           ))}
         </div>
-        <div className="flex h-full w-3/4 flex-col items-start justify-start gap-12">
+        <div className="flex h-full w-3/4 flex-col items-start justify-start gap-12 max-md:w-full max-md:gap-4">
           <div className="text-para font-medium">
             {data
               ? `${data.company_name} > ${data.category_name} > ${data.name}`
@@ -130,7 +135,7 @@ export default function ContactPage(props: ContactPageProps) {
             {`Let us know why you're getting in touch.`}
           </h1>
           <form
-            className="col-span-2 grid w-full grid-cols-2 gap-8"
+            className="col-span-2 grid w-full grid-cols-2 gap-8 max-md:grid-cols-1"
             onSubmit={handleSubmit}
           >
             {formFields.map((field) => (
@@ -142,15 +147,16 @@ export default function ContactPage(props: ContactPageProps) {
                 {field.isTextArea ? (
                   <textarea
                     name={field.label.toLowerCase().replace(" ", "")}
-                    className="h-10 w-full border-b-2 border-[#e9e3d5] bg-secondary bg-opacity-0 p-2 transition-all duration-300 focus:text-[1.2rem] focus:outline-none"
+                    className="border-accent1 h-10 w-full border-b-2 bg-secondary bg-opacity-0 p-2 transition-all duration-300 focus:text-[1.2rem] focus:outline-none"
                     placeholder={field.placeholder}
                     onChange={handleChange}
                   />
                 ) : (
                   <input
+                    required
                     type={field.type}
                     name={field.label.toLowerCase().replace(" ", "")}
-                    className="h-10 w-full border-b-2 border-[#e9e3d5] bg-secondary bg-opacity-0 p-2 transition-all duration-300 focus:text-[1.2rem] focus:outline-none"
+                    className="border-accent1 h-10 w-full border-b-2 bg-secondary bg-opacity-0 p-2 transition-all duration-300 focus:text-[1.2rem] focus:outline-none"
                     placeholder={field.placeholder}
                     onChange={handleChange}
                   />
@@ -162,7 +168,7 @@ export default function ContactPage(props: ContactPageProps) {
             </div>
           </form>
         </div>
-      </section>
+      </motion.section>
     </main>
   );
 }

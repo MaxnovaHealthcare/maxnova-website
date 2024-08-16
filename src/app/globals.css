@@ -18,4 +18,3 @@ body {
   @apply bg-seco h-screen w-full bg-cover bg-fixed bg-no-repeat;
   background-image: url("../../public/images/footerbg.png");
 }
-

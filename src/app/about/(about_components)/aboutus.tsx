@@ -1,11 +1,18 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 
 export default function About() {
   return (
-    <section className="m-0 flex h-screen min-h-screen w-full items-center justify-center gap-12 px-24 py-12">
-      <div className="flex h-full w-4/12 flex-col justify-center gap-12 p-4">
+    <section className="flex h-screen min-h-screen w-full items-center justify-center gap-12 overflow-hidden p-12 max-md:my-24 max-md:h-fit max-md:flex-col-reverse max-md:p-4 lg:px-10">
+      <motion.div
+        initial={{ x: -100, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+        className="flex h-full w-4/12 flex-col justify-center gap-12 p-4 max-md:w-full"
+      >
         <h1 className="text-head font-semibold">
           All the credits goes to each person working in the backend day and
           night for us.
@@ -25,13 +32,27 @@ export default function About() {
           first-class cosmetic product, we are always in search of understanding
           your necessity.
         </p>
-      </div>
-      <div className="relative flex h-full w-8/12 flex-col items-end justify-end p-4">
-        <h1 className="z-[1] -mb-16 w-1/2 text-right font-humane text-max font-bold">
-          THAT&rsquo;S HOW WE GOT HERE
-        </h1>
-        <div className="h-3/4 w-4/5 rounded-3xl bg-accent1">y</div>
-      </div>
+      </motion.div>
+      <motion.div
+        initial={{ x: 100, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+        className="relative flex h-full flex-col items-end justify-start p-4 max-md:w-full max-md:p-0 lg:w-8/12"
+      >
+        <motion.h1
+          initial={{ x: -100, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+          viewport={{ once: true }}
+          className="z-[1] w-3/4 text-right font-humane font-bold max-md:w-full max-md:text-center max-md:text-8xl lg:-mb-16 lg:text-max"
+        >
+          {`THAT'S OUR STORY OF HOW WE GOT HERE`}
+        </motion.h1>
+        <div className="h-3/4 w-4/5 rounded-3xl bg-accent1 max-md:h-[65vh] max-md:w-full">
+          y
+        </div>
+      </motion.div>
     </section>
   );
 }

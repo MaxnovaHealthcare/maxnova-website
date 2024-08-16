@@ -2,9 +2,10 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { motion, useTransform, useScroll } from "framer-motion";
+import { motion, useTransform, useScroll, delay } from "framer-motion";
 import WhyUS from "../whyus";
-import OtherServices from "../(home_components)/ourservices";
+import Image from "next/image";
+import OtherServices from "../ourservices";
 
 async function getData() {
   const res = await fetch("http://localhost:4000/api/company");
@@ -29,9 +30,24 @@ export default function PCDFranchisePage() {
     target: gallery,
     offset: ["start end", "end start"],
   });
-  
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, 150]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -750]);
+
+  const getWindowWidth = () => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth;
+    }
+    return 0;
+  };
+
+  const y1 = useTransform(
+    scrollYProgress,
+    [0, 1],
+    getWindowWidth() < 768 ? [0, 1] : [0, 150],
+  );
+  const y2 = useTransform(
+    scrollYProgress,
+    [0, 1],
+    getWindowWidth() < 768 ? [0, 1] : [0, -750],
+  );
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -42,54 +58,90 @@ export default function PCDFranchisePage() {
   }
   return (
     <main className="bg-prim z-0 flex min-h-screen w-screen snap-y flex-col">
-      <section className="flex h-screen min-h-screen w-screen flex-col items-center justify-center p-12 px-6 md:mt-10 md:p-12">
-        <div className="relative flex h-full w-full items-center justify-center rounded-3xl bg-accent1">
-          <h1 className="text-center font-humane text-max font-bold">
-            PRODUCTS THAT <br /> CAPTURE THE MARKET
-          </h1>
-        </div>
+      <section className="bg-prim flex h-screen min-h-screen w-full flex-col items-center justify-center p-12 px-6 max-md:mt-20 max-md:min-h-[75vh] max-md:p-4 lg:mt-10">
+        <motion.div
+          initial={{ scale: 0.95, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="relative flex h-full w-full items-center justify-center rounded-3xl bg-accent1"
+        >
+          <motion.h1
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+            viewport={{ once: true }}
+            className="text-center font-humane font-bold max-md:text-8xl lg:text-max"
+          >
+            PRODUCTS THAT CAPTURE THE MARKET
+          </motion.h1>
+        </motion.div>
       </section>
-      <section className="flex min-h-screen flex-col items-center justify-center gap-24 overflow-hidden p-12">
-        <h1 className="text-center font-humane text-max font-bold">
+      <section className="flex h-full min-h-screen w-full flex-col items-center justify-center gap-24 overflow-hidden p-12 max-md:gap-12 max-md:p-4">
+        <motion.h1
+          initial={{ y: -50, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="text-center font-humane font-bold max-md:text-8xl lg:text-max"
+        >
           OUR BRANDS
-        </h1>
+        </motion.h1>
         <div
           ref={gallery}
-          className="my-12 flex h-fit w-full items-center justify-center space-x-48"
+          className="flex h-fit w-full items-center justify-center space-x-48 max-md:m-0 max-md:flex-col max-md:gap-12 max-md:space-x-0 max-md:p-0 lg:my-12"
         >
           <motion.div
             style={{ y: y1 }}
-            className="-mt-12 flex h-fit w-fit flex-col items-center justify-center space-y-48"
+            className="flex h-fit w-full flex-col items-center justify-center space-y-48 max-md:m-0 max-md:gap-12 max-md:space-y-0 max-md:p-0 lg:-mt-12"
           >
             {(data as any)?.allCompany?.map((brand: any, index: number) =>
               index % 2 === 0 ? (
-                <div
-                  className="flex h-fit w-fit items-center justify-center"
+                <motion.div
+                  initial={{ y: -100, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 1, duration: 0.5 }}
+                  viewport={{ once: true }}
+                  className="flex h-fit w-fit items-center justify-center max-md:w-full"
                   key={index}
                 >
-                  <BrandsCards naam={brand.name} id={brand._id} />
-                </div>
+                  <BrandsCards
+                    naam={brand.name}
+                    id={brand._id}
+                    image={brand.image}
+                    desc={brand.description}
+                  />
+                </motion.div>
               ) : null,
             )}
           </motion.div>
           <motion.div
             style={{ y: y2 }}
-            className="mt-24 flex h-fit w-fit flex-col items-center justify-center space-y-48"
+            className="flex h-fit w-full flex-col items-center justify-center space-y-48 max-md:m-0 max-md:space-y-12 max-md:p-0 lg:-mt-12"
           >
             {(data as any)?.allCompany?.map((brand: any, index: number) =>
               index % 2 !== 0 ? (
-                <div
-                  className="flex w-fit items-center justify-center"
+                <motion.div
+                  initial={{ y: 100, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 1, duration: 0.5 }}
+                  viewport={{ once: true }}
+                  className="flex w-fit items-center justify-center max-md:w-full"
                   key={index}
                 >
-                  <BrandsCards naam={brand.name} id={brand._id} />
-                </div>
+                  <BrandsCards
+                    naam={brand.name}
+                    id={brand._id}
+                    image={brand.image}
+                    desc={brand.description}
+                  />
+                </motion.div>
               ) : null,
             )}
           </motion.div>
         </div>
       </section>
-      <section className="flex min-h-screen flex-col items-start justify-start">
+      <section className="flex min-h-screen flex-col items-start justify-start px-4">
         <WhyUS />
       </section>
       <section className="flex min-h-screen flex-col items-start justify-start">
@@ -99,13 +151,29 @@ export default function PCDFranchisePage() {
   );
 }
 
-function BrandsCards({ naam, id }: { naam: string; id: string }) {
+function BrandsCards({
+  naam,
+  id,
+  image,
+  desc,
+}: {
+  naam: string;
+  id: string;
+  image: string;
+  desc: string;
+}) {
   return (
     <Link
       href={`/pcd-franchise/${id}`}
-      className="flex h-[40rem] w-[27.5rem] items-center justify-center rounded-3xl border-[0.5px] border-[#130d14]"
+      className="border-accent1 relative flex h-[40rem] w-[27.5rem] flex-wrap items-center justify-center overflow-hidden rounded-3xl border p-8 max-md:h-[36rem] max-md:w-full max-md:p-4"
     >
-      <h1 className="flex flex-wrap text-wrap font-humane text-8xl font-semibold uppercase">
+      <Image
+        src={image}
+        alt={desc}
+        fill
+        className="absolute z-0 bg-secondary object-cover opacity-75"
+      />
+      <h1 className="z-[1] flex flex-wrap text-wrap font-humane text-8xl font-semibold uppercase">
         {naam}
       </h1>
     </Link>
