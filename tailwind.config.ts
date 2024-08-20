@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        humane: ["Humane", "sans-serif"],
+        humane: ["MangoGrotesqueExtLt", "sans-serif"],
         helvetica: ["Helvetica Neue", "sans-serif"],
       },
       fontSize: {

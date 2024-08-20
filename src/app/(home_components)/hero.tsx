@@ -19,7 +19,7 @@ export default function HeroSection() {
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
-          className="bottom-0 left-0 w-full overflow-hidden text-wrap p-6 font-humane text-max font-bold max-md:text-8xl lg:absolute lg:w-2/3"
+          className="bottom-0 left-0 w-full overflow-hidden text-wrap p-6 font-humane text-max font-bold  max-md:text-8xl lg:absolute lg:w-2/3"
         >
           WE ARE LEADING <br /> COSMETIC MANUFACTURER.
         </motion.h1>
