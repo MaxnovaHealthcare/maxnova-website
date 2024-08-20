@@ -1,6 +1,55 @@
 @font-face {
   font-family: "Humane", "sans-serif";
-  src: url("../../public/fonts/Humane-VF.ttf") format("ttf");
+  src: url("../../public/fonts/Humane-Bold.woff2") format("woff2");
+  font-weight: bold;
+  text-rendering: optimizeLegibility;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Humane", "sans-serif";
+  src: url("../../public/fonts/Humane-Regular.woff2") format("woff2");
   font-weight: normal;
+  text-rendering: optimizeLegibility;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Humane", "sans-serif";
+  src: url("../../public/fonts/Humane-Light.woff2") format("woff2");
+  font-weight: lighter;
+  text-rendering: optimizeLegibility;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Humane", "sans-serif";
+  src: url("../../public/fonts/Humane-ExtraLight.woff2") format("woff2");
+  font-weight: ExtraLight;
+  text-rendering: optimizeLegibility;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Humane", "sans-serif";
+  src: url("../../public/fonts/Humane-Medium.woff2") format("woff2");
+  font-weight: Medium;
+  text-rendering: optimizeLegibility;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Humane", "sans-serif";
+  src: url("../../public/fonts/Humane-SemiBold.woff2") format("woff2");
+  font-weight: SemiBold;
+  text-rendering: optimizeLegibility;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Humane", "sans-serif";
+  src: url("../../public/fonts/Humane-Thin.woff2") format("woff2");
+  font-weight: Thin;
+  text-rendering: optimizeLegibility;
   font-style: normal;
 }
