@@ -10,25 +10,13 @@ import ProductOverview from "./(home_components)/topproduct";
 
 export default function HomePage() {
   return (
-    <Page>
+    <main className="bg-prim z-0 m-0 flex min-h-screen w-screen snap-y flex-col items-center justify-center px-4">
       <HeroSection />
       <AboutSection />
       <Showreel />
       <WhyUS />
       <OtherServices />
       <ProductOverview />
-    </Page>
-  );
-}
-
-export function Page({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <div className="bg-prim z-0 m-0 flex min-h-screen w-screen snap-y flex-col items-center justify-center px-4">
-      {children}
-    </div>
+    </main>
   );
 }

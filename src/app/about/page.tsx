@@ -4,14 +4,13 @@ import React, { useEffect } from "react";
 import Hero from "./(about_components)/heroabout";
 import About from "./(about_components)/aboutus";
 import Certification from "./(about_components)/certification";
-import { Page } from "../page";
 
 export default function AboutPage() {
   return (
-    <Page>
+    <main className="bg-prim z-0 m-0 flex min-h-screen w-screen snap-y flex-col items-center justify-center px-4">
       <Hero />
       <About />
       <Certification />
-    </Page>
+    </main>
   );
 }
