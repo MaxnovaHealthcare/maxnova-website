@@ -7,7 +7,7 @@ import Certification from "./(about_components)/certification";
 
 export default function AboutPage() {
   return (
-    <main className="bg-prim z-0 m-0 flex min-h-screen w-screen snap-y flex-col items-center justify-center px-4">
+    <main className="bg-prim z-0 m-0 flex min-h-screen w-screen snap-y flex-col items-center justify-center px-4 ">
       <Hero />
       <About />
       <Certification />

@@ -48,7 +48,7 @@ export default function ProductOverview() {
   };
 
   return (
-    <section className="flex min-h-screen w-full flex-col gap-12 p-12 max-md:p-4 md:px-10">
+    <section className="flex min-h-screen w-full flex-col gap-12 p-12 max-md:p-4 max-md:px-0 px-10">
       <div className="flex items-center justify-end">
         <motion.h1
           initial={{ x: 100, opacity: 0 }}

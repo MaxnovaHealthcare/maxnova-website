@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export default function Certification() {
   return (
-    <section className="flex min-h-screen w-full flex-col items-center justify-center gap-6 p-12 px-4">
+    <section className="flex min-h-screen w-full flex-col items-center justify-center gap-6 p-12 px-4 max-md:px-0">
       <div className="flex w-1/2 flex-col items-center justify-center gap-4 max-md:w-full">
         <motion.h1
           initial={{ y: -100, opacity: 0 }}
@@ -29,10 +29,12 @@ export default function Certification() {
 function CertificateCard() {
   return (
     <motion.div
-        initial={{ y: 100, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }} className="flex h-full w-full flex-col items-center justify-center gap-6">
+      initial={{ y: 100, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      viewport={{ once: true }}
+      className="flex h-full w-full flex-col items-center justify-center gap-6"
+    >
       <div className="-[#fdc921] flex h-[40rem] w-[27.5rem] items-center justify-center rounded-3xl border bg-accent1 p-8 max-md:h-[65vh] max-md:w-full max-md:p-4"></div>
       <h1 className="w-4/5 text-center text-head font-semibold">
         ceritficate of blah blah blah

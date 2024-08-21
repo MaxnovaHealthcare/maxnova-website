@@ -5,11 +5,11 @@ import Image from "next/image";
 import wlogo from "../../public/images/logowhite.png";
 import dropper from "../../public/images/img22.jpg";
 import dlogo from "../../public/images/darklogoblack.png";
-import { delay, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function WhyUS() {
   return (
-    <section className="flex min-h-[120vh] w-full p-12 max-md:my-24 max-md:h-fit max-md:p-4 lg:h-[120vh] lg:px-10">
+    <section className="flex min-h-[120vh] w-full p-12 max-md:my-24 max-md:h-fit max-md:p-4 max-md:px-0 lg:h-[120vh] lg:px-10">
       {/* main div */}
       <motion.div
         initial={{ opacity: 0 }}

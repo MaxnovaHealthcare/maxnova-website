@@ -86,7 +86,7 @@ export default function PCDFranchisePage() {
           </h1>
           <select
             defaultValue="all"
-            className="bg-prim border-accent1 rounded-xl border px-4 py-3"
+            className="bg-prim rounded-xl border border-accent1 px-4 py-3"
             onChange={(e) => setCurrentCategory(e.target.value)}
           >
             <option className="w-full bg-none px-12" value="all">

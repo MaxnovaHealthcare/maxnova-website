@@ -11,7 +11,7 @@ import OtherServices from "../ourservices";
 export default function CustomFormulationsPage() {
   return (
     <main className="bg-prim z-0 flex min-h-screen w-screen snap-y flex-col">
-      <section className="bg-prim flex h-screen min-h-screen w-full flex-col items-center justify-center p-12 px-6 max-md:mt-20 max-md:min-h-[75vh] max-md:p-4 lg:mt-10">
+      <section className="bg-prim flex h-screen min-h-screen w-full flex-col items-center justify-center p-12 px-6 max-md:mt-16 max-md:min-h-[75vh] max-md:p-4 lg:mt-10">
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}

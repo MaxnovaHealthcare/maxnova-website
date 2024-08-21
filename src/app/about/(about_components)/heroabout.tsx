@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
-    <section className="relative flex min-h-screen w-full items-center justify-center max-md:m-0 max-md:mt-20 max-md:h-screen lg:h-screen lg:p-12 lg:px-4">
+    <section className="relative flex min-h-screen w-full items-center justify-center max-md:m-0 max-md:mt-16 max-md:h-screen lg:h-screen lg:p-12 lg:px-4">
       <motion.div
         initial={{ x: -100, opacity: 0 }}
         whileInView={{ x: 0, opacity: 1 }}
@@ -50,7 +50,7 @@ const HeroColumn = ({ initialY }: { initialY: string }) => (
 );
 
 const Herocards = () => (
-  <div className="flex h-[42vh] w-full flex-col items-center justify-center overflow-hidden rounded-3xl px-0 py-2">
+  <div className="flex h-[42vh] w-full flex-col items-center justify-center overflow-hidden rounded-3xl px-0 py-2 max-md:px-0">
     <div className="flex h-full w-full rounded-3xl bg-accent1">abv</div>
   </div>
 );

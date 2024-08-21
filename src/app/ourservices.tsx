@@ -11,7 +11,7 @@ const CardLink: React.FC<{ href: string; title: string }> = ({
 }) => (
   <Link
     href={href}
-    className="border-accent1 flex h-[40rem] w-[27.5rem] items-center justify-center rounded-3xl border p-8 max-md:h-[65vh] max-md:w-full max-md:p-4"
+    className="flex h-[40rem] w-[27.5rem] items-center justify-center rounded-3xl border border-accent1 p-8 max-md:h-[65vh] max-md:w-full max-md:p-4"
   >
     <h1 className="flex flex-wrap text-wrap text-center font-humane text-8xl font-semibold uppercase max-md:text-7xl">
       {title}
@@ -37,7 +37,7 @@ export default function OtherServices() {
   }, [currentPage]);
 
   return (
-    <section className="relative flex h-fit min-h-screen w-full flex-col gap-12 p-12 max-md:p-4 lg:px-10">
+    <section className="relative flex h-fit min-h-screen w-full flex-col gap-12 p-12 max-md:p-4 max-md:px-0 lg:px-10">
       <div className="flex items-center justify-center gap-4">
         <motion.h1
           initial={{ y: -100, opacity: 0 }}

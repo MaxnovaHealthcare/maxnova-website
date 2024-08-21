@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function About() {
   return (
-    <section className="flex h-screen min-h-screen w-full items-center justify-center gap-12 overflow-hidden p-12 max-md:my-24 max-md:h-fit max-md:flex-col-reverse max-md:p-4 lg:px-10">
+    <section className="flex h-screen min-h-screen w-full items-center justify-center gap-12 overflow-hidden p-12 max-md:my-24 max-md:h-fit max-md:flex-col-reverse max-md:p-4 max-md:px-0 lg:px-10">
       <motion.div
         initial={{ x: -100, opacity: 0 }}
         whileInView={{ x: 0, opacity: 1 }}

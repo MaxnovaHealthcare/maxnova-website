@@ -58,7 +58,7 @@ export default function PCDFranchisePage() {
   }
   return (
     <main className="bg-prim z-0 flex min-h-screen w-screen snap-y flex-col">
-      <section className="bg-prim flex h-screen min-h-screen w-full flex-col items-center justify-center p-12 px-6 max-md:mt-20 max-md:min-h-[75vh] max-md:p-4 lg:mt-10">
+      <section className="bg-prim flex h-screen min-h-screen w-full flex-col items-center justify-center p-12 px-6 max-md:mt-16 max-md:min-h-[75vh] max-md:p-4 lg:mt-10">
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -165,7 +165,7 @@ function BrandsCards({
   return (
     <Link
       href={`/pcd-franchise/${id}`}
-      className="border-accent1 relative flex h-[40rem] w-[27.5rem] flex-wrap items-center justify-center overflow-hidden rounded-3xl border p-8 max-md:h-[36rem] max-md:w-full max-md:p-4"
+      className="relative flex h-[40rem] w-[27.5rem] flex-wrap items-center justify-center overflow-hidden rounded-3xl border border-accent1 p-8 max-md:h-[36rem] max-md:w-full max-md:px-4"
     >
       <Image
         src={image}
