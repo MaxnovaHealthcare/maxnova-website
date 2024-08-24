@@ -1,93 +1,51 @@
 "use client";
 
 import { motion, useTransform, useScroll } from "framer-motion";
-import React, { useRef, JSX } from "react";
+import React, { useRef, JSX, useEffect, useState } from "react";
 
-interface CardProps {
-  url: string;
-  title: string;
-  desc: string;
-  id: number;
+interface Step {
+  head: string;
+  text: string;
 }
 
-const cards: CardProps[] = [
-  {
-    url: "",
-    title: "Understanding your requirements",
-    desc: "First, we understand your market and product requirements & specifications. You come with a product concept and/or specifications & requirements. You can have a product concept or a product specification document. We will help you to convert your product concept into a product specification document.",
-    id: 1,
-  },
-  {
-    url: "",
-    title: "Product selection from available stock products",
-    desc: "If you do not have an idea of which formulation to add, what packaging to choose, or what actives to add. Then we can suggest you some of our Existing Product Formulations. And If you want us to formulate a similar product to our Existing Developed products, we can formulate the same for you.",
-    id: 2,
-  },
-  {
-    url: "",
-    title: "Sample evaluation with minor customizations",
-    desc: "If you choose to formulate a product from our Existing Formulations, we will provide you with a sample of the product. You can evaluate the sample and suggest any minor customizations required in the product.",
-    id: 3,
-  },
-  {
-    url: "",
-    title: "Cost estimations and approval",
-    desc: "We give you product cost estimates based on your finalized product formulation and packaging requirements. You approve the costing and place a confirmed purchase order.",
-    id: 4,
-  },
-  {
-    url: "",
-    title: "Order confirmation",
-    desc: "You approve the costing and product specifications and place a confirmed order for commercial production and process the advance payment as per the agreed payment terms. Once you confirm the order, based on your approval of the formulation and packaging, a systematic process for the new product order processing will be triggered.",
-    id: 5,
-  },
-];
+interface HorizontalScrollCarouselProps {
+  steps: Step[];
+}
 
-const Card = ({ card }: { card: CardProps }): JSX.Element => (
-  <div
-    key={card.id}
-    className="border-accent1 dark:border-accent1 flex h-max min-h-[40rem] w-[27.5rem] flex-col items-start justify-between overflow-hidden rounded-3xl border p-6 max-md:min-h-[36rem] max-md:w-[22rem]"
-  >
-    <div className="flex h-fit w-full flex-col items-start justify-start">
-      <p className="font-humane text-[3rem] uppercase">
-        {card.id < 10 ? "0" : ""}
-        {card.id}
-      </p>
-      <p className="font-humane text-7xl font-semibold uppercase">
-        {card.title}
-      </p>
-    </div>
-    <div className="flex w-full flex-col items-start justify-start gap-2">
-      <p className="text-para">{card.desc}</p>
-    </div>
-  </div>
-);
-
-export default function HorizontalScrollCarousel(): JSX.Element {
+export default function HorizontalScrollCarousel({
+  steps,
+}: HorizontalScrollCarouselProps) {
   const targetRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({ target: targetRef });
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const x1 = useTransform(
     scrollYProgress,
     [0, 1],
-    ["1%", `-${cards.length * (20 - 1.81 * cards.length)}%`],
+    ["1%", `-${steps.length * (20 - 1.81 * steps.length)}%`],
   );
   const x2 = useTransform(
     scrollYProgress,
     [0, 1],
-    ["1%", `-${cards.length * (25 - 1.7625 * cards.length)}%`],
+    ["1%", `-${steps.length * (25 - 1.7625 * steps.length)}%`],
   );
 
-  const getWindowWidth = () => {
-    if (typeof window !== "undefined") {
-      return window.innerWidth;
-    }
-    return 0;
-  };
-
-  const x = getWindowWidth() < 768 ? x2 : x1;
-
-  const sectionHeight = `${cards.length * 100}vh`;
+  const x = isMobile ? x2 : x1;
+  const sectionHeight = `${steps.length * 100}vh`;
 
   return (
     <section
@@ -97,8 +55,24 @@ export default function HorizontalScrollCarousel(): JSX.Element {
     >
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
         <motion.div style={{ x }} className="flex space-x-24 max-md:space-x-12">
-          {cards.map((card) => (
-            <Card card={card} key={card.id} />
+          {steps.map((card, index) => (
+            <div
+              key={index}
+              className="flex h-max min-h-[40rem] w-[27.5rem] flex-col items-start justify-between overflow-hidden rounded-3xl border border-accent1 p-6 max-md:min-h-[36rem] max-md:w-[22rem] dark:border-accent1"
+            >
+              <div className="flex h-fit w-full flex-col items-start justify-start">
+                <p className="font-humane text-[3rem] uppercase">
+                  {index < 9 ? "0" : ""}
+                  {index + 1}
+                </p>
+                <p className="font-humane text-7xl font-semibold uppercase">
+                  {card.head}
+                </p>
+              </div>
+              <div className="flex w-full flex-col items-start justify-start gap-2">
+                <p className="text-para">{card.text}</p>
+              </div>
+            </div>
           ))}
         </motion.div>
       </div>

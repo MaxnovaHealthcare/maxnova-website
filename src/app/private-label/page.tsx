@@ -1,13 +1,64 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HorizontalScrollCarousel from "./horizontal-scroll";
 import CTAButtons from "../buttons";
 import WhyUS from "../whyus";
 import OtherServices from "../ourservices";
-import { delay, motion } from "framer-motion";
+import { motion } from "framer-motion";
+
+interface PvtData {
+  head_pvt: string;
+  image_pvt: string;
+  image_alt_pvt: string;
+  text_pvt: string;
+  steps: Step[];
+}
+
+interface Step {
+  head: string;
+  text: string;
+}
+
+async function getPvtData(): Promise<PvtData[]> {
+  const res = await fetch("http://localhost:4000/api/utils/get-pvt");
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+  return res.json();
+}
 
 export default function PrivateLabelPage() {
+  const [pvtData, setPvtData] = useState<PvtData | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getPvtData();
+        if (data.length > 0) {
+          setPvtData(data[0]);
+        }
+      } catch (err: any) {
+        setError(err.message);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const spaceIndex =
+    pvtData?.head_pvt.lastIndexOf(
+      " ",
+      Math.floor(pvtData.head_pvt.length / 2),
+    ) ?? 0;
+  const firstPart = pvtData?.head_pvt.slice(0, spaceIndex);
+  const secondPart = pvtData?.head_pvt.slice(spaceIndex + 1);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <main className="bg-prim z-0 flex min-h-screen w-screen snap-y flex-col">
       <section className="bg-prim flex h-screen min-h-screen w-full flex-col items-center justify-center p-12 px-6 max-md:mt-16 max-md:min-h-[75vh] max-md:p-4 lg:mt-10">
@@ -23,13 +74,16 @@ export default function PrivateLabelPage() {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.5 }}
             viewport={{ once: true }}
-            className="text-center font-humane font-bold max-md:text-8xl lg:text-max"
+            className="text-center font-humane font-bold uppercase max-md:text-8xl lg:text-max"
           >
-            ENTER THE MARKET WITH <br /> ONE-OF-A-KIND PRODUCTS
+            {firstPart}
+            <br />
+            {secondPart}
           </motion.h1>
         </motion.div>
       </section>
-      <section className="flex min-h-screen flex-col items-start justify-start p-12 px-0">
+
+      <section className="mt-6 flex min-h-screen flex-col items-start justify-start p-12 px-0">
         <motion.div
           initial={{ y: -100, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
@@ -41,9 +95,7 @@ export default function PrivateLabelPage() {
             HOW DOES IT WORK?
           </h1>
           <p className="w-1/2 text-center text-para max-md:w-full">
-            Private label manufacturing process -: From product selection to the
-            final order, our entire process of private label is created keeping
-            the benefits and overall growth of our clients as the core focus.
+            {pvtData?.text_pvt}
           </p>
           <CTAButtons
             cta="../contact"
@@ -51,8 +103,9 @@ export default function PrivateLabelPage() {
             bgcolor="bg-accent1"
           />
         </motion.div>
-        <HorizontalScrollCarousel />
+        <HorizontalScrollCarousel steps={pvtData?.steps || []} />
       </section>
+
       <section className="-mt-24 flex min-h-screen flex-col items-start justify-start px-4 max-md:-mt-20">
         <WhyUS />
       </section>

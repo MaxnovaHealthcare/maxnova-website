@@ -2,8 +2,21 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
-export default function About() {
+interface AboutProps {
+  subhead_about: string;
+  text_about: string;
+  image_about: string;
+  image_alt_about: string;
+}
+
+export default function About({
+  subhead_about,
+  text_about,
+  image_about,
+  image_alt_about,
+}: AboutProps) {
   return (
     <section className="flex h-screen min-h-screen w-full items-center justify-center gap-12 overflow-hidden p-12 max-md:my-24 max-md:h-fit max-md:flex-col-reverse max-md:p-4 max-md:px-0 lg:px-10">
       <motion.div
@@ -13,24 +26,17 @@ export default function About() {
         viewport={{ once: true }}
         className="flex h-full w-4/12 flex-col justify-center gap-12 p-4 max-md:w-full"
       >
-        <h1 className="text-head font-semibold">
-          All the credits goes to each person working in the backend day and
-          night for us.
-        </h1>
+        <h1 className="text-head font-semibold">{subhead_about}</h1>
         <p className="text-para">
-          Maxnova group of companies is committed to delivering happiness in the
-          form of &rsquo;good health&rsquo; in everyone&rsquo;s home.
-          <br />
-          <br />
-          In the preceding years, Maxnova group of companies has encountered a
-          massive growth rate which defines our strong presence in the
-          industry.We are a leading manufacturer of high-quality Herbal
-          Cosmetics, Nutraceuticals and Ayurvedic Beauty Products.
-          <br />
-          <br />
-          Every time we put our extensive efforts into introducing the
-          first-class cosmetic product, we are always in search of understanding
-          your necessity.
+          {!text_about
+            ? "this is about"
+            : text_about.split("<br/>").map((para, index) => (
+                <React.Fragment key={index}>
+                  {para}
+                  <br />
+                  <br />
+                </React.Fragment>
+              ))}
         </p>
       </motion.div>
       <motion.div
@@ -49,8 +55,13 @@ export default function About() {
         >
           {`THAT'S OUR STORY OF HOW WE GOT HERE`}
         </motion.h1>
-        <div className="h-3/4 w-4/5 rounded-3xl bg-accent1 max-md:h-[65vh] max-md:w-full">
-          y
+        <div className="relative h-3/4 w-4/5 overflow-hidden rounded-3xl bg-accent1 max-md:h-[65vh] max-md:w-full">
+          <Image
+            src={image_about}
+            fill
+            alt={image_alt_about ? image_alt_about : "Maxnova About"}
+            className="object-cover"
+          />
         </div>
       </motion.div>
     </section>

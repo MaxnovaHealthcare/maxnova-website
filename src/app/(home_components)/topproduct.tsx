@@ -21,34 +21,22 @@ async function getProductData(id: string) {
 
 export default function ProductOverview() {
   const [productData, setProductData] = useState<any[]>([]);
-  const [enquireOpen, setEnquireOpen] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const data = await getProductData(id as string);
-        if (data) {
-          const filteredData = data.filter((product: any) => product.is_top);
-          console.log("Filtered data:", filteredData);
-          setProductData(filteredData);
-        } else {
-          console.error("No data returned from getProductData");
-        }
-      } catch (error) {
-        console.error("Error fetching product data:", error);
+      const data = await getProductData(id as string);
+      if (data) {
+        const filteredData = data.filter((product: any) => product.is_top);
+        setProductData(filteredData);
       }
     };
 
     fetchData();
   }, [id]);
 
-  const toggleEnquire = () => {
-    setEnquireOpen((prev) => !prev);
-  };
-
   return (
-    <section className="flex min-h-screen w-full flex-col gap-12 p-12 max-md:p-4 max-md:px-0 px-10">
+    <section className="flex min-h-screen w-full flex-col gap-12 p-12 px-10 max-md:p-4 max-md:px-0">
       <div className="flex items-center justify-end">
         <motion.h1
           initial={{ x: 100, opacity: 0 }}
@@ -80,7 +68,7 @@ function ProductGrid({ productData }: { productData: any[] }) {
   }
 
   return (
-    <div className="grid h-fit w-full grid-cols-3 items-center justify-between gap-4 px-12">
+    <div className="grid h-fit w-full grid-cols-3 items-center justify-between gap-4 px-12 max-md:grid-cols-1">
       {productData.map((product, index) => (
         <div
           key={index}

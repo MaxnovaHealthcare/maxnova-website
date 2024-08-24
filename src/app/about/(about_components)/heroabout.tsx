@@ -1,9 +1,30 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
-const Hero = () => {
+interface aboutheroprops {
+  subhead: string;
+  imagearr: string[];
+}
+
+export default function Hero({ subhead, imagearr }: aboutheroprops) {
+  const totalImages = 9;
+  const adjustedImages =
+    imagearr.length >= totalImages
+      ? imagearr
+      : Array.from(
+          { length: totalImages },
+          (_, i) => imagearr[i % imagearr.length],
+        );
+
+  const columnImages = [
+    adjustedImages.slice(0, 3),
+    adjustedImages.slice(3, 6),
+    adjustedImages.slice(6, 9),
+  ];
+
   return (
     <section className="relative flex min-h-screen w-full items-center justify-center max-md:m-0 max-md:mt-16 max-md:h-screen lg:h-screen lg:p-12 lg:px-4">
       <motion.div
@@ -17,23 +38,32 @@ const Hero = () => {
           WHERE QUALITY IS GUARANTEED
         </h1>
         <p className="w-3/5 text-head font-semibold max-md:w-full max-md:text-center">
-          All the credits goes to each person working in the backend day and
-          night for us.
+          {subhead}
         </p>
       </motion.div>
       <div className="flex h-screen min-h-screen w-3/4 gap-4 overflow-hidden max-md:hidden">
-        {[...Array(3)].map((_, index) => (
-          <HeroColumn key={index} initialY={index % 2 === 0 ? "-50%" : "0%"} />
+        {columnImages.map((images, index) => (
+          <HeroColumn
+            key={index}
+            images={images}
+            initialY={index % 2 === 0 ? "-50%" : "0%"}
+          />
         ))}
       </div>
     </section>
   );
-};
+}
 
-const HeroColumn = ({ initialY }: { initialY: string }) => (
+const HeroColumn = ({
+  images,
+  initialY,
+}: {
+  images: string[];
+  initialY: string;
+}) => (
   <div className="relative flex h-[120vh] w-full flex-col">
     <motion.div
-      className="absolute flex h-fit w-full flex-col"
+      className="absolute flex h-fit w-full flex-col space-y-6"
       initial={{ y: initialY }}
       animate={{ y: initialY === "-50%" ? "0%" : "-50%" }}
       transition={{
@@ -42,17 +72,26 @@ const HeroColumn = ({ initialY }: { initialY: string }) => (
         repeat: Infinity,
       }}
     >
-      {[...Array(6)].map((_, index) => (
-        <Herocards key={index} />
+      {[...images, ...images].map((imageSrc, index) => (
+        <Herocards key={index} cardKey={index} imageSrc={imageSrc} />
       ))}
     </motion.div>
   </div>
 );
 
-const Herocards = () => (
-  <div className="flex h-[42vh] w-full flex-col items-center justify-center overflow-hidden rounded-3xl px-0 py-2 max-md:px-0">
-    <div className="flex h-full w-full rounded-3xl bg-accent1">abv</div>
+const Herocards = ({
+  cardKey,
+  imageSrc,
+}: {
+  cardKey: number;
+  imageSrc: string;
+}) => (
+  <div className="relative flex h-[42vh] w-full flex-col items-center justify-center space-y-2 overflow-hidden rounded-3xl px-0 py-2 max-md:px-0">
+    <Image
+      src={imageSrc}
+      alt={`Image ${cardKey}`}
+      fill
+      className="z-10 overflow-hidden rounded-3xl bg-accent1 object-cover"
+    />
   </div>
 );
-
-export default Hero;

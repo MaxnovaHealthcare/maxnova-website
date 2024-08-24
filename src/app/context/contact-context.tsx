@@ -8,15 +8,17 @@ import React, {
   useContext,
 } from "react";
 
+interface CompanyData {
+  company_name?: string;
+  category_name?: string;
+  name?: string;
+}
+
 interface ContactContextState {
   open: boolean;
   toggleContact: () => void;
-  data?: {
-    company_name?: string;
-    category_name?: string;
-    name?: string;
-  } | null;
-  setCompanyData: (dataCompany: any) => void;
+  data?: CompanyData;
+  setCompanyData: (dataCompany: CompanyData) => void;
 }
 
 const ContactContext = createContext<ContactContextState | undefined>(
@@ -27,23 +29,22 @@ const ContactContextProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [data, setData] = useState<ContactContextState["data"] | null>(null);
+  const [data, setData] = useState<CompanyData>({});
   const formRef = useRef<HTMLFormElement>(null);
-  console.log(data);
+
   const toggleContact = () => {
     if (formRef.current) {
       formRef.current.reset();
     }
-
     setOpen((prev) => !prev);
   };
 
-  const setCompanyData = (dataCompany: any) => {
+  const setCompanyData = (dataCompany: CompanyData) => {
     setData((prev) => ({
       ...prev,
       ...dataCompany,
     }));
-    setOpen((prev) => !prev);
+    setOpen(true);
   };
 
   return (
@@ -58,7 +59,9 @@ const ContactContextProvider: React.FC<{ children: ReactNode }> = ({
 const useContactContext = (): ContactContextState => {
   const context = useContext(ContactContext);
   if (!context) {
-    throw new Error("use provider");
+    throw new Error(
+      "useContactContext must be used within a ContactContextProvider",
+    );
   }
   return context;
 };

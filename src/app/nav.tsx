@@ -63,7 +63,7 @@ export default function Nav() {
             >
               <Link
                 onClick={togglemenu}
-                className="bg-prim rounded-full px-4 py-3 text-min font-semibold max-md:py-3"
+                className="bg-prim rounded-full px-3 py-2 text-min font-semibold max-md:py-3"
                 href="#"
               >
                 Contact Us
