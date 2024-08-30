@@ -8,7 +8,9 @@ import dlogo from "../../public/images/darklogoblack.png";
 import { motion } from "framer-motion";
 
 async function getHomeData() {
-  const res = await fetch("http://localhost:4000/api/utils/get-home");
+  const res = await fetch(
+    "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-home",
+  );
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }

@@ -73,9 +73,28 @@ export default function ContactPage(props: ContactPageProps) {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log(formData);
+    try {
+      const response = await fetch("./send-whatsapp-message", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+      console.log(result);
+      if (response.ok) {
+        alert("Your message was sent successfully!");
+      } else {
+        alert("There was an issue sending your message.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
 
   return (
@@ -90,7 +109,7 @@ export default function ContactPage(props: ContactPageProps) {
       >
         <span
           onClick={onClick}
-          className="border-accent1 absolute top-12 flex h-auto min-h-10 w-auto min-w-10 cursor-pointer items-center justify-center rounded-3xl border font-helvetica text-subhead font-light max-md:right-4 max-md:top-4 lg:left-12"
+          className="absolute top-12 flex h-auto min-h-10 w-auto min-w-10 cursor-pointer items-center justify-center rounded-3xl border border-accent1 font-helvetica text-subhead font-light max-md:right-4 max-md:top-4 lg:left-12"
         >
           ←
         </span>
@@ -147,7 +166,7 @@ export default function ContactPage(props: ContactPageProps) {
                 {field.isTextArea ? (
                   <textarea
                     name={field.label.toLowerCase().replace(" ", "")}
-                    className="border-accent1 h-10 w-full border-b-2 bg-secondary bg-opacity-0 p-2 transition-all duration-300 focus:text-[1.2rem] focus:outline-none"
+                    className="h-10 w-full border-b-2 border-accent1 bg-secondary bg-opacity-0 p-2 transition-all duration-300 focus:text-[1.2rem] focus:outline-none"
                     placeholder={field.placeholder}
                     onChange={handleChange}
                   />
@@ -156,7 +175,7 @@ export default function ContactPage(props: ContactPageProps) {
                     required
                     type={field.type}
                     name={field.label.toLowerCase().replace(" ", "")}
-                    className="border-accent1 h-10 w-full border-b-2 bg-secondary bg-opacity-0 p-2 transition-all duration-300 focus:text-[1.2rem] focus:outline-none"
+                    className="h-10 w-full border-b-2 border-accent1 bg-secondary bg-opacity-0 p-2 transition-all duration-300 focus:text-[1.2rem] focus:outline-none"
                     placeholder={field.placeholder}
                     onChange={handleChange}
                   />

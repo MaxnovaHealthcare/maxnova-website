@@ -11,7 +11,9 @@ interface Certificate {
 }
 
 async function getCertData(): Promise<Certificate[]> {
-  const res = await fetch("http://localhost:4000/api/utils/get-certificate");
+  const res = await fetch(
+    "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-certificate",
+  );
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${res.statusText}`);
   }

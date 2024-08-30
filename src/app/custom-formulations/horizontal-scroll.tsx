@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useTransform, useScroll } from "framer-motion";
-import React, { useRef, JSX, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 interface Step {
   head: string;
@@ -19,32 +19,43 @@ export default function HorizontalScrollCarousel({
   const { scrollYProgress } = useScroll({ target: targetRef });
 
   const [isMobile, setIsMobile] = useState(false);
+  const [scrollFactor, setScrollFactor] = useState(0);
+
+  const cardWidth = 27.5 * 16;
+  const cardSpacing = 24 * 16;
+  const mobileCardWidth = 22 * 16;
+  const mobileCardSpacing = 12 * 16;
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
+      const windowWidth = window.innerWidth;
+      const isMobileView = windowWidth < 768;
+      setIsMobile(isMobileView);
+
+      const width = isMobileView ? mobileCardWidth : cardWidth;
+      const spacing = isMobileView ? mobileCardSpacing : cardSpacing;
+
+      const totalScrollWidth = (width + spacing) * steps.length;
+
+      setScrollFactor(100 * (totalScrollWidth / windowWidth));
     };
 
     handleResize();
-    window.addEventListener("resize", handleResize);
 
+    window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [
+    steps.length,
+    cardWidth,
+    cardSpacing,
+    mobileCardWidth,
+    mobileCardSpacing,
+  ]);
 
-  const x1 = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["1%", `-${steps.length * (20 - 1.81 * steps.length)}%`],
-  );
-  const x2 = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["1%", `-${steps.length * (25 - 1.7625 * steps.length)}%`],
-  );
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", `-${scrollFactor}%`]);
 
-  const x = isMobile ? x2 : x1;
   const sectionHeight = `${steps.length * 100}vh`;
 
   return (

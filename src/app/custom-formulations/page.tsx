@@ -21,7 +21,9 @@ interface Step {
 }
 
 async function getCustData(): Promise<CustData[]> {
-  const res = await fetch("http://localhost:4000/api/utils/get-custom");
+  const res = await fetch(
+    "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-custom",
+  );
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import Splinediv from "./spline";
+import ThreeScene from "./threescene";
 
 interface HeroSectionProps {
   head_hero: string;
@@ -39,7 +39,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         transition={{ duration: 0.5, ease: "linear" }}
         className="relative m-0 flex h-full w-full items-center justify-center bg-accent1 p-0 max-md:rounded-2xl md:overflow-hidden md:rounded-3xl"
       >
-        <Splinediv url={spline_hero} />
+        <div className="z-100">
+          <ThreeScene />
+        </div>
         <motion.h1
           initial={{ y: 100, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}

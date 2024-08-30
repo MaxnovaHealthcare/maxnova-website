@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
 
 async function getProductData(id: string) {
   const res = await fetch(
-    `http://localhost:4000/api/product/company/${id || ""}`,
+    `https://maxnovabackend-38x5s.ondigitalocean.app/api/product/company/${id || ""}`,
   );
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -15,7 +15,9 @@ async function getProductData(id: string) {
 }
 
 async function getCompanyData(id: string) {
-  const res = await fetch(`http://localhost:4000/api/company/${id || ""}`);
+  const res = await fetch(
+    `https://maxnovabackend-38x5s.ondigitalocean.app/api/company/${id || ""}`,
+  );
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -23,7 +25,9 @@ async function getCompanyData(id: string) {
 }
 
 async function getCategoryData() {
-  const res = await fetch("http://localhost:4000/api/category");
+  const res = await fetch(
+    "https://maxnovabackend-38x5s.ondigitalocean.app/api/category",
+  );
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
