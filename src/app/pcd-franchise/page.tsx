@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { motion, useTransform, useScroll, delay } from "framer-motion";
+import { motion, useTransform, useScroll } from "framer-motion";
 import WhyUS from "../whyus";
 import Image from "next/image";
 import OtherServices from "../ourservices";
@@ -65,6 +65,15 @@ export default function PCDFranchisePage() {
     target: gallery,
     offset: ["start end", "end start"],
   });
+  const ref1 = useRef(null);
+
+  const { scrollYProgress: scrollYProgress1 } = useScroll({
+    target: ref1,
+    offset: ["start end", "end start"],
+  });
+
+  const x1 = useTransform(scrollYProgress1, [0, 1], [-50, 50]);
+  const x2 = useTransform(scrollYProgress1, [1, 0], [-50, 50]);
 
   const getWindowWidth = () => {
     if (typeof window !== "undefined") {
@@ -85,29 +94,40 @@ export default function PCDFranchisePage() {
   );
   return (
     <main className="bg-prim z-0 flex min-h-screen w-screen snap-y flex-col">
-      <section className="bg-prim flex h-screen min-h-screen w-full flex-col items-center justify-center p-12 px-6 max-md:mt-16 max-md:min-h-[75vh] max-md:p-4 lg:mt-10">
+      <section className="flex h-screen min-h-screen w-full flex-col items-center justify-center p-12 px-6 max-md:mt-16 max-md:min-h-[75vh] max-md:p-4 lg:mt-10">
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-3xl bg-accent1"
+          className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-3xl bg-accent1 text-secondary"
         >
           <Image
             src={pcddata?.image_pcd ?? ""}
             alt={pcddata?.image_alt_pcd ?? ""}
             fill
-            className="z-0 bg-secondary object-cover"
+            className="absolute left-0 top-0 z-0 scale-105 border-none object-cover"
           />
           <motion.h1
+            ref={ref1}
+            style={{ x: x1 }}
             initial={{ y: 50, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.5 }}
             viewport={{ once: true }}
-            className="z-[1] text-center font-humane font-bold uppercase max-md:text-8xl lg:text-max"
+            className="w-fit font-humane font-bold uppercase max-md:text-8xl lg:text-max"
           >
             {firstPart}
-            <br />
+          </motion.h1>
+          <motion.h1
+            ref={ref1}
+            style={{ x: x2 }}
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+            viewport={{ once: true }}
+            className="w-fit font-humane font-bold uppercase max-md:text-8xl lg:text-max"
+          >
             {secondPart}
           </motion.h1>
         </motion.div>
@@ -206,13 +226,13 @@ function BrandsCards({
   return (
     <Link
       href={`/pcd-franchise/${id}`}
-      className="relative flex h-[40rem] w-[27.5rem] flex-wrap items-center justify-center overflow-hidden rounded-3xl border border-accent1 p-8 max-md:h-[36rem] max-md:w-full max-md:px-4"
+      className="relative flex h-[40rem] w-[27.5rem] flex-wrap items-center justify-center overflow-hidden rounded-3xl bg-accent1 p-8 max-md:h-[36rem] max-md:w-full max-md:px-4"
     >
       <Image
         src={image}
         alt={desc}
         fill
-        className="absolute z-0 bg-secondary object-cover opacity-75"
+        className="absolute z-0 object-cover opacity-75"
       />
       <h1 className="z-[1] flex flex-wrap text-wrap font-humane text-8xl font-semibold uppercase">
         {naam}

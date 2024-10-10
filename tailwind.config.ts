@@ -13,29 +13,54 @@ const config: Config = {
         helvetica: ["Helvetica Neue", "sans-serif"],
       },
       fontSize: {
-        min: ["1rem", "1.4"],
-        para: ["1.25rem", "1.4"],
-        subhead: ["1.5rem", "1.4"],
-        head: ["1.9rem", "1.2"],
-        max: ["8.5rem", "7rem"],
-      },
-      backgroundColor: {
-        primary: "#f2f0ea",
-        secondary: "#222831",
-        accent1: "#76ABAE",
-        accent2: "#31363F",
-      },
-      textColor: {
-        primary: "#222831",
-        secondary: "#f2f0ea",
-        accent1: "#76ABAE",
-        accent2: "#31363F",
+        min: ["1rem", "1rem"],
+        para: [
+          "1.125rem",
+          {
+            lineHeight: "1.6875rem",
+            letterSpacing: "0.12rem",
+            fontWeight: "300",
+          },
+        ],
+        subhead: [
+          "1.875rem",
+          {
+            lineHeight: "2.375rem",
+            letterSpacing: "",
+            fontWeight: "500",
+          },
+        ],
+        head: [
+          "1.9rem",
+          {
+            lineHeight: "2.4rem",
+            letterSpacing: "0.075rem",
+            fontWeight: "700",
+          },
+        ],
+        max: [
+          "9.5rem",
+          {
+            lineHeight: "7.725rem",
+            letterSpacing: "0.05rem",
+            fontWeight: "800",
+          },
+        ],
+        scroll: [
+          "10rem",
+          {
+            lineHeight: "0.1rem",
+            letterSpacing: "0.1rem",
+            fontWeight: "800",
+          },
+        ],
       },
       colors: {
-        primary: "#f2f0ea",
-        secondary: "#222831",
-        accent1: "#76ABAE",
-        accent2: "#31363F",
+        primary: "#f8f8f8",
+        secondary: "#1a1a1a",
+        accent1: "#97BBD1",
+        accent2: "#1E3658",
+        accent3: "#E63946",
       },
     },
   },

@@ -29,7 +29,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <section className="bg-footer flex w-screen flex-col items-center justify-center gap-24 p-12">
+    <section className="bg-footer flex min-h-screen w-screen flex-col items-center justify-center gap-24 p-12 text-primary">
       <div className="flex h-fit w-full items-start justify-center gap-24">
         <div className="flex h-fit w-fit flex-col gap-4">
           <h1 className="text-para font-semibold">Explore</h1>
@@ -104,7 +104,7 @@ function Links({ link, text }: LinkProps) {
   return (
     <Link
       href={link}
-      className="h-fit w-fit font-helvetica text-min hover:font-medium hover:text-accent1"
+      className="h-fit w-fit font-helvetica text-min text-primary hover:font-medium hover:text-accent2"
     >
       {text}
     </Link>

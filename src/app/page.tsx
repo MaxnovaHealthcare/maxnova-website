@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import HeroSection from "./(home_components)/hero";
+import HeroSection from "./(home_components)/hero.jsx";
 import AboutSection from "./(home_components)/about";
 import Showreel from "./(home_components)/showreel";
 import WhyUS from "./whyus";
@@ -21,7 +21,6 @@ async function getHomeData() {
 export default function HomePage() {
   const [homedata, sethomeData] = useState<{
     head_hero: string;
-    spline_hero: string;
     subhead_about: string;
     text_about: string;
     image_about: string;
@@ -39,7 +38,6 @@ export default function HomePage() {
       })
       .catch((err) => setError(err.message));
   }, []);
-
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -49,21 +47,28 @@ export default function HomePage() {
   }
 
   return (
-    <main className="bg-prim z-0 m-0 flex min-h-screen w-screen snap-y flex-col items-center justify-center px-4">
-      <HeroSection
-        head_hero={homedata.head_hero}
-        spline_hero={homedata.spline_hero}
-      />
-      <AboutSection
-        subhead_about={homedata.subhead_about}
-        text_about={homedata.text_about}
-        image_about={homedata.image_about}
-        image_alt_about={homedata.image_alt_about}
-      />
-      <Showreel />
-      <WhyUS />
-      <OtherServices />
-      <ProductOverview />
+    <main className="z-0 m-0 flex min-h-screen w-screen snap-y flex-col items-center justify-center bg-accent1">
+      <HeroSection />
+      <section className="w-full rounded-t-[4rem] bg-primary max-md:rounded-3xl">
+        <AboutSection
+          subhead_about={homedata.subhead_about}
+          text_about={homedata.text_about}
+          image_about={homedata.image_about}
+          image_alt_about={homedata.image_alt_about}
+        />
+      </section>
+      <section className="w-full bg-primary">
+        <Showreel />
+      </section>
+      <section className="w-full bg-primary px-4">
+        <WhyUS />
+      </section>
+      <section className="w-full bg-primary px-4">
+        <OtherServices />
+      </section>
+      <section className="w-full bg-primary px-4">
+        <ProductOverview />
+      </section>
     </main>
   );
 }

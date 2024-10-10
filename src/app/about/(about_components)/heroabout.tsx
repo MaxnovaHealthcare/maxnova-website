@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 interface aboutheroprops {
   subhead: string;
@@ -25,6 +25,14 @@ export default function Hero({ subhead, imagearr }: aboutheroprops) {
     adjustedImages.slice(6, 9),
   ];
 
+  const ref = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  const x1 = useTransform(scrollYProgress, [0, 1], [-50, 50]);
   return (
     <section className="relative flex min-h-screen w-full items-center justify-center max-md:m-0 max-md:mt-16 max-md:h-screen lg:h-screen lg:p-12 lg:px-4">
       <motion.div
@@ -32,16 +40,20 @@ export default function Hero({ subhead, imagearr }: aboutheroprops) {
         whileInView={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
-        className="flex h-full w-1/2 flex-col justify-start gap-8 py-12 max-md:w-full max-md:items-center max-md:justify-center max-md:gap-4"
+        className="flex h-full w-1/2 flex-col justify-start gap-6 py-24 max-md:w-full max-md:items-center max-md:justify-center max-md:gap-4"
       >
         <h1 className="font-humane font-bold uppercase max-md:text-center max-md:text-8xl lg:text-max">
           WHERE QUALITY IS GUARANTEED
         </h1>
-        <p className="w-3/5 text-head font-semibold max-md:w-full max-md:text-center">
+        <p className="text-subhead font-semibold max-md:w-full max-md:text-center">
           {subhead}
         </p>
       </motion.div>
-      <div className="flex h-screen min-h-screen w-3/4 gap-4 overflow-hidden max-md:hidden">
+      <motion.div
+        ref={ref}
+        style={{ x: x1 }}
+        className="flex h-screen min-h-screen w-3/4 gap-6 overflow-hidden max-md:hidden"
+      >
         {columnImages.map((images, index) => (
           <HeroColumn
             key={index}
@@ -49,7 +61,7 @@ export default function Hero({ subhead, imagearr }: aboutheroprops) {
             initialY={index % 2 === 0 ? "-50%" : "0%"}
           />
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }
@@ -67,7 +79,7 @@ const HeroColumn = ({
       initial={{ y: initialY }}
       animate={{ y: initialY === "-50%" ? "0%" : "-50%" }}
       transition={{
-        duration: 5,
+        duration: 10,
         ease: "linear",
         repeat: Infinity,
       }}
@@ -86,7 +98,7 @@ const Herocards = ({
   cardKey: number;
   imageSrc: string;
 }) => (
-  <div className="relative flex h-[42vh] w-full flex-col items-center justify-center space-y-2 overflow-hidden rounded-3xl px-0 py-2 max-md:px-0">
+  <div className="relative flex h-[42vh] w-full flex-col items-center justify-center space-y-2 overflow-hidden rounded-3xl px-0 py-3 max-md:px-0">
     <Image
       src={imageSrc}
       alt={`Image ${cardKey}`}

@@ -99,21 +99,21 @@ export default function ContactPage(props: ContactPageProps) {
 
   return (
     <main
-      className={`absolute top-0 z-[3] h-screen w-screen bg-secondary bg-opacity-35 p-20 pb-16 pt-24 backdrop-blur-md max-md:p-2 max-md:pt-24 ${className}`}
+      className={`absolute top-0 z-[3] h-screen w-screen bg-accent2 bg-opacity-50 p-20 pb-16 pt-24 backdrop-blur-md max-md:p-2 max-md:pt-24 ${className}`}
     >
       <motion.section
         initial={{ scale: 0.95, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="bg-seco relative flex h-full w-full flex-row-reverse items-center justify-between gap-32 rounded-3xl p-16 py-28 max-md:h-fit max-md:flex-col-reverse max-md:gap-12 max-md:overflow-visible max-md:p-4 max-md:pt-8"
+        className="relative flex h-full w-full flex-row-reverse items-center justify-between gap-32 rounded-3xl bg-accent2 p-16 py-24 text-primary max-md:h-fit max-md:flex-col-reverse max-md:gap-12 max-md:overflow-visible max-md:p-4 max-md:pt-8"
       >
         <span
           onClick={onClick}
-          className="absolute top-12 flex h-auto min-h-10 w-auto min-w-10 cursor-pointer items-center justify-center rounded-3xl border border-accent1 font-helvetica text-subhead font-light max-md:right-4 max-md:top-4 lg:left-12"
+          className="absolute top-12 flex h-10 w-10 cursor-pointer items-center justify-center rounded-3xl text-xl font-light max-md:right-4 max-md:top-4 lg:left-12"
         >
           ←
         </span>
-        <div className="flex h-full w-1/4 flex-col items-start justify-center gap-6 max-md:hidden">
+        <div className="flex h-full w-[35%] flex-col items-start justify-center gap-6 max-md:hidden">
           <div className="flex h-full w-full flex-col gap-4">
             <h1 className="text-min font-semibold">Contact Us</h1>
             <h1 className="font-humane font-semibold max-md:text-8xl lg:text-max">
@@ -144,8 +144,8 @@ export default function ContactPage(props: ContactPageProps) {
             </div>
           ))}
         </div>
-        <div className="flex h-full w-3/4 flex-col items-start justify-start gap-12 max-md:w-full max-md:gap-4">
-          <div className="text-para font-medium">
+        <div className="flex h-full w-[65%] flex-col items-start justify-start gap-8 max-md:w-full max-md:gap-4">
+          <div className="text-para font-normal">
             {data
               ? `${data.company_name} > ${data.category_name} > ${data.name}`
               : `General Form`}
@@ -162,11 +162,11 @@ export default function ContactPage(props: ContactPageProps) {
                 key={field.label}
                 className="flex w-full flex-col items-start justify-start gap-2"
               >
-                <label className="text-para font-medium">{field.label}</label>
+                <label className="text-para font-normal">{field.label}</label>
                 {field.isTextArea ? (
                   <textarea
                     name={field.label.toLowerCase().replace(" ", "")}
-                    className="h-10 w-full border-b-2 border-accent1 bg-secondary bg-opacity-0 p-2 transition-all duration-300 focus:text-[1.2rem] focus:outline-none"
+                    className="h-10 w-full border-b-2 border-primary bg-secondary bg-opacity-0 p-2 transition-all duration-300 focus:text-[1.2rem] focus:outline-none"
                     placeholder={field.placeholder}
                     onChange={handleChange}
                   />
@@ -175,7 +175,7 @@ export default function ContactPage(props: ContactPageProps) {
                     required
                     type={field.type}
                     name={field.label.toLowerCase().replace(" ", "")}
-                    className="h-10 w-full border-b-2 border-accent1 bg-secondary bg-opacity-0 p-2 transition-all duration-300 focus:text-[1.2rem] focus:outline-none"
+                    className="h-10 w-full border-b-2 border-primary bg-secondary bg-opacity-0 p-2 transition-all duration-300 focus:text-[1.2rem] focus:outline-none"
                     placeholder={field.placeholder}
                     onChange={handleChange}
                   />
@@ -183,7 +183,7 @@ export default function ContactPage(props: ContactPageProps) {
               </div>
             ))}
             <div className="flex w-full items-center justify-start gap-4">
-              <CTAButtons text="Submit" bgcolor="bg-prim" cta="#" />
+              <CTAButtons text="Submit" cta="#" />
             </div>
           </form>
         </div>

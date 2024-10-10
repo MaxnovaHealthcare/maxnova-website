@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useParams } from "next/navigation";
 import ProductCard from "../productcard";
 
@@ -37,10 +37,19 @@ export default function ProductOverview() {
     fetchData();
   }, [id]);
 
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const x1 = useTransform(scrollYProgress, [0, 1], [-100, 10]);
+
   return (
-    <section className="flex min-h-screen w-full flex-col gap-12 p-12 px-10 max-md:p-4 max-md:px-0">
+    <section className="flex min-h-screen w-full flex-col gap-12 p-12 px-10 py-36 max-md:p-4 max-md:px-0">
       <div className="flex items-center justify-end">
         <motion.h1
+          ref={ref}
+          style={{ x: x1 }}
           initial={{ x: 100, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           viewport={{ once: true }}
@@ -49,7 +58,7 @@ export default function ProductOverview() {
             duration: 0.75,
             ease: "linear",
           }}
-          className="w-1/2 text-right font-humane text-max font-bold uppercase max-md:w-full max-md:text-center max-md:text-8xl"
+          className="w-1/2 text-right font-humane text-max font-bold uppercase text-accent2 max-md:w-full max-md:text-center max-md:text-8xl"
         >
           THESE ARE TOP MARKET PRODUCTS
         </motion.h1>
@@ -70,7 +79,7 @@ function ProductGrid({ productData }: { productData: any[] }) {
   }
 
   return (
-    <div className="grid h-fit w-full grid-cols-3 items-center justify-between gap-4 px-12 max-md:grid-cols-1">
+    <div className="grid h-fit w-full grid-cols-3 items-center justify-between gap-6 max-md:grid-cols-1">
       {productData.map((product, index) => (
         <div
           key={index}

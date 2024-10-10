@@ -5,6 +5,7 @@ import React, { Suspense } from "react";
 import Nav from "./nav";
 import Footer from "./footer";
 import Loading from "./loading";
+import LenisScroll from "./lenis";
 import {
   ContactContextProvider,
   useContactContext,
@@ -25,15 +26,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-helvetica ${inter.className}`}>
-        <ContactContextProvider>
-          <Suspense fallback={<Loading />}>
-            <Nav />
-            {children}
-            <Footer />
-          </Suspense>
-        </ContactContextProvider>
-      </body>
+      <LenisScroll>
+        <body className={`font-helvetica ${inter.className}`}>
+          <ContactContextProvider>
+            <Suspense fallback={<Loading />}>
+              <Nav />
+              {children}
+              <Footer />
+            </Suspense>
+          </ContactContextProvider>
+        </body>
+      </LenisScroll>
     </html>
   );
 }

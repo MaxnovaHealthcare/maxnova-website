@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useTransform, useScroll } from "framer-motion";
 
 interface Certificate {
   image: string;
@@ -37,10 +37,20 @@ export default function Certification() {
     fetchCertificates();
   }, []);
 
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  const y1 = useTransform(scrollYProgress, [0, 1], [-50, 50]);
+
   return (
-    <section className="flex min-h-screen w-full flex-col items-center justify-center gap-6 p-12 px-4 max-md:px-0">
+    <section className="flex w-full flex-col items-center justify-center gap-12 p-12 px-4 py-36 max-md:px-0">
       <div className="flex w-1/2 flex-col items-center justify-center gap-4 max-md:w-full">
         <motion.h1
+          ref={ref}
+          style={{ y: y1 }}
           initial={{ y: -100, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
@@ -53,7 +63,7 @@ export default function Certification() {
       {error ? (
         <div className="text-red-500">Error: {error}</div>
       ) : (
-        <div className="grid h-full grid-cols-2 grid-rows-subgrid gap-24 max-md:grid-cols-1">
+        <div className="grid h-full grid-cols-2 grid-rows-subgrid gap-6 max-md:grid-cols-1">
           {certificates.map((certificate, index) => (
             <CertificateCard key={index} certificate={certificate} />
           ))}
@@ -70,9 +80,9 @@ function CertificateCard({ certificate }: { certificate: Certificate }) {
       whileInView={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
-      className="flex h-full w-full flex-col items-center justify-center gap-6"
+      className="flex h-fit w-fit flex-col items-center justify-center gap-2"
     >
-      <div className="relative flex h-[40rem] w-[27.5rem] items-center justify-center overflow-hidden rounded-3xl border bg-accent1 max-md:h-[65vh] max-md:w-full">
+      <div className="relative flex h-[30rem] w-[20.625rem] items-center justify-center overflow-hidden rounded-3xl max-md:h-[65vh] max-md:w-full">
         <Image
           src={certificate.image}
           alt={certificate.image_alt}
@@ -80,7 +90,7 @@ function CertificateCard({ certificate }: { certificate: Certificate }) {
           className="h-full w-full overflow-hidden rounded-3xl object-cover"
         />
       </div>
-      <h1 className="w-4/5 text-center text-head font-semibold">
+      <h1 className="w-4/5 text-center text-head">
         {certificate.text}
       </h1>
     </motion.div>

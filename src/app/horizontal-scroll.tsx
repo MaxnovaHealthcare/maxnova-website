@@ -36,16 +36,17 @@ export default function HorizontalScrollCarousel({
   const x1 = useTransform(
     scrollYProgress,
     [0, 1],
-    ["1%", `-${steps.length * (20 - 1.81 * steps.length)}%`],
+    ["2.5%", `-${steps.length * 10}%`],
   );
   const x2 = useTransform(
     scrollYProgress,
     [0, 1],
-    ["1%", `-${steps.length * (25 - 1.7625 * steps.length)}%`],
+    ["2.5%", `-${steps.length * 12.5}%`],
   );
 
   const x = isMobile ? x2 : x1;
-  const sectionHeight = `${steps.length * 100}vh`;
+
+  const sectionHeight = `${Math.pow(steps.length + 2, 3)}vw`;
 
   return (
     <section
@@ -58,19 +59,36 @@ export default function HorizontalScrollCarousel({
           {steps.map((card, index) => (
             <div
               key={index}
-              className="flex h-max min-h-[40rem] w-[27.5rem] flex-col items-start justify-between overflow-hidden rounded-3xl border border-accent1 p-6 max-md:min-h-[36rem] max-md:w-[22rem] dark:border-accent1"
+              className="flex h-max min-h-[40rem] w-[32vw] flex-col items-start justify-between overflow-hidden rounded-3xl border border-accent1 p-6 max-md:min-h-[36rem] max-md:w-[95vw]"
             >
               <div className="flex h-fit w-full flex-col items-start justify-start">
                 <p className="font-humane text-[3rem] uppercase">
                   {index < 9 ? "0" : ""}
                   {index + 1}
                 </p>
-                <p className="font-humane text-7xl font-semibold uppercase">
+                <p className="font-humane text-8xl font-semibold uppercase">
                   {card.head}
                 </p>
               </div>
               <div className="flex w-full flex-col items-start justify-start gap-2">
-                <p className="text-para">{card.text}</p>
+                <p className="text-para max-md:text-3xl">
+                  {card.text.split("*").map((text: string, index: number) => (
+                    <span key={index} className="flex flex-col gap-5">
+                      {index === 0 ? (
+                        <>
+                          {text.split("|").map((para, index) => (
+                            <React.Fragment key={index}>
+                              {para}
+                              <br />
+                            </React.Fragment>
+                          ))}
+                        </>
+                      ) : (
+                        <React.Fragment>{`• ${text}`}</React.Fragment>
+                      )}
+                    </span>
+                  ))}
+                </p>
               </div>
             </div>
           ))}

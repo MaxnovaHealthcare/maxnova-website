@@ -26,8 +26,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
   image = "",
   toogleEnquire,
 }) => {
-  const ingredientList = ingredients.split("-");
-  const uspList = usp.split("-");
+  const ingredientList = ingredients.split("+");
+  const uspList = usp.split("+");
   const { open, setCompanyData, toggleContact } = useContactContext();
 
   const dataCompany = {
@@ -50,7 +50,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         duration: 0.5,
         ease: "linear",
       }}
-      className="relative z-50 flex h-[32rem] w-[22rem] flex-col items-center justify-center gap-4 overflow-hidden rounded-3xl bg-accent2 p-6 text-secondary"
+      className="relative z-50 flex h-[32rem] w-[22rem] flex-col items-center justify-center gap-4 overflow-hidden rounded-3xl bg-accent2 p-6 text-primary"
     >
       <Image
         src={image}
@@ -68,10 +68,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </p>
       </div>
       <motion.div
-        initial={{ opacity: 0 }}
-        whileHover={{ opacity: 1 }}
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileHover={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.25, type: "linear", delay: 0.25 }}
-        className="absolute z-50 m-2 flex h-[94.84375%] w-[92.5%] flex-col items-start justify-between gap-4 rounded-2xl bg-accent1 p-4 text-primary backdrop-blur-md"
+        className="absolute z-50 m-2 flex h-full w-full flex-col items-start justify-between gap-4 rounded-2xl bg-accent2 p-6 text-primary backdrop-blur-md"
       >
         <h1 className="h-fit font-humane text-7xl font-semibold">{name}</h1>
 
@@ -100,12 +100,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         </div>
         <div className="flex h-fit w-full items-center justify-between">
-          <CTAButtons
-            bgcolor="bg-accent2 text-secondary"
-            text="ask us"
-            cta=""
-            onClick={setData}
-          />
+          <CTAButtons text="ask us" cta="" onClick={setData} />
           <h1 className="text-para font-medium capitalize">{category}</h1>
         </div>
       </motion.div>
