@@ -49,9 +49,9 @@ const config: Config = {
         scroll: [
           "10rem",
           {
-            lineHeight: "0.1rem",
+            lineHeight: "10rem",
             letterSpacing: "0.1rem",
-            fontWeight: "800",
+            fontWeight: "700",
           },
         ],
       },

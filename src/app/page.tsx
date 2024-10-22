@@ -5,6 +5,7 @@ import HeroSection from "./(home_components)/hero.jsx";
 import AboutSection from "./(home_components)/about";
 import Showreel from "./(home_components)/showreel";
 import WhyUS from "./whyus";
+import DelayedLoading from "./loading";
 import OtherServices from "./ourservices";
 import ProductOverview from "./(home_components)/topproduct";
 
@@ -43,12 +44,12 @@ export default function HomePage() {
   }
 
   if (!homedata) {
-    return <div>Loading...</div>;
+    return <DelayedLoading />;
   }
 
   return (
-    <main className="z-0 m-0 flex min-h-screen w-screen snap-y flex-col items-center justify-center bg-accent1">
-      <HeroSection />
+    <main className="z-0 m-0 flex min-h-screen w-screen snap-y flex-col bg-accent1">
+      <HeroSection head={homedata.head_hero} />
       <section className="w-full rounded-t-[4rem] bg-primary max-md:rounded-3xl">
         <AboutSection
           subhead_about={homedata.subhead_about}

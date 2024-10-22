@@ -11,7 +11,7 @@ import {
 } from "framer-motion";
 import Image from "next/image";
 import { wrap } from "@motionone/utils";
-import img from "../../public/images/logod.png";
+import img from "../../public/images/a.jpeg";
 
 async function getCategoryData() {
   const res = await fetch(
@@ -53,12 +53,14 @@ export default function CategorySec() {
             className={`flex w-full flex-col items-center justify-center`}
           >
             <ParallaxText baseVelocity={index % 2 === 0 ? -2 : 2}>
-              <div className="relative flex h-fit w-fit flex-row items-center justify-center space-x-6 overflow-hidden">
-                <p className="">{category.name}</p>
+              <div className="relative flex h-fit w-fit flex-row items-center justify-center space-x-24 overflow-hidden">
+                <h1 className="h-fit font-humane text-scroll uppercase max-md:text-6xl max-md:font-semibold">
+                  {category.name}
+                </h1>
                 <Image
                   src={img}
                   alt="category"
-                  className="h-auto w-auto rounded"
+                  className="h-full min-h-36 w-full rounded-lg object-cover"
                 />
               </div>
             </ParallaxText>
@@ -81,12 +83,12 @@ function ParallaxText({ children, baseVelocity }: ParallaxProps) {
   const velocityFactor = useTransform(scrollVelocity, [0, 1000], [0, 5], {
     clamp: false,
   });
-  const x = useTransform(baseX, (v) => `${wrap(-20, 20, v)}%`);
+  const x = useTransform(baseX, (v) => `${wrap(-10, 10, v)}%`);
   const directionFactor = useRef<number>(1);
   useAnimationFrame((t, delta) => {
-    let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
+    let moveBy = directionFactor.current * baseVelocity * (delta / 1500);
     if (velocityFactor.get() < 0) {
-      directionFactor.current = -1;
+      directionFactor.current = 1;
     } else if (velocityFactor.get() > 0) {
       directionFactor.current = 1;
     }
@@ -96,11 +98,11 @@ function ParallaxText({ children, baseVelocity }: ParallaxProps) {
   return (
     <div className="m-0 flex flex-nowrap overflow-hidden whitespace-nowrap">
       <motion.div
-        className="text-scroll flex w-full flex-nowrap space-x-6 whitespace-nowrap font-humane uppercase"
+        className="flex w-full flex-nowrap space-x-24 whitespace-nowrap"
         style={{ x }}
       >
         {Array.from({ length: 10 }).map((_, index) => (
-          <div key={index} className="h-fit w-fit flex-shrink-0">
+          <div key={index} className="flex h-fit w-fit flex-shrink-0">
             {children}
           </div>
         ))}

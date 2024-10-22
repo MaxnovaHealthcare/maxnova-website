@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useTransform, useScroll } from "framer-motion";
-import React, { useRef, JSX, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 interface Step {
   head: string;
@@ -15,9 +15,9 @@ interface HorizontalScrollCarouselProps {
 export default function HorizontalScrollCarousel({
   steps,
 }: HorizontalScrollCarouselProps) {
+  
   const targetRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({ target: targetRef });
-
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {

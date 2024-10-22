@@ -1,8 +1,10 @@
+"use client";
 import * as THREE from "three";
-import { Fragment, Suspense, useRef } from "react";
+import { Suspense, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Text, Environment, Loader, useGLTF } from "@react-three/drei";
+import { Text, Environment } from "@react-three/drei";
 import Bottles from "./bottles";
+import LenisScrollHorizontal from "../lenis";
 
 function Sphere(props) {
   return (
@@ -59,10 +61,10 @@ function Spheres() {
   );
 }
 
-export default function HeroSection() {
+const HeroSection = ({ head }) => {
   return (
-    <div className="h-screen w-screen">
-      <Fragment>
+    <section className="flex h-screen w-fit overflow-visible">
+      <div className="z-[1] h-screen w-screen">
         <Canvas
           dpr={[1, 10]}
           shadows
@@ -82,7 +84,7 @@ export default function HeroSection() {
             <group position={[0, -15, 0]}>
               <Bottles />
               <Spheres />
-              {/* <Bottle2 /> */}
+
               <mesh
                 rotation-x={-Math.PI / 2}
                 position={[0, 0, 0]}
@@ -109,7 +111,7 @@ export default function HeroSection() {
               anchorX="center"
               anchorY="middle"
             >
-              {`Maxnova`}
+              {"Maxnova"}
             </Text>
             <Text
               position={[0, 10, -150]}
@@ -121,12 +123,13 @@ export default function HeroSection() {
               anchorX="center"
               anchorY="middle"
             >
-              {`Healthcare`}
+              {"Healthcare"}
             </Text>
           </Suspense>
         </Canvas>
-        <Loader />
-      </Fragment>
-    </div>
+      </div>
+    </section>
   );
-}
+};
+
+export default HeroSection;

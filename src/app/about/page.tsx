@@ -50,23 +50,17 @@ export default function AboutPage() {
 
   return (
     <main className="bg-prim z-0 m-0 flex min-h-screen w-screen snap-y flex-col items-center justify-center px-4">
-      {error ? (
-        <div className="text-red-500">Error: {error}</div>
-      ) : (
-        <>
-          <Hero
-            subhead={aboutData?.subhead_hero ?? ""}
-            imagearr={aboutData?.image || []}
-          />
-          <About
-            subhead_about={aboutData?.subhead_about ?? ""}
-            text_about={aboutData?.text_about ?? ""}
-            image_about={aboutData?.image_about ?? ""}
-            image_alt_about={aboutData?.image_alt_about ?? ""}
-          />
-          <Certification />
-        </>
-      )}
+      <Hero
+        subhead={aboutData?.subhead_hero ?? ""}
+        imagearr={aboutData?.image || []}
+      />
+      <About
+        subhead_about={aboutData?.subhead_about ?? ""}
+        text_about={aboutData?.text_about ?? ""}
+        image_about={aboutData?.image_about ?? ""}
+        image_alt_about={aboutData?.image_alt_about ?? ""}
+      />
+      <Certification />
     </main>
   );
 }

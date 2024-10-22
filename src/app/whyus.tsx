@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, useTransform, useScroll } from "framer-motion";
+import DelayedLoading from "./loading";
 import plus from "../../public/images/plus.svg";
 import logod from "../../public/images/logod.png";
 import logol from "../../public/images/logol.png";
@@ -57,7 +58,7 @@ export default function WhyUS() {
   }
 
   if (!homedata) {
-    return <div>Loading...</div>;
+    return <DelayedLoading />;
   }
 
   const spaceIndexh = homedata.head_whyus.indexOf(
@@ -194,7 +195,7 @@ export default function WhyUS() {
               alt={homedata.image_alt_4_whyus}
               className="absolute z-0 h-full w-full object-cover object-center"
             />
-            <div className="z-[1] flex h-full w-full flex-col items-center justify-end p-8 text-accent1 max-md:px-4">
+            <div className="z-[1] flex h-full w-full flex-col items-center justify-end p-8 text-primary max-md:px-4">
               <p className="z-[1] text-center text-para font-medium">
                 {homedata.text2_whyus.length > 0
                   ? homedata.text2_whyus
