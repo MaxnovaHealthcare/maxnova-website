@@ -71,7 +71,7 @@ export default function CustomFormulationsPage() {
 
   return (
     <main className="bg-prim z-0 flex min-h-screen w-screen snap-y flex-col">
-      <section className="bg-prim flex h-screen min-h-screen w-full flex-col items-center justify-center p-12 px-6 max-md:mt-16 max-md:min-h-[75vh] max-md:p-4 lg:mt-10 overflow-x-hidden ">
+      <section className="bg-prim flex h-screen min-h-screen w-full flex-col items-center justify-center p-12 px-6 max-md:mt-16 max-md:min-h-[75vh] max-md:p-4 lg:mt-10">
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -86,9 +86,8 @@ export default function CustomFormulationsPage() {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.5 }}
             viewport={{ once: true }}
-            className="w-fit font-humane font-bold uppercase max-md:text-8xl lg:text-max max-md:ml-12"
+            className="w-fit font-humane font-bold uppercase max-md:text-8xl lg:text-max"
           >
-
             {firstPart}
           </motion.h1>
           <motion.h1
@@ -98,7 +97,7 @@ export default function CustomFormulationsPage() {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.5 }}
             viewport={{ once: true }}
-            className="w-fit font-humane font-bold uppercase max-md:text-8xl lg:text-max max-md:ml-24"
+            className="w-fit font-humane font-bold uppercase max-md:text-8xl lg:text-max"
           >
             {secondPart}
           </motion.h1>
@@ -116,20 +115,20 @@ export default function CustomFormulationsPage() {
           <h1 className="text-center font-humane font-semibold max-md:text-8xl lg:text-max">
             HOW DOES IT WORK?
           </h1>
-          <p className="w-3/5 max-md:w-80 text-center text-para">
+          <p className="w-3/5 text-center text-para">
             {!custData?.text_custom
               ? "this is about"
               : custData?.text_custom.split("|").map((para, index) => (
-                <React.Fragment key={index}>
-                  {para}
-                  <br />
-                  <br />
-                </React.Fragment>
-              ))}
+                  <React.Fragment key={index}>
+                    {para}
+                    <br />
+                    <br />
+                  </React.Fragment>
+                ))}
           </p>
           <CTAButtons cta="../contact" text="enquire now" />
         </motion.div>
-        {/* <HorizontalScrollCarousel steps={custData?.steps || []} /> */}
+        <HorizontalScrollCarousel steps={custData?.steps || []} />
       </section>
       <section className="flex min-h-screen flex-col items-start justify-start max-md:-mt-20">
         <CategorySec />

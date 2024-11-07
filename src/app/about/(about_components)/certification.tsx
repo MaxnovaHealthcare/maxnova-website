@@ -46,7 +46,7 @@ export default function Certification() {
   const y1 = useTransform(scrollYProgress, [0, 1], [-50, 50]);
 
   return (
-    <section className="flex w-full flex-col items-center justify-center gap-12 p-12 px-4 py-36 max-md:py-10 max-md:px-0">
+    <section className="flex w-full flex-col items-center justify-center gap-12 p-12 px-4 py-36 max-md:px-0">
       <div className="flex w-1/2 flex-col items-center justify-center gap-4 max-md:w-full">
         <motion.h1
           ref={ref}
@@ -80,7 +80,7 @@ function CertificateCard({ certificate }: { certificate: Certificate }) {
       whileInView={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
-      className="flex h-fit w-fit flex-col items-center justify-center gap-2 w-full"
+      className="flex h-fit w-fit flex-col items-center justify-center gap-2"
     >
       <div className="relative flex h-[30rem] w-[20.625rem] items-center justify-center overflow-hidden rounded-3xl max-md:h-[65vh] max-md:w-full">
         <Image
