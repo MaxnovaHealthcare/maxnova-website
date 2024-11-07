@@ -40,7 +40,7 @@ export default function Hero({ subhead, imagearr }: aboutheroprops) {
         whileInView={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
-        className="flex h-full w-1/2 flex-col justify-start gap-6 py-24 max-md:w-full max-md:items-center max-md:justify-center max-md:gap-4"
+        className="flex h-full w-1/2 flex-col justify-start gap-6 py-24 max-md:py-8 max-md:w-full max-md:items-center max-md:justify-center max-md:gap-4"
       >
         <h1 className="font-humane font-bold uppercase max-md:text-center max-md:text-8xl lg:text-max">
           WHERE QUALITY IS GUARANTEED

@@ -202,7 +202,7 @@ export default function PCDFranchisePage() {
           </motion.div>
         </div>
       </section>
-      <section className="flex min-h-screen flex-col items-start justify-start px-4">
+      <section className="flex min-h-screen flex-col items-start justify-start px-4 ">
         <WhyUS />
       </section>
       <section className="flex min-h-screen flex-col items-start justify-start">

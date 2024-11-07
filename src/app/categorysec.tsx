@@ -12,6 +12,8 @@ import {
 import Image from "next/image";
 import { wrap } from "@motionone/utils";
 import img from "../../public/images/a.jpeg";
+import Marquee from "react-fast-marquee";
+
 
 async function getCategoryData() {
   const res = await fetch(
@@ -38,7 +40,8 @@ export default function CategorySec() {
   }, []);
 
   return (
-    <section className="flex min-h-screen w-full flex-col gap-24">
+    <section className="flex min-h-screen w-full flex-col gap-24 max-md:mb-[100px]">
+
       <motion.h1
         viewport={{ once: true }}
         transition={{ delay: 0.5, duration: 0.5, ease: "linear" }}
@@ -46,27 +49,36 @@ export default function CategorySec() {
       >
         covering it all
       </motion.h1>
-      <motion.div className="relative flex w-full flex-wrap gap-20">
-        {categoryData?.map((category, index) => (
-          <div
-            key={index}
-            className={`flex w-full flex-col items-center justify-center`}
-          >
-            <ParallaxText baseVelocity={index % 2 === 0 ? -2 : 2}>
-              <div className="relative flex h-fit w-fit flex-row items-center justify-center space-x-24 overflow-hidden">
-                <h1 className="h-fit font-humane text-scroll uppercase max-md:text-6xl max-md:font-semibold">
-                  {category.name}
-                </h1>
-                <Image
-                  src={img}
-                  alt="category"
-                  className="h-full min-h-36 w-full rounded-lg object-cover"
-                />
-              </div>
-            </ParallaxText>
-          </div>
-        ))}
-      </motion.div>
+      <div className="mar font-humane">
+        {/*  */}
+        <Marquee className="mar1 " speed={80}>
+          <h1>Category 1</h1>
+          <div className="img-box"></div>
+          <h1>Category 1</h1>
+          <div className="img-box"></div>
+          <h1>Category 1</h1>
+          <div className="img-box"></div>
+        </Marquee>
+        {/*  */}
+        <Marquee className="mar1" direction="right" speed={100}>
+          <h1>Category 2</h1>
+          <div className="img-box"></div>
+          <h1>Category 2</h1>
+          <div className="img-box"></div>
+          <h1>Category 2</h1>
+          <div className="img-box"></div>
+        </Marquee>
+        {/*  */}
+        <Marquee className="mar1" speed={80}>
+          <h1>Category 3</h1>
+          <div className="img-box"></div>
+          <h1>Category 3</h1>
+          <div className="img-box"></div>
+          <h1>Category 3</h1>
+          <div className="img-box"></div>
+        </Marquee>
+
+      </div>
     </section>
   );
 }

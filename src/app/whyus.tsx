@@ -76,7 +76,7 @@ export default function WhyUS() {
   const secondPartt = homedata.text1_whyus.slice(spaceIndext + 1);
 
   return (
-    <section className="flex h-fit min-h-[120vh] w-full p-12 py-36 max-md:my-24 max-md:h-fit max-md:p-4 max-md:px-0 lg:h-[120vh] lg:px-10">
+    <section className="flex h-fit w-full p-12 py-36 max-md:my-24 max-md:h-[250vh] max-md:p-4 max-md:px-0 lg:h-[120vh] lg:px-10">
       {/* main div */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -99,7 +99,7 @@ export default function WhyUS() {
             }}
             className="relative flex h-1/2 w-full flex-col items-start justify-between overflow-hidden rounded-3xl bg-accent2 p-8 text-accent1 max-md:h-[65vh] max-md:px-4"
           >
-            <h1 className="z-[1] h-fit font-humane text-max font-bold uppercase max-md:text-8xl">
+            <h1 className="z-[1] h-fit font-humane text-max font-bold uppercase max-md:text-[3.5rem] max-md:leading-[1]">
               {firstParth}
               <br />
               {secondParth}
@@ -109,7 +109,7 @@ export default function WhyUS() {
                 <Image src={logol} alt="logo" className="h-8 w-auto" />
                 <p className="text-xl font-semibold">maxnova healthcare</p>
               </div>
-              <p className="w-fit text-para font-medium">
+              <p className="w-fit text-para font-medium max-md:text-[1rem] ">
                 {firstPartt}
                 <br />
                 {secondPartt}
@@ -128,7 +128,7 @@ export default function WhyUS() {
             </motion.div>
           </motion.div>
           {/* lower div */}
-          <div className="flex h-1/2 w-full gap-6 max-md:flex-col">
+          <div className="flex h-1/2 w-full gap-6 max-md:flex-col max-md:mt-[50px]">
             {/* left div */}
             <motion.div
               initial={{ y: 50, opacity: 0 }}
@@ -176,7 +176,7 @@ export default function WhyUS() {
           </div>
         </div>
         {/* right div */}
-        <div className="flex h-full w-1/3 flex-col gap-6 space-x-0 space-y-0 max-md:w-full">
+        <div className="flex h-full w-1/3 flex-col gap-6 space-x-0 space-y-0 max-md:w-full max-md:mt-[50px]">
           {/* upper div */}
           <motion.div
             initial={{ y: 100, opacity: 0 }}

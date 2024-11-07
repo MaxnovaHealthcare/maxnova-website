@@ -70,7 +70,7 @@ export default function PrivateLabelPage() {
   }
 
   return (
-    <main className="bg-prim z-0 flex min-h-screen w-screen snap-y flex-col">
+    <main className="bg-prim z-0 flex min-h-screen w-screen snap-y flex-col ">
       <section className="bg-prim flex h-screen min-h-screen w-full flex-col items-center justify-center p-12 px-6 max-md:mt-16 max-md:min-h-[75vh] max-md:p-4 lg:mt-10">
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
@@ -115,7 +115,7 @@ export default function PrivateLabelPage() {
           <h1 className="text-center font-humane font-semibold max-md:text-8xl lg:text-max">
             HOW DOES IT WORK?
           </h1>
-          <p className="w-3/5 text-center text-para">
+          <p className="w-3/5 max-md:w-80 text-center text-para">
             {!pvtData?.text_pvt
               ? "this is about"
               : pvtData?.text_pvt.split("|").map((para, index) => (
@@ -130,10 +130,10 @@ export default function PrivateLabelPage() {
         </motion.div>
         <HorizontalScrollCarousel steps={pvtData?.steps || []} />
       </section>
-      <section className="flex min-h-screen flex-col items-start justify-start max-md:-mt-20">
+      <section className="flex min-h-screen flex-col items-start justify-start max-md:-mt-20 " >
         <CategorySec />
       </section>
-      <section className="flex min-h-screen flex-col items-start justify-start px-4 max-md:-mt-20">
+      <section className="flex min-h-screen flex-col items-start justify-start px-4 max-md:-mt-20 hidden	">
         <WhyUS />
       </section>
       <section className="flex min-h-screen flex-col items-start justify-start px-4">

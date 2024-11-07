@@ -100,3 +100,47 @@ html.lenis body {
 .lenis.lenis-smooth iframe {
   pointer-events: none;
 }
+
+
+
+/*  */
+
+
+.mar1{
+  height: 30vh;
+}
+
+.mar1 h1{
+  font-size: 7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.mar1 .img-box{
+  border: 1px solid green;
+  width:300px;
+  height:180px;
+  border-radius: 20px;
+  margin: 0px 20px;
+}
+
+
+@media screen and (min-width:0px) and (max-width:600px) {
+  .mar1 .img-box{
+  	width: 250px;
+    height: 135px;
+  }
+
+  .mar1 h1{
+    font-size: 5rem;
+  }
+
+  .mar1{
+    height: fit-content;
+    padding: 20px;
+  }
+
+
+}
+
+

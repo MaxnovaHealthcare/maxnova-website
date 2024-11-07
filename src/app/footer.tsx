@@ -30,7 +30,7 @@ export default function Footer() {
 
   return (
     <section className="bg-footer flex w-screen flex-col items-center justify-center gap-24 p-12 py-24 text-primary">
-      <div className="flex h-fit w-full items-start justify-center gap-24">
+      <div className="flex h-fit w-full items-start justify-center gap-4 md:gap-24">
         <div className="flex h-fit w-fit flex-col gap-4">
           <h1 className="text-para font-semibold">Explore</h1>
           <div className="flex flex-col gap-2 text-min">
