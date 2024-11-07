@@ -12,7 +12,7 @@ const CardLink: React.FC<{ href: string; title: string }> = ({
   <motion.div
     whileHover={{ scale: 1.05 }}
     transition={{ duration: 0.25, ease: "linear" }}
-    className="flex h-fit w-fit max-md:w-full items-center justify-center"
+    className="flex h-fit w-fit items-center justify-center"
   >
     <Link
       href={href}
@@ -48,7 +48,6 @@ export default function OtherServices() {
     offset: ["start end", "end start"],
   });
   const y1 = useTransform(scrollYProgress, [0, 1], [-50, 50]);
-  
   return (
     <section className="relative flex h-fit w-full flex-col gap-12 p-12 py-36 max-md:p-4 max-md:px-0 lg:px-10">
       <div className="flex items-center justify-center gap-4">
@@ -71,7 +70,7 @@ export default function OtherServices() {
           duration: 0.75,
           ease: "linear",
         }}
-        className="flex items-center justify-center gap-6 max-md:w-full max-md:flex-col max-md:p-5"
+        className="flex items-center justify-center gap-6 max-md:w-full max-md:flex-col"
       >
         {servicesArray.map((title) => (
           <CardLink
