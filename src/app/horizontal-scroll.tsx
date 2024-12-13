@@ -66,7 +66,7 @@ export default function HorizontalScrollCarousel({
                   {index < 9 ? "0" : ""}
                   {index + 1}
                 </p>
-                <p className="font-humane text-8xl font-semibold uppercase">
+                <p className="font-humane text-8xl font-medium uppercase">
                   {card.head}
                 </p>
               </div>

@@ -1,18 +1,23 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image.js";
 import HeroSection from "./(home_components)/hero.jsx";
-import AboutSection from "./(home_components)/about";
+import WhereQualtiy from "./(home_components)/quality";
 import Showreel from "./(home_components)/showreel";
-import WhyUS from "./whyus";
 import DelayedLoading from "./loading";
 import OtherServices from "./ourservices";
-import ProductOverview from "./(home_components)/topproduct";
+import MarqueeEffect from "./marquee";
+import Testimonial from "./(home_components)/testimonial";
+import FaqSection from "./(home_components)/faq";
+import Certification from "./about/(about_components)/certification";
+import Verticals from "./(home_components)/verticals";
+import AboutBrief from "./(home_components)/about";
+import testimg from "../../public/images/a.jpeg";
+import Numbers from "./(home_components)/numbers";
 
-async function getHomeData() {
-  const res = await fetch(
-    "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-home",
-  );
+async function fetchData(url: string) {
+  const res = await fetch(url);
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -24,26 +29,86 @@ export default function HomePage() {
     head_hero: string;
     subhead_about: string;
     text_about: string;
-    image_about: string;
-    image_alt_about: string;
+    image_about1: string;
+    image_alt_about1: string;
+    image_about2: string;
+    image_alt_about2: string;
+    subhead_quality: string;
+    text_quality: string;
+    image_quality: string;
+    image_alt_quality: string;
+    faqs: any[];
+    numbs: any[];
   } | null>(null);
+
+  const [services, setServices] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    getHomeData()
-      .then((data) => {
-        console.log(data);
-        if (data.length > 0) {
-          sethomeData(data[0]);
+    const loadAllData = async () => {
+      try {
+        const homeDataRes = await fetchData(
+          "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-home",
+        );
+
+        if (homeDataRes.length > 0) {
+          sethomeData(homeDataRes[0]);
         }
-      })
-      .catch((err) => setError(err.message));
+
+        const [pcdRes, pvtRes, customRes] = await Promise.all([
+          fetchData(
+            "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-pcd",
+          ),
+          fetchData(
+            "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-pvt",
+          ),
+          fetchData(
+            "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-custom",
+          ),
+        ]);
+
+        const transformedServices = [
+          {
+            key: "pcd-franchise",
+            title: "PCD Franchise",
+            text: pcdRes[0]?.text_pcd || "Default PCD text.",
+            image: pcdRes[0]?.image_pcd || "",
+            imageAlt: pcdRes[0]?.image_alt_pcd || "PCD Franchise",
+            href: "/pcd-franchise",
+          },
+          {
+            key: "private-label",
+            title: "Private Label",
+            text: pvtRes[0]?.text_pvt || "Default Private Label text.",
+            image: pvtRes[0]?.image_pvt || "",
+            imageAlt: pvtRes[0]?.image_alt_pvt || "Private Label",
+            href: "/private-label",
+          },
+          {
+            key: "custom-formulations",
+            title: "Custom Formulations",
+            text:
+              customRes[0]?.text_custom || "Default Custom Formulations text.",
+            image: customRes[0]?.image_custom || "",
+            imageAlt: customRes[0]?.image_alt_custom || "Custom Formulations",
+            href: "/custom-formulations",
+          },
+        ];
+
+        setServices(transformedServices);
+      } catch (err: any) {
+        setError(err.message);
+      }
+    };
+
+    loadAllData();
   }, []);
+
   if (error) {
     return <div>Error: {error}</div>;
   }
 
-  if (!homedata) {
+  if (!homedata || !services.length) {
     return <DelayedLoading />;
   }
 
@@ -51,25 +116,100 @@ export default function HomePage() {
     <main className="z-0 m-0 flex min-h-screen w-screen snap-y flex-col bg-accent1">
       <HeroSection head={homedata.head_hero} />
       <section className="w-full rounded-t-[4rem] bg-primary max-md:rounded-3xl">
-        <AboutSection
+        <AboutBrief
           subhead_about={homedata.subhead_about}
           text_about={homedata.text_about}
-          image_about={homedata.image_about}
-          image_alt_about={homedata.image_alt_about}
+          image1_about={homedata.image_about1}
+          image1_alt_about={homedata.image_alt_about1}
+          image2_about={homedata.image_about2}
+          image2_alt_about={homedata.image_alt_about2}
         />
       </section>
       <section className="w-full bg-primary">
-        <Showreel />
+        <Numbers numbs={homedata.numbs} />
       </section>
-      <section className="w-full bg-primary px-4">
-        <WhyUS />
+      <section className="w-full bg-primary">
+        <WhereQualtiy
+          subhead_quality={homedata.subhead_quality}
+          text_quality={homedata.text_quality}
+          image_quality={homedata.image_quality}
+          image_alt_quality={homedata.image_alt_quality}
+        />
       </section>
-      <section className="w-full bg-primary px-4">
+      <section className="w-full bg-primary">
+        <Showreel height={100} />
+      </section>
+      <section className="w-full bg-primary">
+        <Verticals />
+      </section>
+      <section className="w-full bg-primary">
         <OtherServices />
       </section>
+      <section className="w-full bg-primary">
+        <MarqueeEffect>
+          <div className="relative h-[250px] w-[300px] overflow-hidden">
+            <Image
+              src={testimg}
+              alt={`Image`}
+              className="object-cover object-center"
+            />
+          </div>
+          <div className="relative h-[250px] w-[300px] overflow-hidden">
+            <Image
+              src={testimg}
+              alt={`Image`}
+              className="object-cover object-center"
+            />
+          </div>
+          <div className="relative h-[250px] w-[300px] overflow-hidden">
+            <Image
+              src={testimg}
+              alt={`Image`}
+              className="object-cover object-center"
+            />
+          </div>
+        </MarqueeEffect>
+      </section>
       <section className="w-full bg-primary px-4">
-        <ProductOverview />
+        <Certification />
+      </section>
+      <section className="w-full bg-primary px-4">
+        <Testimonial testimonials={testimonials} />
+      </section>
+      <section className="w-full bg-primary px-4">
+        <FaqSection faqs={homedata.faqs} />
       </section>
     </main>
   );
 }
+
+const testimonials = [
+  {
+    name: "John Doe",
+    company: "Company A",
+    testimonial:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel odio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
+    image: "",
+  },
+  {
+    name: "Jane Doe",
+    company: "Company B",
+    testimonial:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl velodio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
+    image: "",
+  },
+  {
+    name: "John Doe",
+    company: "Company A",
+    testimonial:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel odio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
+    image: "",
+  },
+  {
+    name: "Jane Doe",
+    company: "Company B",
+    testimonial:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
+    image: "",
+  },
+];

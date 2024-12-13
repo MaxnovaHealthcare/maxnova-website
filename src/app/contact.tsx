@@ -116,7 +116,7 @@ export default function ContactPage(props: ContactPageProps) {
         <div className="flex h-full w-[35%] flex-col items-start justify-center gap-6 max-md:hidden">
           <div className="flex h-full w-full flex-col gap-4">
             <h1 className="text-min font-semibold">Contact Us</h1>
-            <h1 className="font-humane font-semibold max-md:text-8xl lg:text-max">
+            <h1 className="font-humane font-bold max-md:text-8xl lg:text-max">
               WHERE DO WE START?
             </h1>
           </div>

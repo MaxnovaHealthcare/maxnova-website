@@ -4,23 +4,23 @@ import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 
-interface AboutBriefprops {
-  image1_about: string;
-  image2_about: string;
-  image1_alt_about: string;
-  image2_alt_about: string;
-  subhead_about: string;
-  text_about: string;
+interface Researchprops {
+  image1_research: string;
+  image2_research: string;
+  image1_alt_research: string;
+  image2_alt_research: string;
+  subhead_research: string;
+  text_research: string;
 }
-const AboutBrief = ({
-  image1_about,
-  image1_alt_about,
-  image2_about,
-  image2_alt_about,
-  subhead_about,
-  text_about,
-}: AboutBriefprops) => {
-  const about_heading = "this is what we are all about";
+const Research = ({
+  image1_research,
+  image1_alt_research,
+  image2_research,
+  image2_alt_research,
+  subhead_research,
+  text_research,
+}: Researchprops) => {
+  const research_heading = "this is what we are all about";
   const ref1 = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref1,
@@ -30,9 +30,12 @@ const AboutBrief = ({
   const img1move = useTransform(scrollYProgress, [0, 1], [-50, 100]);
   const img2move = useTransform(scrollYProgress, [0, 1], [0, 50]);
   const spaceIndex =
-    about_heading.lastIndexOf(" ", Math.floor(about_heading.length / 2)) ?? 0;
-  const firstPart = about_heading.slice(0, spaceIndex);
-  const secondPart = about_heading.slice(spaceIndex + 1);
+    research_heading.lastIndexOf(
+      " ",
+      Math.floor(research_heading.length / 2),
+    ) ?? 0;
+  const firstPart = research_heading.slice(0, spaceIndex);
+  const secondPart = research_heading.slice(spaceIndex + 1);
   return (
     <section
       ref={ref1}
@@ -49,12 +52,15 @@ const AboutBrief = ({
         </motion.h1>
       </div>
       <div className="flex w-full flex-row">
-        <Textside subhead_about={subhead_about} text_about={text_about} />
+        <Textside
+          subhead_research={subhead_research}
+          text_research={text_research}
+        />
         <Imageside
-          img2={image1_about}
-          img1={image2_about}
-          img1_alt={image1_alt_about}
-          img2_alt={image2_alt_about}
+          img2={image1_research}
+          img1={image2_research}
+          img1_alt={image1_alt_research}
+          img2_alt={image2_alt_research}
           imagey2={img1move}
           imagey={img2move}
         />
@@ -103,10 +109,10 @@ const Imageside = ({
 };
 
 interface Textsideprops {
-  subhead_about: string;
-  text_about: string;
+  subhead_research: string;
+  text_research: string;
 }
-const Textside = ({ subhead_about, text_about }: Textsideprops) => {
+const Textside = ({ subhead_research, text_research }: Textsideprops) => {
   return (
     <motion.div
       initial={{ x: -100, opacity: 0 }}
@@ -115,9 +121,9 @@ const Textside = ({ subhead_about, text_about }: Textsideprops) => {
       transition={{ duration: 0.75, delay: 0.5, ease: "easeOut" }}
       className="flex h-full w-2/5 flex-col justify-center gap-12 p-4 max-md:w-full"
     >
-      <h1 className="text-head">{subhead_about}</h1>
+      <h1 className="text-head">{subhead_research}</h1>
       <p className="text-para">
-        {text_about.split("|").map((para, index) => (
+        {text_research.split("|").map((para, index) => (
           <React.Fragment key={index}>
             {para}
             <br />
@@ -128,4 +134,4 @@ const Textside = ({ subhead_about, text_about }: Textsideprops) => {
     </motion.div>
   );
 };
-export default AboutBrief;
+export default Research;

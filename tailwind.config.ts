@@ -13,7 +13,12 @@ const config: Config = {
         helvetica: ["Helvetica Neue", "sans-serif"],
       },
       fontSize: {
-        min: ["1rem", "1rem"],
+        min: [
+          "1rem",
+          {
+            lineHeight: "1.5rem",
+          },
+        ],
         para: [
           "1.125rem",
           {

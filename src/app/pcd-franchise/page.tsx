@@ -90,7 +90,7 @@ export default function PCDFranchisePage() {
   const y2 = useTransform(
     scrollYProgress,
     [0, 1],
-    getWindowWidth() < 768 ? [0, 1] : [0, -750],
+    getWindowWidth() < 768 ? [0, 1] : [0, -500],
   );
   return (
     <main className="bg-prim z-0 flex min-h-screen w-screen snap-y flex-col">
@@ -150,7 +150,7 @@ export default function PCDFranchisePage() {
         )}
         <div
           ref={gallery}
-          className="flex h-fit w-full items-center justify-center space-x-48 max-md:m-0 max-md:flex-col max-md:gap-12 max-md:space-x-0 max-md:p-0 lg:my-12"
+          className="flex h-fit w-full items-center justify-center space-x-16 max-md:m-0 max-md:flex-col max-md:gap-12 max-md:space-x-0 max-md:p-0 lg:my-12"
         >
           <motion.div
             style={{ y: y1 }}
@@ -205,9 +205,6 @@ export default function PCDFranchisePage() {
       <section className="flex min-h-screen flex-col items-start justify-start px-4">
         <WhyUS />
       </section>
-      <section className="flex min-h-screen flex-col items-start justify-start">
-        <OtherServices />
-      </section>
     </main>
   );
 }
@@ -234,7 +231,7 @@ function BrandsCards({
         fill
         className="absolute z-0 object-cover opacity-75"
       />
-      <h1 className="z-[1] flex flex-wrap text-wrap font-humane text-8xl font-semibold uppercase">
+      <h1 className="z-[1] flex flex-wrap text-wrap font-humane text-8xl font-medium uppercase">
         {naam}
       </h1>
     </Link>

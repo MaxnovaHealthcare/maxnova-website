@@ -90,9 +90,7 @@ function CertificateCard({ certificate }: { certificate: Certificate }) {
           className="h-full w-full overflow-hidden rounded-3xl object-cover"
         />
       </div>
-      <h1 className="w-4/5 text-center text-head">
-        {certificate.text}
-      </h1>
+      <h1 className="w-4/5 text-center text-head">{certificate.text}</h1>
     </motion.div>
   );
 }

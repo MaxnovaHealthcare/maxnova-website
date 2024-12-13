@@ -73,7 +73,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         transition={{ duration: 0.25, type: "linear", delay: 0.25 }}
         className="absolute z-50 m-2 flex h-full w-full flex-col items-start justify-between gap-4 rounded-2xl bg-accent2 p-6 text-primary backdrop-blur-md"
       >
-        <h1 className="h-fit font-humane text-7xl font-semibold">{name}</h1>
+        <h1 className="h-fit font-humane text-7xl font-medium">{name}</h1>
 
         <div className="flex h-full w-full flex-col items-start justify-start gap-4">
           <div className="flex items-start justify-start gap-2">

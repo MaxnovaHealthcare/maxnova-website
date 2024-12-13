@@ -3,21 +3,23 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import hamicon from "../../public/images/hamicon.svg";
 import ContactPage from "./contact";
 import logo from "../../public/images/logod.png";
 import { useContactContext } from "./context/contact-context";
 
 export default function Nav() {
+
   const { open, toggleContact } = useContactContext();
   const [isopen, setisopen] = useState(false);
+
   const togglemenu = () => {
     setisopen(!isopen);
   };
+
   const classname = isopen ? "flex" : "hidden";
   return (
-    <main className="fixed top-0 z-50 flex h-fit w-screen items-center justify-center">
+    <main className="fixed top-0 z-50 flex h-fit w-screen items-center justify-center border-b-[2px] border-[#97bbd16e] bg-[#97bbd12b]">
       <nav className="z-[4] flex h-fit w-screen items-center justify-between gap-6 bg-accent2 py-3 font-medium text-secondary backdrop-blur max-xl:px-6 max-md:flex-wrap max-md:rounded-2xl max-md:bg-accent1 max-md:bg-opacity-75 lg:bg-opacity-[0.01] lg:px-12">
         <Link
           href="/"

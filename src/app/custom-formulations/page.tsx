@@ -112,7 +112,7 @@ export default function CustomFormulationsPage() {
           viewport={{ once: true }}
           className="z-[1] flex w-full flex-col items-center justify-center gap-4 max-md:px-4"
         >
-          <h1 className="text-center font-humane font-semibold max-md:text-8xl lg:text-max">
+          <h1 className="text-center font-humane font-bold max-md:text-8xl lg:text-max">
             HOW DOES IT WORK?
           </h1>
           <p className="w-3/5 text-center text-para">

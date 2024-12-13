@@ -76,7 +76,7 @@ export default function WhyUS() {
   const secondPartt = homedata.text1_whyus.slice(spaceIndext + 1);
 
   return (
-    <section className="flex h-fit min-h-[120vh] w-full p-12 py-36 max-md:my-24 max-md:h-fit max-md:p-4 max-md:px-0 lg:h-[120vh] lg:px-10">
+    <section className="flex h-fit min-h-[120vh] w-full scale-90 p-12 py-36 max-md:my-24 max-md:h-fit max-md:p-4 max-md:px-0 lg:h-[120vh] lg:px-10">
       {/* main div */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -213,15 +213,13 @@ export default function WhyUS() {
               duration: 0.75,
               ease: "linear",
             }}
-            className="flex h-1/3 w-full flex-col items-center justify-between rounded-3xl bg-accent1 p-8 text-primary max-md:h-[65vh] max-md:px-4"
+            className="flex h-1/3 w-full flex-col items-center justify-between rounded-3xl bg-accent1 p-6 text-primary max-md:h-[65vh] max-md:px-4"
           >
-            <Image src={logod} alt="logo" className="h-8 w-auto" />
-            <p className="text-center text-para font-medium transition-all duration-200">
+            <Image src={logod} alt="logo" className="h-6 w-auto" />
+            <p className="text-center text-subhead font-medium transition-all duration-200">
               {homedata.text_4_whyus}
             </p>
-            <p className="z-[1] text-subhead font-semibold text-accent2">
-              maxnova
-            </p>
+            <p className="z-[1] text-lg font-bold text-accent2">maxnova</p>
           </motion.div>
         </div>
       </motion.div>

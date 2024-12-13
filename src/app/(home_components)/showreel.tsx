@@ -3,7 +3,11 @@
 import React, { useRef } from "react";
 import { motion, useTransform, useScroll } from "framer-motion";
 
-export default function Showreel() {
+interface ShowreelProps {
+  height: number;
+}
+
+export default function Showreel({ height }: ShowreelProps) {
   const showreelRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -14,7 +18,10 @@ export default function Showreel() {
   const size = useTransform(scrollYProgress, [-0.75, 0.25], ["50%", "100%"]);
 
   return (
-    <section className="flex h-screen min-h-screen w-full flex-col items-center justify-center max-lg:px-10 max-md:p-4 max-md:px-0">
+    <section
+      className="flex w-full flex-col items-center justify-center max-lg:px-10 max-md:p-4 max-md:px-0"
+      style={{ height: `${height}vw` }}
+    >
       <motion.div
         ref={showreelRef}
         className="relative flex items-center justify-center overflow-hidden rounded-3xl bg-secondary text-accent3"

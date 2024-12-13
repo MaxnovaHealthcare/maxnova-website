@@ -112,7 +112,7 @@ export default function PrivateLabelPage() {
           viewport={{ once: true }}
           className="z-[1] flex w-full flex-col items-center justify-center gap-4 max-md:px-4"
         >
-          <h1 className="text-center font-humane font-semibold max-md:text-8xl lg:text-max">
+          <h1 className="text-center font-humane font-bold max-md:text-8xl lg:text-max">
             HOW DOES IT WORK?
           </h1>
           <p className="w-3/5 text-center text-para">
@@ -137,7 +137,7 @@ export default function PrivateLabelPage() {
         <WhyUS />
       </section>
       <section className="flex min-h-screen flex-col items-start justify-start px-4">
-        <OtherServices />
+        <OtherServices/>
       </section>
     </main>
   );
