@@ -100,7 +100,7 @@ const Herocards = ({
 }) => (
   <div className="relative flex h-[42vh] w-full flex-col items-center justify-center space-y-2 overflow-hidden rounded-3xl px-0 py-3 max-md:px-0">
     <Image
-      src={imageSrc}
+      src={imageSrc || "/images/a.jpeg"}
       alt={`Image ${cardKey}`}
       fill
       className="z-10 overflow-hidden rounded-3xl bg-accent1 object-cover"

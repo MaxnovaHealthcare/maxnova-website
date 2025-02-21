@@ -8,9 +8,7 @@ import Image from "next/image";
 import OtherServices from "../ourservices";
 
 async function getPCDData() {
-  const res = await fetch(
-    "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-pcd",
-  );
+  const res = await fetch("http://localhost:4000/api/utils/get-pcd");
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -18,9 +16,7 @@ async function getPCDData() {
 }
 
 async function getData() {
-  const res = await fetch(
-    "https://maxnovabackend-38x5s.ondigitalocean.app/api/company",
-  );
+  const res = await fetch("http://localhost:4000/api/company");
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -93,20 +89,20 @@ export default function PCDFranchisePage() {
     getWindowWidth() < 768 ? [0, 1] : [0, -500],
   );
   return (
-    <main className="bg-prim z-0 flex min-h-screen w-screen snap-y flex-col">
+    <main className="bg-prim z-0 flex min-h-screen w-full snap-y flex-col">
       <section className="flex h-screen min-h-screen w-full flex-col items-center justify-center p-12 px-6 max-md:mt-16 max-md:min-h-[75vh] max-md:p-4 lg:mt-10">
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-3xl bg-accent1 text-secondary"
+          className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-3xl bg-accent1 text-primary"
         >
           <Image
             src={pcddata?.image_pcd ?? ""}
             alt={pcddata?.image_alt_pcd ?? ""}
             fill
-            className="absolute left-0 top-0 z-0 scale-105 border-none object-cover"
+            className="absolute left-0 top-0 z-0 border-none object-cover brightness-90 filter"
           />
           <motion.h1
             ref={ref1}
@@ -138,7 +134,7 @@ export default function PCDFranchisePage() {
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center font-humane font-bold max-md:text-8xl lg:text-max"
+          className="text-center font-humane font-bold text-accent2 max-md:text-8xl lg:text-max"
         >
           OUR BRANDS
         </motion.h1>
@@ -204,6 +200,9 @@ export default function PCDFranchisePage() {
       </section>
       <section className="flex min-h-screen flex-col items-start justify-start px-4">
         <WhyUS />
+      </section>
+      <section className="flex min-h-screen flex-col items-start justify-start px-4">
+        <OtherServices />
       </section>
     </main>
   );

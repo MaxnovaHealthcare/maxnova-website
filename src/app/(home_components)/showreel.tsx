@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import { motion, useTransform, useScroll } from "framer-motion";
 
 interface ShowreelProps {
-  height: number;
+  height: string;
 }
 
 export default function Showreel({ height }: ShowreelProps) {
@@ -19,8 +19,8 @@ export default function Showreel({ height }: ShowreelProps) {
 
   return (
     <section
-      className="flex w-full flex-col items-center justify-center max-lg:px-10 max-md:p-4 max-md:px-0"
-      style={{ height: `${height}vw` }}
+      className="my-24 flex w-full flex-col items-center justify-center max-lg:px-10 max-md:p-4 max-md:px-0"
+      style={{ height: `${height}` }}
     >
       <motion.div
         ref={showreelRef}

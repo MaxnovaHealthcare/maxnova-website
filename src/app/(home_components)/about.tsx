@@ -26,7 +26,7 @@ const AboutBrief = ({
     target: ref1,
     offset: ["start end", "end start"],
   });
-  const x1 = useTransform(scrollYProgress, [1, 0], [-50, 50]);
+  const x1 = useTransform(scrollYProgress, [1, 0], [-150, -50]);
   const img1move = useTransform(scrollYProgress, [0, 1], [-50, 100]);
   const img2move = useTransform(scrollYProgress, [0, 1], [0, 50]);
   const spaceIndex =
@@ -88,14 +88,14 @@ const Imageside = ({
         <Image src={img1} alt={img1_alt} fill className="rounded-2xl" />
       </motion.div>
       <motion.div
-        className="absolute right-10 top-1/3 h-[75%] min-h-[40vh] w-[50%]"
+        className="absolute bottom-0 right-10 aspect-[4/5] h-auto w-[24rem]"
         style={{ y: imagey2 }}
       >
         <Image
           src={img2}
           alt={img2_alt}
           fill
-          className="rounded-2xl bg-violet-100"
+          className="h-full w-full rounded-3xl object-cover"
         />
       </motion.div>
     </section>

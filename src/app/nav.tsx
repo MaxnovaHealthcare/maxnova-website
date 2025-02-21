@@ -1,83 +1,184 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import hamicon from "../../public/images/hamicon.svg";
-import ContactPage from "./contact";
 import logo from "../../public/images/logod.png";
+import ContactPage from "./contact";
 import { useContactContext } from "./context/contact-context";
 
+interface Vertical {
+  _id: string;
+  name: string;
+}
+
 export default function Nav() {
-
   const { open, toggleContact } = useContactContext();
-  const [isopen, setisopen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [verticals, setVerticals] = useState<Vertical[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [isVerticalsOpen, setIsVerticalsOpen] = useState(false);
 
-  const togglemenu = () => {
-    setisopen(!isopen);
-  };
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        setIsLoading(true);
+        const res = await fetch("http://localhost:4000/api/category");
 
-  const classname = isopen ? "flex" : "hidden";
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+
+        const data = await res.json();
+        setVerticals(data.allCategory || []);
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : "Failed to fetch categories",
+        );
+        console.error("Error fetching categories:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchCategories();
+  }, []);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const nav = document.querySelector("nav");
+      if (isMenuOpen && nav && !nav.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+
+      // Don't close verticals dropdown if clicking within it
+      const verticalsMenu = document.querySelector(".verticals-menu");
+      const verticalsButton = document.querySelector(".verticals-button");
+      if (
+        isVerticalsOpen &&
+        !verticalsMenu?.contains(event.target as Node) &&
+        !verticalsButton?.contains(event.target as Node)
+      ) {
+        setIsVerticalsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isMenuOpen, isVerticalsOpen]);
+
+  // Fixed order of navigation links
+  const navLinks = [
+    { href: "/", label: "HOME" },
+    { href: "/about", label: "ABOUT" },
+    { type: "verticals" }, // Placeholder for verticals dropdown
+    { href: "/pcd-franchise", label: "PCD FRANCHISE" },
+    { href: "/private-label", label: "PRIVATE LABEL" },
+    { href: "/custom-formulations", label: "CUSTOM FORMULATIONS" },
+  ];
+
   return (
-    <main className="fixed top-0 z-50 flex h-fit w-screen items-center justify-center border-b-[2px] border-[#97bbd16e] bg-[#97bbd12b]">
-      <nav className="z-[4] flex h-fit w-screen items-center justify-between gap-6 bg-accent2 py-3 font-medium text-secondary backdrop-blur max-xl:px-6 max-md:flex-wrap max-md:rounded-2xl max-md:bg-accent1 max-md:bg-opacity-75 lg:bg-opacity-[0.01] lg:px-12">
-        <Link
-          href="/"
-          className="flex h-fit w-1/4 items-center justify-start gap-2 max-xl:w-1/5 max-md:w-1/3"
-        >
-          <Image src={logo} alt="MAXNOVA" className="h-8 w-auto" />
+    <header className="fixed top-0 z-50 flex w-screen items-center justify-center border-b-2 border-[#97bbd16e] bg-[#97bbd12b] font-helvetica font-semibold">
+      <nav className="flex w-full max-w-[1440px] items-center justify-between py-3 font-semibold text-secondary backdrop-blur-md transition-all duration-300 max-xl:px-6 lg:px-12">
+        <Link href="/" className="flex w-auto items-center">
+          <Image src={logo} alt="MAXNOVA" className="h-8 w-auto" priority />
         </Link>
-        <div
-          onClick={togglemenu}
-          className="hidden h-full items-center justify-end max-md:flex max-md:w-1/3"
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="rounded-lg p-2 hover:bg-gray-100 md:hidden"
+          aria-label="Toggle menu"
         >
-          <Image src={hamicon} alt="MAXNOVA" className="h-6 w-auto" />
-        </div>
+          <Image src={hamicon} alt="" className="h-6 w-6" />
+        </button>
         <div
-          className={`flex w-3/4 items-center justify-between max-xl:w-full max-md:flex-col max-md:gap-6 max-md:${classname}`}
+          className={`flex-1 items-center justify-between md:flex ${
+            isMenuOpen
+              ? "absolute left-0 right-0 top-full flex bg-primary p-4 shadow-lg"
+              : "hidden"
+          }`}
         >
-          <div className="flex w-full items-end justify-around gap-4 text-center text-min font-semibold max-xl:gap-2 max-xl:text-xs max-md:flex-col max-md:justify-between max-md:gap-6 max-md:text-right max-md:text-subhead">
-            <span>
-              <Link onClick={togglemenu} href="/about">
-                ABOUT
-              </Link>
-            </span>
-            <span>
-              <Link onClick={togglemenu} href="/pcd-franchise">
-                PCD FRANCHISE
-              </Link>
-            </span>
-            <span>
-              <Link onClick={togglemenu} href="/private-label">
-                PRIVATE LABEL
-              </Link>
-            </span>
-            <span>
-              <Link onClick={togglemenu} href="/custom-formulations">
-                CUSTOM FORMULATIONS
-              </Link>
-            </span>
-          </div>
-          <div className="flex h-fit w-2/5 items-center justify-end max-md:mb-4 max-md:w-full">
-            <span
-              onClick={toggleContact}
-              className="flex h-fit w-fit items-center justify-center rounded-3xl"
-            >
-              <Link
-                onClick={togglemenu}
-                className="rounded-full bg-accent2 px-3.5 py-3 text-min font-semibold text-primary max-md:py-3"
-                href="#"
-              >
-                Contact Us
-              </Link>
-            </span>
-          </div>
+          <ul className="flex w-full flex-col items-center gap-6 md:flex-row md:justify-center">
+            {navLinks.map((link, index) => {
+              if (link.type === "verticals") {
+                return (
+                  <li key="verticals" className="relative">
+                    <button
+                      className="verticals-button flex items-center gap-1 transition-colors hover:text-accent2"
+                      onClick={() => setIsVerticalsOpen(!isVerticalsOpen)}
+                      aria-expanded={isVerticalsOpen}
+                    >
+                      VERTICALS
+                      <svg
+                        className={`h-4 w-4 transform transition-transform ${isVerticalsOpen ? "rotate-180" : ""}`}
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                    {isVerticalsOpen && (
+                      <ul className="verticals-menu absolute left-0 mt-[1.75rem] w-48 rounded-lg border-[#97bbd16e] bg-primary py-2 shadow-lg">
+                        {isLoading && (
+                          <li className="px-4 py-2 text-gray-500">
+                            Loading...
+                          </li>
+                        )}
+                        {error && (
+                          <li className="px-4 py-2 text-red-500">
+                            Error loading verticals
+                          </li>
+                        )}
+                        {!isLoading &&
+                          !error &&
+                          verticals.map((vertical) => (
+                            <li key={vertical._id}>
+                              <Link
+                                href={`/verticals/${vertical._id}`}
+                                onClick={() => {
+                                  setIsVerticalsOpen(false);
+                                  setIsMenuOpen(false);
+                                }}
+                                className="block px-4 py-2 transition-colors hover:bg-accent1"
+                              >
+                                {vertical.name}
+                              </Link>
+                            </li>
+                          ))}
+                      </ul>
+                    )}
+                  </li>
+                );
+              }
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href!}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="transition-colors hover:text-accent2"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+          <button
+            onClick={toggleContact}
+            className="mt-4 w-fit text-nowrap rounded-full bg-accent2 px-6 py-3.5 text-min font-semibold text-primary transition-colors hover:bg-opacity-90 md:mt-0 md:w-auto"
+          >
+            Contact Us
+          </button>
         </div>
       </nav>
-      <ContactPage
-        className={open ? "block" : "hidden"}
-        onClick={toggleContact}
-      />
-    </main>
+
+      {open && <ContactPage className="" onClick={toggleContact} />}
+    </header>
   );
 }

@@ -5,7 +5,7 @@ import HorizontalScrollCarousel from "../horizontal-scroll";
 import CTAButtons from "../buttons";
 import WhyUS from "../whyus";
 import OtherServices from "../ourservices";
-import CategorySec from "../categorysec";
+import Image from "next/image";
 import { motion, useTransform, useScroll } from "framer-motion";
 
 interface CustData {
@@ -22,9 +22,7 @@ interface Step {
 }
 
 async function getCustData(): Promise<CustData[]> {
-  const res = await fetch(
-    "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-custom",
-  );
+  const res = await fetch("http://localhost:4000/api/utils/get-custom");
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -50,6 +48,8 @@ export default function CustomFormulationsPage() {
     fetchData();
   }, []);
 
+  console.log(custData);
+
   const ref1 = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref1,
@@ -70,14 +70,14 @@ export default function CustomFormulationsPage() {
   }
 
   return (
-    <main className="bg-prim z-0 flex min-h-screen w-screen snap-y flex-col">
-      <section className="bg-prim flex h-screen min-h-screen w-full flex-col items-center justify-center p-12 px-6 max-md:mt-16 max-md:min-h-[75vh] max-md:p-4 lg:mt-10">
+    <main className="bg-prim z-0 flex min-h-screen w-full snap-y flex-col">
+      <section className="bg-prim flex h-screen min-h-screen w-full flex-col items-center justify-center p-12 px-6 text-primary max-md:mt-16 max-md:min-h-[75vh] max-md:p-4 lg:mt-10">
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="relative flex h-full w-full flex-col items-center justify-center rounded-3xl bg-accent1 text-secondary"
+          className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-3xl bg-accent1 text-primary"
         >
           <motion.h1
             ref={ref1}
@@ -86,7 +86,7 @@ export default function CustomFormulationsPage() {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.5 }}
             viewport={{ once: true }}
-            className="w-fit font-humane font-bold uppercase max-md:text-8xl lg:text-max"
+            className="z-[1] w-fit font-humane font-bold uppercase max-md:text-8xl lg:text-max"
           >
             {firstPart}
           </motion.h1>
@@ -97,10 +97,16 @@ export default function CustomFormulationsPage() {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.5 }}
             viewport={{ once: true }}
-            className="w-fit font-humane font-bold uppercase max-md:text-8xl lg:text-max"
+            className="z-[1] w-fit font-humane font-bold uppercase max-md:text-8xl lg:text-max"
           >
             {secondPart}
           </motion.h1>
+          <Image
+            src={custData?.image_custom || ""}
+            alt={custData?.image_alt_custom || ""}
+            fill
+            className="absolute top-0 z-0 object-cover brightness-90 filter"
+          />
         </motion.div>
       </section>
 
@@ -129,9 +135,6 @@ export default function CustomFormulationsPage() {
           <CTAButtons cta="../contact" text="enquire now" />
         </motion.div>
         <HorizontalScrollCarousel steps={custData?.steps || []} />
-      </section>
-      <section className="flex min-h-screen flex-col items-start justify-start max-md:-mt-20">
-        <CategorySec />
       </section>
       <section className="-mt-24 flex min-h-screen flex-col items-start justify-start px-4 max-md:-mt-20">
         <WhyUS />

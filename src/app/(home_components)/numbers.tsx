@@ -5,9 +5,11 @@ import { motion, useTransform, useScroll } from "framer-motion";
 
 interface NumbersProps {
   numbs: { numb: number; head: string }[];
+  sindex: number;
+  eindex: number;
 }
 
-const Numbers = ({ numbs }: NumbersProps) => {
+const Numbers = ({ numbs, sindex, eindex }: NumbersProps) => {
   const ref1 = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref1,
@@ -50,7 +52,7 @@ const Numbers = ({ numbs }: NumbersProps) => {
       ref={ref1}
       className="flex w-full flex-col items-center justify-start gap-12 p-12 max-md:m-0 max-md:h-fit max-md:flex-col max-md:px-0 max-md:py-24 lg:px-10"
     >
-      <div className="flex w-full flex-col items-center justify-center gap-0">
+      <div className="flex w-full flex-col items-center justify-center gap-0 text-accent2">
         <motion.h1
           style={{ x: x1 }}
           className="w-fit text-center font-humane font-bold uppercase max-md:text-8xl lg:text-max"
@@ -65,10 +67,10 @@ const Numbers = ({ numbs }: NumbersProps) => {
         </motion.h1>
       </div>
       <div className="grid w-full grid-cols-3 items-center justify-between gap-11">
-        {numbs.map((num, i) => (
+        {numbs.slice(sindex, eindex).map((num, i) => (
           <div
             key={i}
-            className="flex w-full flex-col items-center justify-center rounded-2xl border border-secondary px-4 py-8"
+            className="flex w-full flex-col items-center justify-center rounded-2xl border border-accent2 px-4 py-8 text-accent2"
           >
             <h1 className="font-humane text-max font-bold">
               {visible ? <CountUp to={num.numb} /> : 0}

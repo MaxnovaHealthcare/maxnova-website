@@ -13,7 +13,7 @@ const CTAButtons: React.FC<CTAButtonsProps> = ({ text, onClick, cta }) => {
   return (
     <Link
       onClick={onClick}
-      className={`h-fit w-fit rounded-3xl bg-accent1 px-4 py-3 text-min font-normal capitalize text-primary`}
+      className={`h-fit w-fit rounded-full bg-accent2 px-6 py-3 text-[1.1rem] font-medium capitalize text-primary`}
       href={cta}
     >
       {text}

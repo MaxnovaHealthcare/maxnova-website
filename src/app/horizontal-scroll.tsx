@@ -15,7 +15,6 @@ interface HorizontalScrollCarouselProps {
 export default function HorizontalScrollCarousel({
   steps,
 }: HorizontalScrollCarouselProps) {
-  
   const targetRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({ target: targetRef });
   const [isMobile, setIsMobile] = useState(false);
@@ -46,7 +45,7 @@ export default function HorizontalScrollCarousel({
 
   const x = isMobile ? x2 : x1;
 
-  const sectionHeight = `${Math.pow(steps.length + 2, 3)}vw`;
+  const sectionHeight = `${Math.pow(steps.length + 2, 3)}rem`;
 
   return (
     <section
@@ -55,11 +54,14 @@ export default function HorizontalScrollCarousel({
       style={{ height: sectionHeight }}
     >
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-        <motion.div style={{ x }} className="flex space-x-24 max-md:space-x-12">
+        <motion.div
+          style={{ x }}
+          className="flex space-x-24 pt-16 max-md:space-x-12"
+        >
           {steps.map((card, index) => (
             <div
               key={index}
-              className="flex h-max min-h-[40rem] w-[32vw] flex-col items-start justify-between overflow-hidden rounded-3xl border border-accent1 p-6 max-md:min-h-[36rem] max-md:w-[95vw]"
+              className="flex h-[44rem] w-[28rem] flex-col items-start justify-between overflow-hidden rounded-3xl border border-accent1 p-6 max-md:min-h-[36rem] max-md:w-[95vw]"
             >
               <div className="flex h-fit w-full flex-col items-start justify-start">
                 <p className="font-humane text-[3rem] uppercase">
@@ -71,7 +73,7 @@ export default function HorizontalScrollCarousel({
                 </p>
               </div>
               <div className="flex w-full flex-col items-start justify-start gap-2">
-                <p className="text-para max-md:text-3xl">
+                <p className="text-[1.1rem] text-para max-md:text-3xl">
                   {card.text.split("*").map((text: string, index: number) => (
                     <span key={index} className="flex flex-col gap-5">
                       {index === 0 ? (

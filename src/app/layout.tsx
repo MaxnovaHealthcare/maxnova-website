@@ -4,8 +4,6 @@ import "./globals.css";
 import React, { Suspense } from "react";
 import Nav from "./nav";
 import Footer from "./footer";
-import DelayedLoading from "./loading";
-import LenisScroll from "./lenis";
 import {
   ContactContextProvider,
   useContactContext,
@@ -25,20 +23,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <LenisScroll>
-        <body
-          className={`font-helvetica ${inter.className} selection:bg-accent1`}
-        >
-          <ContactContextProvider>
-            <DelayedLoading>
-              <Nav />
-              {children}
-              <Footer />
-            </DelayedLoading>
-          </ContactContextProvider>
-        </body>
-      </LenisScroll>
+    <html lang="en" className="flex items-center justify-center">
+      <body
+        className={`font-helvetica ${inter.className} flex max-w-[1440px] flex-col items-center justify-center selection:bg-accent1`}
+      >
+        <ContactContextProvider>
+          <Nav />
+          {children}
+          <Footer />
+        </ContactContextProvider>
+      </body>
     </html>
   );
 }

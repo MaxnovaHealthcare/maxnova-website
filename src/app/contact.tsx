@@ -99,7 +99,7 @@ export default function ContactPage(props: ContactPageProps) {
 
   return (
     <main
-      className={`absolute top-0 z-[3] h-screen w-screen bg-accent2 bg-opacity-50 p-20 pb-16 pt-24 backdrop-blur-md max-md:p-2 max-md:pt-24 ${className}`}
+      className={`absolute top-0 z-[3] h-screen w-full bg-accent2 bg-opacity-50 p-20 pb-16 pt-24 backdrop-blur-md max-md:p-2 max-md:pt-24 ${className}`}
     >
       <motion.section
         initial={{ scale: 0.95, opacity: 0 }}

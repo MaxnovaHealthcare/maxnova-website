@@ -5,15 +5,15 @@ import Hero from "./(about_components)/heroabout";
 import About from "./(about_components)/aboutus";
 import Certification from "./(about_components)/certification";
 import Numbers from "../(home_components)/numbers";
-import Research from "./(about_components)/research";
+// import MissionVission from "./(about_components)/mission";
 import Showreel from "../(home_components)/showreel";
 import HorizontalScrollCarousel from "../horizontal-scroll";
 
+import { motion } from "framer-motion";
+
 async function getAboutData() {
   try {
-    const res = await fetch(
-      "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-about",
-    );
+    const res = await fetch("http://localhost:4000/api/utils/get-about");
     if (!res.ok) {
       throw new Error(`Failed to fetch data: ${res.statusText}`);
     }
@@ -26,9 +26,7 @@ async function getAboutData() {
 
 async function getHomeData() {
   try {
-    const res = await fetch(
-      "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-home",
-    );
+    const res = await fetch("http://localhost:4000/api/utils/get-home");
     if (!res.ok) {
       throw new Error(`Failed to fetch data: ${res.statusText}`);
     }
@@ -47,12 +45,6 @@ export default function AboutPage() {
     text_about: string;
     image_about: string;
     image_alt_about: string;
-    subhead_research: string;
-    text_research: string;
-    image_research1: string;
-    image_research2: string;
-    image_alt_research1: string;
-    image_alt_research2: string;
     values: any[];
   } | null>(null);
 
@@ -93,7 +85,7 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <main className="bg-prim z-0 m-0 flex min-h-screen w-screen flex-col items-center justify-center px-4">
+    <main className="bg-prim z-0 m-0 flex min-h-screen w-full flex-col items-center justify-center px-4">
       <Hero
         subhead={aboutData?.subhead_hero ?? ""}
         imagearr={aboutData?.image || []}
@@ -104,21 +96,22 @@ export default function AboutPage() {
         image_about={aboutData?.image_about ?? ""}
         image_alt_about={aboutData?.image_alt_about ?? ""}
       />
-      <Numbers numbs={homeData?.numbs ?? []} />
-      <section className="my-24 w-full">
-        <Research
-          subhead_research={aboutData?.subhead_research ?? ""}
-          text_research={aboutData?.text_research ?? ""}
-          image1_research={aboutData?.image_research1 ?? ""}
-          image2_research={aboutData?.image_research2 ?? ""}
-          image1_alt_research={aboutData?.image_alt_research1 ?? ""}
-          image2_alt_research={aboutData?.image_alt_research2 ?? ""}
-        />
+      <Numbers numbs={homeData?.numbs ?? []} sindex={3} eindex={6} />
+      <section className="my-24 w-full"></section>
+      <section className="my-24 w-full px-4">
+        <Showreel height={"75vh"} />
       </section>
-      <section className="my-24 w-full">
-        <Showreel height={40} />
-      </section>
-      <section className="w-screen ">
+      <section className="w-full">
+        <motion.h1
+          initial={{ x: -100, opacity: 0 }}
+          whileInView={{ x: 64, opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+          viewport={{ once: true }}
+          className="z-[1] w-3/5 font-humane font-bold uppercase max-md:w-full max-md:text-center max-md:text-8xl lg:-mb-16 lg:text-max"
+        >
+          The values we <br />
+          admire and follow
+        </motion.h1>
         <HorizontalScrollCarousel steps={aboutData?.values || []} />
       </section>
       <Certification />

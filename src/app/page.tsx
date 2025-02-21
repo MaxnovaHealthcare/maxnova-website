@@ -1,19 +1,17 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image.js";
 import HeroSection from "./(home_components)/hero.jsx";
 import WhereQualtiy from "./(home_components)/quality";
 import Showreel from "./(home_components)/showreel";
-import DelayedLoading from "./loading";
+
 import OtherServices from "./ourservices";
 import MarqueeEffect from "./marquee";
 import Testimonial from "./(home_components)/testimonial";
 import FaqSection from "./(home_components)/faq";
 import Certification from "./about/(about_components)/certification";
-import Verticals from "./(home_components)/verticals";
+import Verticals from "./verticals/verticals";
 import AboutBrief from "./(home_components)/about";
-import testimg from "../../public/images/a.jpeg";
 import Numbers from "./(home_components)/numbers";
 
 async function fetchData(url: string) {
@@ -37,6 +35,7 @@ export default function HomePage() {
     text_quality: string;
     image_quality: string;
     image_alt_quality: string;
+    slogan: string;
     faqs: any[];
     numbs: any[];
   } | null>(null);
@@ -48,7 +47,7 @@ export default function HomePage() {
     const loadAllData = async () => {
       try {
         const homeDataRes = await fetchData(
-          "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-home",
+          "http://localhost:4000/api/utils/get-home",
         );
 
         if (homeDataRes.length > 0) {
@@ -56,15 +55,9 @@ export default function HomePage() {
         }
 
         const [pcdRes, pvtRes, customRes] = await Promise.all([
-          fetchData(
-            "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-pcd",
-          ),
-          fetchData(
-            "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-pvt",
-          ),
-          fetchData(
-            "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-custom",
-          ),
+          fetchData("http://localhost:4000/api/utils/get-pcd"),
+          fetchData("http://localhost:4000/api/utils/get-pvt"),
+          fetchData("http://localhost:4000/api/utils/get-custom"),
         ]);
 
         const transformedServices = [
@@ -109,11 +102,11 @@ export default function HomePage() {
   }
 
   if (!homedata || !services.length) {
-    return <DelayedLoading />;
+    return <h1>Loading</h1>;
   }
 
   return (
-    <main className="z-0 m-0 flex min-h-screen w-screen snap-y flex-col bg-accent1">
+    <main className="z-0 m-0 flex min-h-screen w-full snap-y flex-col bg-accent1">
       <HeroSection head={homedata.head_hero} />
       <section className="w-full rounded-t-[4rem] bg-primary max-md:rounded-3xl">
         <AboutBrief
@@ -126,8 +119,18 @@ export default function HomePage() {
         />
       </section>
       <section className="w-full bg-primary">
-        <Numbers numbs={homedata.numbs} />
+        <Numbers numbs={homedata.numbs} sindex={0} eindex={3} />
       </section>
+      <section className="w-full bg-primary">
+        <Verticals />
+      </section>
+      <section className="w-full bg-primary px-4">
+        <Showreel height={"90vh"} />
+      </section>
+      <section className="w-full bg-primary">
+        <OtherServices />
+      </section>
+
       <section className="w-full bg-primary">
         <WhereQualtiy
           subhead_quality={homedata.subhead_quality}
@@ -136,38 +139,11 @@ export default function HomePage() {
           image_alt_quality={homedata.image_alt_quality}
         />
       </section>
-      <section className="w-full bg-primary">
-        <Showreel height={100} />
-      </section>
-      <section className="w-full bg-primary">
-        <Verticals />
-      </section>
-      <section className="w-full bg-primary">
-        <OtherServices />
-      </section>
-      <section className="w-full bg-primary">
+      <section className="w-full bg-accent2 text-primary">
         <MarqueeEffect>
-          <div className="relative h-[250px] w-[300px] overflow-hidden">
-            <Image
-              src={testimg}
-              alt={`Image`}
-              className="object-cover object-center"
-            />
-          </div>
-          <div className="relative h-[250px] w-[300px] overflow-hidden">
-            <Image
-              src={testimg}
-              alt={`Image`}
-              className="object-cover object-center"
-            />
-          </div>
-          <div className="relative h-[250px] w-[300px] overflow-hidden">
-            <Image
-              src={testimg}
-              alt={`Image`}
-              className="object-cover object-center"
-            />
-          </div>
+          <h1 className="mt-4 font-humane text-9xl font-bold uppercase">
+            {homedata.slogan}
+          </h1>
         </MarqueeEffect>
       </section>
       <section className="w-full bg-primary px-4">

@@ -3,10 +3,11 @@
 import React, { useState, useEffect } from "react";
 import ProductCard from "../../productcard";
 import { useParams } from "next/navigation";
+import ProductOverview from "../../product-overview";
 
 async function getProductData(id: string) {
   const res = await fetch(
-    `https://maxnovabackend-38x5s.ondigitalocean.app/api/product/company/${id || ""}`,
+    `http://localhost:4000/api/product/company/${id || ""}`,
   );
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -15,9 +16,7 @@ async function getProductData(id: string) {
 }
 
 async function getCompanyData(id: string) {
-  const res = await fetch(
-    `https://maxnovabackend-38x5s.ondigitalocean.app/api/company/${id || ""}`,
-  );
+  const res = await fetch(`http://localhost:4000/api/company/${id || ""}`);
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -25,9 +24,7 @@ async function getCompanyData(id: string) {
 }
 
 async function getCategoryData() {
-  const res = await fetch(
-    "https://maxnovabackend-38x5s.ondigitalocean.app/api/category",
-  );
+  const res = await fetch("http://localhost:4000/api/category");
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -70,8 +67,8 @@ export default function PCDFranchisePage() {
         );
 
   return (
-    <main className="bg-prim z-0 flex min-h-screen w-screen snap-y flex-col">
-      <section className="flex h-screen min-h-screen w-screen flex-col items-center justify-center p-12 px-6 lg:mt-10 lg:p-12">
+    <main className="bg-prim z-0 flex min-h-screen w-full snap-y flex-col">
+      <section className="flex h-screen min-h-screen w-full flex-col items-center justify-center p-12 px-6 lg:mt-10 lg:p-12">
         <div className="relative flex h-full w-full items-center justify-center rounded-3xl bg-accent1">
           <h1 className="text-center font-humane font-bold max-md:text-8xl lg:text-max">
             {companyData && companyData.findCompany.name}
@@ -96,7 +93,7 @@ export default function PCDFranchisePage() {
             <option className="w-full bg-none px-12" value="all">
               All Categories
             </option>
-            {categoryData &&
+            {Array.isArray(categoryData) &&
               categoryData.map((category: any, index: number) => (
                 <option
                   className="w-full bg-none px-12 text-5xl"
@@ -110,6 +107,7 @@ export default function PCDFranchisePage() {
         </div>
         <ProductGrid productData={filteredProducts} />
       </section>
+      <ProductOverview />
     </main>
   );
 }

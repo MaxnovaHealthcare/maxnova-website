@@ -1,11 +1,13 @@
 "use client";
 import * as THREE from "three";
-import { Suspense, useRef } from "react";
+import React, { Suspense, useRef, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Text, Environment } from "@react-three/drei";
 import Bottles from "./bottles";
-import LenisScrollHorizontal from "../lenis";
 
+function easeOutExpo(t) {
+  return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+}
 function Sphere(props) {
   return (
     <mesh castShadow {...props} renderOrder={-2000000}>
@@ -61,10 +63,48 @@ function Spheres() {
   );
 }
 
+function AnimatedText({ children, position, delay }) {
+  const ref = useRef();
+  const [startAnimation, setStartAnimation] = useState(false);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const duration = 2;
+
+  useEffect(() => {
+    setTimeout(() => setStartAnimation(true), delay);
+  }, [delay]);
+
+  useFrame((_, delta) => {
+    if (startAnimation && elapsedTime < duration) {
+      setElapsedTime((prev) => Math.min(prev + delta, duration));
+      const progress = easeOutExpo(elapsedTime / duration);
+      ref.current.position.y = position[1] + progress * 3;
+      ref.current.material.opacity = progress;
+    }
+  });
+
+  return (
+    <Text
+      ref={ref}
+      position={position}
+      fontSize={24}
+      fontWeight={800}
+      color="#f8f8f8"
+      material-toneMapped={false}
+      material-fog={false}
+      anchorX="center"
+      anchorY="middle"
+      material-transparent
+      material-opacity={0}
+    >
+      {children}
+    </Text>
+  );
+}
+
 const HeroSection = ({ head }) => {
   return (
-    <section className="flex h-screen w-fit overflow-visible">
-      <div className="z-[1] h-screen w-screen">
+    <section className="flex h-screen w-full overflow-visible">
+      <div className="z-[1] h-screen w-full">
         <Canvas
           dpr={[1, 10]}
           shadows
@@ -101,30 +141,12 @@ const HeroSection = ({ head }) => {
             <ambientLight intensity={0.5} />
             <Environment preset="warehouse" />
             <Zoom />
-            <Text
-              position={[0, 30, -150]}
-              fontSize={24}
-              fontWeight={800}
-              color="#f8f8f8"
-              material-toneMapped={false}
-              material-fog={false}
-              anchorX="center"
-              anchorY="middle"
-            >
+            <AnimatedText position={[0, 30, -150]} delay={500}>
               {"Maxnova"}
-            </Text>
-            <Text
-              position={[0, 10, -150]}
-              fontSize={24}
-              fontWeight={800}
-              color="#f8f8f8"
-              material-toneMapped={false}
-              material-fog={false}
-              anchorX="center"
-              anchorY="middle"
-            >
+            </AnimatedText>
+            <AnimatedText position={[0, 10, -150]} delay={1000}>
               {"Healthcare"}
-            </Text>
+            </AnimatedText>
           </Suspense>
         </Canvas>
       </div>

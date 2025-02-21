@@ -14,7 +14,7 @@ import { wrap } from "@motionone/utils";
 import img from "../../public/images/a.jpeg";
 
 async function getCategoryData() {
-  const res = await fetch("https://maxnovabackend-38x5s.ondigitalocean.app/api/category");
+  const res = await fetch("http://localhost:4000/api/category");
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }

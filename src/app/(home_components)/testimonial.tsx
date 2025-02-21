@@ -17,10 +17,10 @@ const TestimonialCard = ({
   testimonial,
   image,
 }: Testimonial) => (
-  <div className="relative flex h-[42vh] w-full flex-col items-center justify-center space-y-4 overflow-hidden rounded-3xl bg-white p-6">
+  <div className="relative flex h-[42vh] w-full flex-col items-center justify-center space-y-4 overflow-hidden rounded-3xl bg-primary p-6">
     <div className="relative h-16 w-16 overflow-hidden rounded-full border-2 border-gray-300">
       <Image
-        src={image ? image : ""}
+        src={image ? image : "https://i.pravatar.cc/300?img=43"}
         alt={name}
         fill
         className="object-cover"
