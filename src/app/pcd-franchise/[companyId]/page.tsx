@@ -4,10 +4,11 @@ import React, { useState, useEffect } from "react";
 import ProductCard from "../../productcard";
 import { useParams } from "next/navigation";
 import ProductOverview from "../../product-overview";
+import Image from "next/image";
 
 async function getProductData(id: string) {
   const res = await fetch(
-    `http://localhost:4000/api/product/company/${id || ""}`,
+    `https://maxnovabackend-38x5s.ondigitalocean.app/api/product/company/${id || ""}`,
   );
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -16,7 +17,9 @@ async function getProductData(id: string) {
 }
 
 async function getCompanyData(id: string) {
-  const res = await fetch(`http://localhost:4000/api/company/${id || ""}`);
+  const res = await fetch(
+    `https://maxnovabackend-38x5s.ondigitalocean.app/api/company/${id || ""}`,
+  );
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -24,7 +27,9 @@ async function getCompanyData(id: string) {
 }
 
 async function getCategoryData() {
-  const res = await fetch("http://localhost:4000/api/category");
+  const res = await fetch(
+    "https://maxnovabackend-38x5s.ondigitalocean.app/api/category",
+  );
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -50,7 +55,7 @@ export default function PCDFranchisePage() {
         const company = await getCompanyData(companyId as string);
         const categories = await getCategoryData();
         setProductData(products);
-        setCompanyData(company);
+        setCompanyData(company.findCompany);
         setCategoryData(categories);
       } catch (error) {
         console.error("Failed to fetch data", error);
@@ -58,7 +63,7 @@ export default function PCDFranchisePage() {
     }
     fetchData();
   }, [companyId]);
-
+  console.log(companyData);
   const filteredProducts =
     currentCategory === "all"
       ? productData
@@ -68,11 +73,19 @@ export default function PCDFranchisePage() {
 
   return (
     <main className="bg-prim z-0 flex min-h-screen w-full snap-y flex-col">
-      <section className="flex h-screen min-h-screen w-full flex-col items-center justify-center p-12 px-6 lg:mt-10 lg:p-12">
-        <div className="relative flex h-full w-full items-center justify-center rounded-3xl bg-accent1">
+      <section className="relative flex h-screen min-h-screen w-full flex-col items-center justify-center overflow-hidden p-12 px-6 lg:mt-10 lg:p-12">
+        <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-3xl bg-accent1">
           <h1 className="text-center font-humane font-bold max-md:text-8xl lg:text-max">
-            {companyData && companyData.findCompany.name}
+            {companyData && companyData.name}
           </h1>
+          <div className="absolute left-1/2 top-1/2 h-fit w-fit max-w-[50%]">
+            <Image
+              src={companyData?.image ?? ""}
+              alt=""
+              fill
+              className="object-cover"
+            />
+          </div>
         </div>
       </section>
       <section className="flex min-h-screen flex-col items-center justify-center gap-24 p-12">

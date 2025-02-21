@@ -9,7 +9,9 @@ import logod from "../../public/images/logod.png";
 import logol from "../../public/images/logol.png";
 
 async function getHomeData() {
-  const res = await fetch("http://localhost:4000/api/utils/get-home");
+  const res = await fetch(
+    "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-home",
+  );
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }

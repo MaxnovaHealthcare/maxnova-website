@@ -111,7 +111,9 @@ const ListCard = ({ product }: { product: any }) => {
 };
 
 async function fetchAllCategories() {
-  const res = await fetch(`http://localhost:4000/api/category`);
+  const res = await fetch(
+    `https://maxnovabackend-38x5s.ondigitalocean.app/api/category`,
+  );
   if (!res.ok) {
     throw new Error("Failed to fetch categories");
   }
@@ -119,7 +121,9 @@ async function fetchAllCategories() {
 }
 
 async function fetchSubcategories() {
-  const res = await fetch(`http://localhost:4000/api/subcategory`);
+  const res = await fetch(
+    `https://maxnovabackend-38x5s.ondigitalocean.app/api/subcategory`,
+  );
   if (!res.ok) {
     throw new Error("Failed to fetch subcategories");
   }
@@ -127,7 +131,9 @@ async function fetchSubcategories() {
 }
 
 async function fetchSubproducts() {
-  const res = await fetch(`http://localhost:4000/api/subproduct`);
+  const res = await fetch(
+    `https://maxnovabackend-38x5s.ondigitalocean.app/api/subproduct`,
+  );
   if (!res.ok) {
     throw new Error("Failed to fetch subproducts");
   }

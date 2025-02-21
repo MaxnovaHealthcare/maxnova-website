@@ -13,7 +13,9 @@ import { motion } from "framer-motion";
 
 async function getAboutData() {
   try {
-    const res = await fetch("http://localhost:4000/api/utils/get-about");
+    const res = await fetch(
+      "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-about",
+    );
     if (!res.ok) {
       throw new Error(`Failed to fetch data: ${res.statusText}`);
     }
@@ -26,7 +28,9 @@ async function getAboutData() {
 
 async function getHomeData() {
   try {
-    const res = await fetch("http://localhost:4000/api/utils/get-home");
+    const res = await fetch(
+      "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-home",
+    );
     if (!res.ok) {
       throw new Error(`Failed to fetch data: ${res.statusText}`);
     }

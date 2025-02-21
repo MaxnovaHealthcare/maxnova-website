@@ -20,7 +20,7 @@ const useCertificates = () => {
     (async () => {
       try {
         const res = await fetch(
-          "http://localhost:4000/api/utils/get-certificate",
+          "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-certificate",
         );
         if (!res.ok) throw new Error(`Failed to fetch: ${res.statusText}`);
         setCertificates(await res.json());
