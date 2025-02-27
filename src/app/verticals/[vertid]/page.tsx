@@ -233,10 +233,18 @@ const VertTemplate: React.FC = () => {
       try {
         const [categoriesData, subcategoriesData, subproductsData, allbento] =
           await Promise.all([
-            fetchData("http://localhost:4000/api/category"),
-            fetchData("http://localhost:4000/api/subcategory"),
-            fetchData("http://localhost:4000/api/subproduct"),
-            fetchData("http://localhost:4000/api/utils/get-bento"),
+            fetchData(
+              "https://maxnovabackend-38x5s.ondigitalocean.app/api/category",
+            ),
+            fetchData(
+              "https://maxnovabackend-38x5s.ondigitalocean.app/api/subcategory",
+            ),
+            fetchData(
+              "https://maxnovabackend-38x5s.ondigitalocean.app/api/subproduct",
+            ),
+            fetchData(
+              "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-bento",
+            ),
           ]);
 
         if (!categoriesData || !subcategoriesData || !subproductsData) return;

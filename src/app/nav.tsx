@@ -25,7 +25,9 @@ export default function Nav() {
     async function fetchCategories() {
       try {
         setIsLoading(true);
-        const res = await fetch("http://localhost:4000/api/category");
+        const res = await fetch(
+          "https://maxnovabackend-38x5s.ondigitalocean.app/api/category",
+        );
 
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);

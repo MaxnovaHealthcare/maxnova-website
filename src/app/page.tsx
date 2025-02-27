@@ -63,7 +63,7 @@ export default function HomePage() {
     const loadAllData = async () => {
       try {
         const homeDataRes = await fetchData(
-          "http://localhost:4000/api/utils/get-home",
+          "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-home",
         );
 
         if (homeDataRes.length > 0) {
@@ -71,9 +71,15 @@ export default function HomePage() {
         }
 
         const [pcdRes, pvtRes, customRes] = await Promise.all([
-          fetchData("http://localhost:4000/api/utils/get-pcd"),
-          fetchData("http://localhost:4000/api/utils/get-pvt"),
-          fetchData("http://localhost:4000/api/utils/get-custom"),
+          fetchData(
+            "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-pcd",
+          ),
+          fetchData(
+            "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-pvt",
+          ),
+          fetchData(
+            "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-custom",
+          ),
         ]);
 
         const transformedServices = [

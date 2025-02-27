@@ -33,9 +33,15 @@ export default function PCDFranchisePage() {
     const fetchAllData = async () => {
       try {
         const [products, company, categories] = await Promise.all([
-          fetchData(`http://localhost:4000/api/product/company/${companyId}`),
-          fetchData(`http://localhost:4000/api/company/${companyId}`),
-          fetchData("http://localhost:4000/api/category"),
+          fetchData(
+            `https://maxnovabackend-38x5s.ondigitalocean.app/api/product/company/${companyId}`,
+          ),
+          fetchData(
+            `https://maxnovabackend-38x5s.ondigitalocean.app/api/company/${companyId}`,
+          ),
+          fetchData(
+            "https://maxnovabackend-38x5s.ondigitalocean.app/api/category",
+          ),
         ]);
 
         if (products) setProductData(products);

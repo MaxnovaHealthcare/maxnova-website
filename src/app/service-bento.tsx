@@ -55,8 +55,12 @@ export default function ServiceBento() {
       try {
         // Fetch both data sources in parallel
         const [categoriesData, bentoResponse] = await Promise.all([
-          fetchData("http://localhost:4000/api/category"),
-          fetchData("http://localhost:4000/api/utils/get-bento"),
+          fetchData(
+            "https://maxnovabackend-38x5s.ondigitalocean.app/api/category",
+          ),
+          fetchData(
+            "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-bento",
+          ),
         ]);
 
         // Process categories data

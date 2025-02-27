@@ -64,71 +64,36 @@ export default function ContactPage(props: ContactPageProps) {
     message: "",
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<
-    "idle" | "success" | "error"
-  >("idle");
-
   const { data } = useContactContext();
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
+    e.preventDefault();
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (isSubmitting) return;
-
-    setIsSubmitting(true);
-    setSubmitStatus("idle");
-
+    console.log(formData);
     try {
-      const response = await fetch("/api/send-whatsapp", {
+      const response = await fetch("./send-whatsapp-message", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          ...formData,
-          category: data
-            ? `${data.company_name} > ${data.category_name} > ${data.name}`
-            : "General Inquiry",
-        }),
+        body: JSON.stringify(formData),
       });
 
       const result = await response.json();
-
+      console.log(result);
       if (response.ok) {
-        setSubmitStatus("success");
-        const whatsappNumber = "9034061629";
-        const message = encodeURIComponent(
-          `Hello MAXNOVA HEALTHCARE,\n\n` +
-            `I am ${formData.fullName} and I have a query regarding ${data ? data.name : "your services"}.\n\n` +
-            `Query details: ${formData.message}\n\n` +
-            `My contact information:\n` +
-            `Phone: ${formData.phone}\n` +
-            `Email: ${formData.email}`,
-        );
-        window.open(
-          `https://wa.me/${whatsappNumber}?text=${message}`,
-          "_blank",
-        );
+        alert("Your message was sent successfully!");
       } else {
-        setSubmitStatus("error");
-        alert(
-          "There was an issue sending your message: " +
-            (result.error || "Unknown error"),
-        );
+        alert("There was an issue sending your message.");
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      setSubmitStatus("error");
-      alert("Failed to send your message. Please try again later.");
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -181,10 +146,7 @@ export default function ContactPage(props: ContactPageProps) {
         </div>
         <div className="flex h-full w-[65%] flex-col items-start justify-start gap-8 max-md:w-full max-md:gap-4">
           <div className="text-para font-normal">
-            {data === undefined &&
-            data.company_name === undefined &&
-            data.category_name === undefined &&
-            data.name === undefined
+            {data
               ? `${data.company_name} > ${data.category_name} > ${data.name}`
               : `General Form`}
           </div>
@@ -204,10 +166,9 @@ export default function ContactPage(props: ContactPageProps) {
                 {field.isTextArea ? (
                   <textarea
                     name={field.label.toLowerCase().replace(" ", "")}
-                    className="h-36 w-full border-b-2 border-primary bg-secondary bg-opacity-0 p-2 transition-all duration-300 focus:text-[1.2rem] focus:outline-none"
+                    className="h-10 w-full border-b-2 border-primary bg-secondary bg-opacity-0 p-2 transition-all duration-300 focus:text-[1.2rem] focus:outline-none"
                     placeholder={field.placeholder}
                     onChange={handleChange}
-                    required
                   />
                 ) : (
                   <input
@@ -222,18 +183,7 @@ export default function ContactPage(props: ContactPageProps) {
               </div>
             ))}
             <div className="flex w-full items-center justify-start gap-4">
-              <button type="submit" disabled={isSubmitting}>
-                <CTAButtons
-                  text={isSubmitting ? "Submitting..." : "Submit"}
-                  cta="#"
-                />
-              </button>
-              {submitStatus === "success" && (
-                <span className="ml-4 text-green-600">Message sent!</span>
-              )}
-              {submitStatus === "error" && (
-                <span className="ml-4 text-red-600">Failed to send</span>
-              )}
+              <CTAButtons text="Submit" cta="#" />
             </div>
           </form>
         </div>

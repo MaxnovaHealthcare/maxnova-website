@@ -10,7 +10,9 @@ import twitter from "../../public/images/twitter.png";
 import linkedin from "../../public/images/linkedin.png";
 
 async function getcompanyData() {
-  const res = await fetch("http://localhost:4000/api/company");
+  const res = await fetch(
+    "https://maxnovabackend-38x5s.ondigitalocean.app/api/company",
+  );
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }

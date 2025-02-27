@@ -9,7 +9,9 @@ import Image from "next/image";
 import OtherServices from "../ourservices";
 
 async function getPCDData() {
-  const res = await fetch("http://localhost:4000/api/utils/get-pcd");
+  const res = await fetch(
+    "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-pcd",
+  );
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -17,7 +19,9 @@ async function getPCDData() {
 }
 
 async function getData() {
-  const res = await fetch("http://localhost:4000/api/company");
+  const res = await fetch(
+    "https://maxnovabackend-38x5s.ondigitalocean.app/api/company",
+  );
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
