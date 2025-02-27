@@ -1,16 +1,15 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useTransform, useScroll } from "framer-motion";
-import WhyUS from "../whyus";
+import ServiceBento from "../service-bento";
 import Image from "next/image";
 import OtherServices from "../ourservices";
 
 async function getPCDData() {
-  const res = await fetch(
-    "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-pcd",
-  );
+  const res = await fetch("http://localhost:4000/api/utils/get-pcd");
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -18,9 +17,7 @@ async function getPCDData() {
 }
 
 async function getData() {
-  const res = await fetch(
-    "https://maxnovabackend-38x5s.ondigitalocean.app/api/company",
-  );
+  const res = await fetch("http://localhost:4000/api/company");
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -103,8 +100,8 @@ export default function PCDFranchisePage() {
           className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-3xl bg-accent1 text-primary"
         >
           <Image
-            src={pcddata?.image_pcd ?? ""}
-            alt={pcddata?.image_alt_pcd ?? ""}
+            src={pcddata?.image_pcd ?? "/image_alt_pcd"}
+            alt={pcddata?.image_alt_pcd ?? "image_alt_pcd"}
             fill
             className="absolute left-0 top-0 z-0 border-none object-cover brightness-90 filter"
           />
@@ -203,7 +200,7 @@ export default function PCDFranchisePage() {
         </div>
       </section>
       <section className="flex min-h-screen flex-col items-start justify-start px-4">
-        <WhyUS />
+        <ServiceBento />
       </section>
       <section className="flex min-h-screen flex-col items-start justify-start px-4">
         <OtherServices />
@@ -226,14 +223,10 @@ function BrandsCards({
   return (
     <Link
       href={`/pcd-franchise/${id}`}
-      className="relative flex h-[40rem] w-[27.5rem] flex-wrap items-center justify-center overflow-hidden rounded-3xl bg-accent1 p-8 max-md:h-[36rem] max-md:w-full max-md:px-4"
+      className="relative flex h-[40rem] w-[27.5rem] flex-col flex-wrap items-center justify-center overflow-hidden rounded-3xl border-2 border-accent1 bg-accent1/10 p-8 max-md:h-[36rem] max-md:w-full max-md:px-4"
     >
-      <Image
-        src={image}
-        alt={desc}
-        fill
-        className="absolute z-0 object-cover opacity-75"
-      />
+      <img src={image} alt={desc} className="z-0 h-auto w-[75%] object-cover" />
+
       <h1 className="z-[1] flex flex-wrap text-wrap font-humane text-8xl font-medium uppercase">
         {naam}
       </h1>

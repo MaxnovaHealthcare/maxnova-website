@@ -59,7 +59,7 @@ export default function About({
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.5 }}
           viewport={{ once: true }}
-          className="z-[1] w-4/5 text-right font-humane font-bold max-md:w-full max-md:text-center max-md:text-8xl lg:-mb-16 lg:text-max"
+          className="z-[1] w-4/5 text-right font-humane font-bold text-accent2 max-md:w-full max-md:text-center max-md:text-8xl lg:-mb-16 lg:text-max"
         >
           {`THAT'S OUR STORY OF HOW WE GOT HERE`}
         </motion.h1>

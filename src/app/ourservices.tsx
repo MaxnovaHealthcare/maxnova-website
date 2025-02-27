@@ -43,15 +43,9 @@ export default function OtherServices() {
     const loadAllData = async () => {
       try {
         const [pcdRes, pvtRes, customRes] = await Promise.all([
-          fetchData(
-            "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-pcd",
-          ),
-          fetchData(
-            "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-pvt",
-          ),
-          fetchData(
-            "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-custom",
-          ),
+          fetchData("http://localhost:4000/api/utils/get-pcd"),
+          fetchData("http://localhost:4000/api/utils/get-pvt"),
+          fetchData("http://localhost:4000/api/utils/get-custom"),
         ]);
 
         const transformedServices = [
@@ -107,9 +101,9 @@ export default function OtherServices() {
           style={{ y: y1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5, duration: 0.5, ease: "linear" }}
-          className="w-1/2 text-center font-humane text-max font-bold text-accent2 max-md:w-full max-md:text-center max-md:text-8xl"
+          className="w-1/2 text-center font-humane text-max font-bold uppercase text-accent2 max-md:w-full max-md:text-center max-md:text-8xl"
         >
-          VIEW OUR <br /> OTHER SERVICES
+          VIEW OUR <br /> SERVICES
         </motion.h1>
       </div>
       <motion.div className="grid w-full grid-cols-3 items-center justify-center max-md:w-full max-md:flex-col">

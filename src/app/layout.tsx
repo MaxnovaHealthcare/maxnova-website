@@ -4,11 +4,14 @@ import "./globals.css";
 import React, { Suspense } from "react";
 import Nav from "./nav";
 import Footer from "./footer";
+import Image from "next/image";
 import {
   ContactContextProvider,
   useContactContext,
 } from "./context/contact-context";
+import Link from "next/link";
 import ContactPage from "./contact";
+import whastapp from "../../public/images/whastappicon.svg";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +32,19 @@ export default function RootLayout({
       >
         <ContactContextProvider>
           <Nav />
+          <Link
+            href={`https://wa.me/${process.env.WHATSAPP_API_KEY}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="fixed bottom-10 right-10 z-50 flex h-16 w-16 items-center justify-center"
+          >
+            <Image
+              src={whastapp}
+              alt="whastapp"
+              fill
+              className="h-full w-full"
+            />
+          </Link>
           {children}
           <Footer />
         </ContactContextProvider>

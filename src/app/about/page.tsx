@@ -5,20 +5,18 @@ import Hero from "./(about_components)/heroabout";
 import About from "./(about_components)/aboutus";
 import Certification from "./(about_components)/certification";
 import Numbers from "../(home_components)/numbers";
-// import MissionVission from "./(about_components)/mission";
+import VisMis from "./(about_components)/mission";
 import Showreel from "../(home_components)/showreel";
 import HorizontalScrollCarousel from "../horizontal-scroll";
-
 import { motion } from "framer-motion";
 
 async function getAboutData() {
   try {
-    const res = await fetch(
-      "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-about",
-    );
+    const res = await fetch("http://localhost:4000/api/utils/get-about");
     if (!res.ok) {
       throw new Error(`Failed to fetch data: ${res.statusText}`);
     }
+    console.log("res", res);
     return await res.json();
   } catch (error) {
     console.error("Error fetching about data:", error);
@@ -28,9 +26,7 @@ async function getAboutData() {
 
 async function getHomeData() {
   try {
-    const res = await fetch(
-      "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-home",
-    );
+    const res = await fetch("http://localhost:4000/api/utils/get-home");
     if (!res.ok) {
       throw new Error(`Failed to fetch data: ${res.statusText}`);
     }
@@ -50,6 +46,12 @@ export default function AboutPage() {
     image_about: string;
     image_alt_about: string;
     values: any[];
+    image_alt_vm: string;
+    image_vm: string;
+    subhead_vm1: string;
+    subhead_vm2: string;
+    text_vm1: string;
+    text_vm2: string;
   } | null>(null);
 
   const [homeData, setHomeData] = useState<{
@@ -87,7 +89,7 @@ export default function AboutPage() {
     fetchHomeData();
     fetchAboutData();
   }, []);
-
+  console.log("aboutData", aboutData);
   return (
     <main className="bg-prim z-0 m-0 flex min-h-screen w-full flex-col items-center justify-center px-4">
       <Hero
@@ -101,8 +103,17 @@ export default function AboutPage() {
         image_alt_about={aboutData?.image_alt_about ?? ""}
       />
       <Numbers numbs={homeData?.numbs ?? []} sindex={3} eindex={6} />
-      <section className="my-24 w-full"></section>
-      <section className="my-24 w-full px-4">
+      <section className="w-full">
+        <VisMis
+          image_alt_vm={aboutData?.image_alt_vm ?? ""}
+          image_vm={aboutData?.image_vm ?? ""}
+          subhead_vm1={aboutData?.subhead_vm1 ?? ""}
+          subhead_vm2={aboutData?.subhead_vm2 ?? ""}
+          text_vm1={aboutData?.text_vm1 ?? ""}
+          text_vm2={aboutData?.text_vm2 ?? ""}
+        />
+      </section>
+      <section className="w-full px-4">
         <Showreel height={"75vh"} />
       </section>
       <section className="w-full">
@@ -111,7 +122,7 @@ export default function AboutPage() {
           whileInView={{ x: 64, opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.5 }}
           viewport={{ once: true }}
-          className="z-[1] w-3/5 font-humane font-bold uppercase max-md:w-full max-md:text-center max-md:text-8xl lg:-mb-16 lg:text-max"
+          className="z-[1] w-3/5 font-humane font-bold uppercase text-accent2 max-md:w-full max-md:text-center max-md:text-8xl lg:-mb-16 lg:text-max"
         >
           The values we <br />
           admire and follow

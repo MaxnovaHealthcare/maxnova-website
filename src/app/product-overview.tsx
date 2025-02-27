@@ -46,7 +46,7 @@ const ProductOverview = () => {
           onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
         >
           <button
-            className="absolute right-4 top-4 z-10 h-8 w-8 rounded-full border border-primary text-min font-bold text-primary hover:cursor-pointer"
+            className="absolute right-4 top-4 z-10 h-10 w-10 rounded-full border border-primary text-min font-bold text-primary transition-all duration-150 hover:cursor-pointer hover:bg-accent3"
             onClick={closeModal}
           >
             ✕
@@ -74,9 +74,9 @@ const ProductOverview = () => {
                 </p>
                 <div className="flex flex-wrap gap-4 text-para">
                   <span className="font-semibold">USP:</span>
-                  <div className="grid w-full grid-cols-3 justify-between gap-2">
+                  <div className="grid w-full grid-cols-2 justify-between gap-2">
                     {product.usp?.split(",").map((usp, index) => (
-                      <li key={index} className="w-full text-para">
+                      <li key={index} className="w-full text-para font-normal">
                         {usp}
                       </li>
                     ))}
@@ -90,7 +90,7 @@ const ProductOverview = () => {
                       .map((ingredient, index) => (
                         <p
                           key={index}
-                          className="rounded bg-primary px-3 text-para text-accent2"
+                          className="rounded-lg border-[0.5px] border-accent1 px-3 py-1 text-base font-normal text-primary transition-all duration-150 hover:bg-accent1 hover:font-medium hover:text-accent2"
                         >
                           {ingredient}
                         </p>

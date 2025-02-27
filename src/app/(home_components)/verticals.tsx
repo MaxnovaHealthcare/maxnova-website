@@ -28,9 +28,7 @@ export default function Verticals() {
   useEffect(() => {
     async function fetchCategories() {
       try {
-        const res = await fetch(
-          `https://maxnovabackend-38x5s.ondigitalocean.app/api/category`,
-        );
+        const res = await fetch(`http://localhost:4000/api/category`);
         if (!res.ok) throw new Error("Failed to fetch categories");
 
         const data = await res.json();

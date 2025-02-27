@@ -20,7 +20,7 @@ const useCertificates = () => {
     (async () => {
       try {
         const res = await fetch(
-          "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-certificate",
+          "http://localhost:4000/api/utils/get-certificate",
         );
         if (!res.ok) throw new Error(`Failed to fetch: ${res.statusText}`);
         setCertificates(await res.json());
@@ -63,7 +63,7 @@ const CertificateCard = ({
   onClick: (e: React.MouseEvent) => void;
 }) => (
   <motion.div
-    className="relative flex h-[28rem] min-w-[18rem] cursor-pointer items-center justify-center"
+    className="relative flex h-[28rem] min-w-[20rem] cursor-pointer items-center justify-center"
     onClick={(e: React.MouseEvent) => {
       e.preventDefault();
       onClick(e);
@@ -72,15 +72,13 @@ const CertificateCard = ({
     tabIndex={0}
   >
     <motion.div
-      className={`h-full w-full overflow-hidden rounded-2xl border transition-transform duration-500 ${
-        isActive ? "z-10 scale-105" : "z-0 scale-90 opacity-90"
-      }`}
+      className={`aspect-[1/1.414] h-auto w-full overflow-hidden rounded-2xl border filter transition-transform duration-500 ${isActive ? "scale-100" : "scale-90"} `}
     >
       <Image
         src={certificate.image}
         alt={certificate.image_alt}
         fill
-        className="h-full w-full rounded-2xl object-cover"
+        className={`h-full w-full rounded-2xl object-cover ${isActive ? "z-10" : "z-0 blur-[2px]"}`}
         loading="lazy"
       />
     </motion.div>
@@ -142,7 +140,7 @@ const Certified = () => {
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.5 }}
-          className="font-humane font-bold max-md:text-8xl lg:text-max"
+          className="font-humane font-bold text-accent2 max-md:text-8xl lg:text-max"
         >
           YOU CAN TRUST ON US, WE ARE AUTHENTIC
         </motion.h1>

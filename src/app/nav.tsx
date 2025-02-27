@@ -25,9 +25,7 @@ export default function Nav() {
     async function fetchCategories() {
       try {
         setIsLoading(true);
-        const res = await fetch(
-          "https://maxnovabackend-38x5s.ondigitalocean.app/api/category",
-        );
+        const res = await fetch("http://localhost:4000/api/category");
 
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
@@ -173,7 +171,7 @@ export default function Nav() {
           </ul>
           <button
             onClick={toggleContact}
-            className="mt-4 w-fit text-nowrap rounded-full bg-accent2 px-6 py-3.5 text-min font-semibold text-primary transition-colors hover:bg-opacity-90 md:mt-0 md:w-auto"
+            className="w-fit text-nowrap rounded-full bg-accent2 px-4 py-3 text-min font-semibold text-primary transition-colors hover:bg-opacity-90 md:mt-0 md:w-auto"
           >
             Contact Us
           </button>

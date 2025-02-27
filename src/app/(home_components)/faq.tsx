@@ -23,7 +23,7 @@ export default function FaqSection({ faqs }: faqProps) {
         style={{ y: y1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.5, duration: 0.5, ease: "linear" }}
-        className="w-fit font-humane font-bold uppercase max-md:text-8xl lg:text-max"
+        className="w-fit font-humane font-bold uppercase text-accent2 max-md:text-8xl lg:text-max"
       >
         Got questions?
         <br />

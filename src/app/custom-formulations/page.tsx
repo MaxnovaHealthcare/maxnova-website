@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import HorizontalScrollCarousel from "../horizontal-scroll";
 import CTAButtons from "../buttons";
-import WhyUS from "../whyus";
+import ServiceBento from "../service-bento";
 import OtherServices from "../ourservices";
 import Image from "next/image";
 import { motion, useTransform, useScroll } from "framer-motion";
@@ -22,9 +22,7 @@ interface Step {
 }
 
 async function getCustData(): Promise<CustData[]> {
-  const res = await fetch(
-    "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-custom",
-  );
+  const res = await fetch("http://localhost:4000/api/utils/get-custom");
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -139,7 +137,7 @@ export default function CustomFormulationsPage() {
         <HorizontalScrollCarousel steps={custData?.steps || []} />
       </section>
       <section className="-mt-24 flex min-h-screen flex-col items-start justify-start px-4 max-md:-mt-20">
-        <WhyUS />
+        <ServiceBento />
       </section>
       <section className="flex min-h-screen flex-col items-start justify-start px-4">
         <OtherServices />

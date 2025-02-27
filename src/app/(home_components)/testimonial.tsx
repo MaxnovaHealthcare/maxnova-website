@@ -83,7 +83,7 @@ export default function Testimonial({ testimonials = [] }: TestimonialProps) {
         <p className="text-subhead text-gray-700">No testimonials available.</p>
       )}
       <div className="sticky top-0 flex h-full w-1/2 flex-col items-start justify-start space-y-6">
-        <h2 className="font-humane text-max">
+        <h2 className="font-humane text-max uppercase text-accent2">
           What Our Clients <br /> Say About Us
         </h2>
         <p className="text-subhead text-gray-700">

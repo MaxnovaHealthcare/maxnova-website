@@ -1,87 +1,117 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import { useParams } from "next/navigation";
+import MarqueeEffect from "../../marquee";
 import CTAButtons from "../../buttons";
-import WhyUS from "../../whyus";
 import Image from "next/image";
+import Link from "next/link";
 
-const Hero = ({ image, naam }: { image: string; naam: string }) => {
-  return (
-    <section className="bg-prim flex h-screen min-h-screen w-full flex-col items-center justify-center p-12 px-6 max-md:mt-16 max-md:min-h-[75vh] max-md:p-4 lg:mt-10">
-      <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-3xl bg-accent1 text-primary">
-        <Image
-          src={image}
-          alt={naam}
-          fill
-          className="absolute h-full w-full object-cover brightness-[0.75] filter"
-        />
+// Type Definitions
+interface Product {
+  _id: string;
+  name: string;
+  features: string[];
+  category: { _id: string };
+  subcategory: { _id: string };
+}
 
-        <h1 className="z-[1] w-fit font-humane font-bold uppercase max-md:text-8xl lg:text-max">
-          {naam ? naam : "Vertical Name"}
-        </h1>
-      </div>
-    </section>
-  );
+interface Subcategory {
+  _id: string;
+  name: string;
+}
+
+interface Category {
+  _id: string;
+  name: string;
+  image: string;
+  description: string;
+  slogan: string;
+}
+
+interface GroupedSubcategory {
+  name: string;
+  products: Product[];
+}
+
+// Fetch Functions
+const fetchData = async (url: string) => {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Failed to fetch data from ${url}`);
+    return res.json();
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };
 
-const Desc = ({ text, naam }: { text: string; naam: string }) => {
-  return (
-    <section className="flex flex-col items-start justify-start p-6 px-0 py-12">
-      <div className="z-[1] flex w-full flex-col items-center justify-center gap-4 max-md:px-4">
-        <h1 className="text-center font-humane font-bold max-md:text-8xl lg:text-max">
-          HOW DOES IT WORK?
-        </h1>
-        <p className="w-4/5 text-center text-para">
-          {!text
-            ? `this is about ${naam}`
-            : text.split("|").map((para, index) => (
-                <React.Fragment key={index}>
-                  {para}
-                  <br />
-                </React.Fragment>
-              ))}
-        </p>
-      </div>
-    </section>
-  );
-};
-
-const CategoryProducts = ({ categories }: { categories: any[] }) => {
-  return (
-    <section className="flex min-h-screen w-full flex-col items-center justify-center gap-12">
-      <h1 className="text-center font-humane text-max font-bold uppercase">
-        Our Products <br /> in this Category
+// Hero Component
+const Hero: React.FC<{ image: string; naam: string }> = ({ image, naam }) => (
+  <section className="bg-prim flex h-screen min-h-screen w-full flex-col items-center justify-center p-12 px-6 max-md:mt-16 max-md:min-h-[75vh] max-md:p-4 lg:mt-10">
+    <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-3xl bg-accent1 text-primary">
+      <Image
+        src={image}
+        alt={naam}
+        fill
+        className="absolute h-full w-full object-cover brightness-[0.75] filter"
+      />
+      <h1 className="z-[1] w-fit font-humane font-bold uppercase text-primary max-md:text-8xl lg:text-max">
+        {naam || "Vertical Name"}
       </h1>
-      {categories.length > 0 ? (
-        categories.map(
-          (category) =>
-            category.products.length > 0 && (
-              <CategoryList
-                key={category.name}
-                heading={category.name}
-                products={category.products}
-              />
-            ),
-        )
-      ) : (
-        <p className="text-para">No products available in this category.</p>
-      )}
-      <CTAButtons cta="/pcd-franchise" text="View Products"></CTAButtons>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
-const CategoryList = ({
+// Description Component
+const Desc: React.FC<{ text: string; naam: string }> = ({ text, naam }) => (
+  <section className="flex flex-col items-start justify-start p-6 px-0 py-12">
+    <div className="z-[1] flex w-full flex-col items-center justify-center gap-4 max-md:px-4">
+      <h1 className="text-center font-humane font-bold text-accent2 max-md:text-8xl lg:text-max">
+        HOW DOES IT WORK?
+      </h1>
+      <p className="w-4/5 text-center text-para">
+        {text
+          ? text.split("|").map((para, index) => (
+              <Fragment key={index}>
+                {para}
+                <br />
+              </Fragment>
+            ))
+          : `This is about ${naam}`}
+      </p>
+    </div>
+  </section>
+);
+
+// Category Products Component
+const CategoryProducts: React.FC<{ categories: GroupedSubcategory[] }> = ({
+  categories,
+}) => (
+  <section className="flex min-h-screen w-full flex-col items-center justify-center gap-12">
+    <h1 className="text-center font-humane text-max font-bold uppercase text-accent2">
+      Our Products <br /> in this Category
+    </h1>
+    {categories.length > 0 ? (
+      categories.map(
+        ({ name, products }) =>
+          products.length > 0 && (
+            <CategoryList key={name} heading={name} products={products} />
+          ),
+      )
+    ) : (
+      <p className="text-para">No products available in this category.</p>
+    )}
+    <CTAButtons cta="/pcd-franchise" text="View Products" />
+  </section>
+);
+
+// Category List Component
+const CategoryList: React.FC<{ heading: string; products: Product[] }> = ({
   heading,
   products,
-}: {
-  heading: string;
-  products: any[];
-}) => {
-  if (products.length === 0) return null;
-
-  return (
+}) =>
+  products.length > 0 && (
     <div className="flex h-fit w-full items-start border-b border-accent1 py-12">
       <div className="sticky top-12 flex min-h-[24rem] w-1/5 items-center justify-start px-4">
         <h1 className="text-wrap font-humane text-9xl font-extralight uppercase">
@@ -95,111 +125,168 @@ const CategoryList = ({
       </div>
     </div>
   );
-};
 
-const ListCard = ({ product }: { product: any }) => {
+// List Card Component
+const ListCard: React.FC<{ product: Product }> = ({ product }) => (
+  <div className="flex h-[24rem] w-full flex-col items-center justify-between gap-6 overflow-hidden rounded-3xl border border-accent1 px-4 py-4">
+    <p className="text-subhead">{product.name}</p>
+    <ul className="flex h-full w-full flex-col items-start justify-start gap-2 text-left text-para">
+      {product.features.map((feature, index) => (
+        <li key={index}>{feature}</li>
+      ))}
+    </ul>
+  </div>
+);
+
+// Vertical Bento Component
+const VerticalBento: React.FC<{
+  allverticals: Category[];
+  currentvert: Category;
+  categories: GroupedSubcategory[];
+  bentodata: any;
+}> = ({ allverticals, currentvert, categories, bentodata }) => {
+  const directions: ("right" | "left")[] = ["right", "left", "right", "left"];
   return (
-    <div className="flex h-[24rem] w-full flex-col items-center justify-between gap-6 overflow-hidden rounded-3xl border border-accent1 px-4 py-4">
-      <p className="text-subhead">{product.name}</p>
-      <div className="flex h-full w-full flex-col items-start justify-start gap-2 text-left text-para">
-        {product.features.map((feature: string, index: number) => (
-          <li key={index}>{feature}</li>
+    <section className="grid h-fit min-h-[45rem] w-full grid-cols-2 grid-rows-2 items-center justify-center gap-[1rem] px-12">
+      <div className="relative col-span-1 row-span-2 flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl px-4 py-8 text-primary">
+        <h1 className="z-[1] flex flex-col gap-2 font-humane text-max font-bold uppercase">
+          <span className="font-helvetica text-para font-normal capitalize">
+            We Offer You
+          </span>
+          an extensive product range
+        </h1>
+        <Link
+          href={`/verticals/${currentvert._id}/#productcategory`}
+          className="z-[1] flex w-fit items-center justify-center text-nowrap rounded-full border border-accent2 px-4 py-4 text-para font-semibold text-accent2 transition-colors"
+        >
+          Our Procuct Categories
+        </Link>
+        <Image
+          src={bentodata?.box1_image}
+          fill
+          alt="box1_image"
+          className="absolute right-0 top-0 h-full w-full bg-accent1 object-cover brightness-90 filter"
+        />
+      </div>
+      <div className="relative col-span-1 row-span-1 flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-2xl bg-accent2">
+        <div className="absolute left-0 top-0 z-[1] flex h-full w-full flex-col items-start justify-end gap-1 bg-gradient-to-t from-[#97BBD1] from-[5%] to-transparent px-4 py-4">
+          <p className="text-para font-normal text-primary">
+            {currentvert.name}:
+          </p>
+          <h1 className="font-humane text-[6rem] font-bold uppercase leading-[0.9] text-primary">
+            {currentvert.slogan}
+          </h1>
+        </div>
+        {directions.map((direction, index) => (
+          <MarqueeEffect key={index} direction={direction} speed={5}>
+            {categories.map(({ name }) => (
+              <h1
+                key={name}
+                className="font-humane text-[5rem] font-semibold uppercase leading-[1] text-accent1"
+              >
+                {name}
+              </h1>
+            ))}
+          </MarqueeEffect>
         ))}
       </div>
-    </div>
+      <div className="col-span-1 row-span-1 flex h-full w-full flex-col items-start justify-between rounded-2xl border-2 border-accent2 p-4">
+        <h2 className="text-wrap font-humane text-[6rem] font-bold uppercase leading-[0.9] text-accent2">
+          Other Verticals
+        </h2>
+        <div className="grid h-fit w-full grid-cols-2 items-center justify-between gap-4">
+          {allverticals.map((vertical) =>
+            vertical._id !== currentvert._id ? (
+              <Link
+                href={`/verticals/${vertical._id}`}
+                key={vertical._id}
+                className="flex w-fit items-center justify-center text-nowrap rounded-full bg-accent2 px-4 py-3 text-para font-semibold text-primary transition-colors md:mt-0 md:w-auto"
+              >
+                {vertical.name}
+              </Link>
+            ) : null,
+          )}
+          <Link
+            href={`/#verticals`}
+            className="flex w-full items-center justify-center text-nowrap rounded-full border border-accent2 px-4 py-3 text-para font-semibold text-accent2 transition-colors"
+          >
+            View All Verticals
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 };
 
-async function fetchAllCategories() {
-  const res = await fetch(
-    `https://maxnovabackend-38x5s.ondigitalocean.app/api/category`,
-  );
-  if (!res.ok) {
-    throw new Error("Failed to fetch categories");
-  }
-  return res.json();
-}
-
-async function fetchSubcategories() {
-  const res = await fetch(
-    `https://maxnovabackend-38x5s.ondigitalocean.app/api/subcategory`,
-  );
-  if (!res.ok) {
-    throw new Error("Failed to fetch subcategories");
-  }
-  return res.json();
-}
-
-async function fetchSubproducts() {
-  const res = await fetch(
-    `https://maxnovabackend-38x5s.ondigitalocean.app/api/subproduct`,
-  );
-  if (!res.ok) {
-    throw new Error("Failed to fetch subproducts");
-  }
-  return res.json();
-}
-
-export default function VertTemplate() {
-  const { vertid } = useParams() as { vertid: string };
-  const [vertical, setVertical] = useState<any>(null);
-  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
-  const [groupedSubcategories, setGroupedSubcategories] = useState<any[]>([]);
+const VertTemplate: React.FC = () => {
+  const { vertid } = useParams<{ vertid: string }>();
+  const [allvert, setAllvert] = useState<Category[]>([]);
+  const [vertical, setVertical] = useState<Category | null>(null);
+  const [groupedSubcategories, setGroupedSubcategories] = useState<
+    GroupedSubcategory[]
+  >([]);
+  const [bentoData, setBentoData] = useState();
 
   useEffect(() => {
-    if (vertid) {
-      const fetchData = async () => {
-        try {
-          const categoriesData = await fetchAllCategories();
-          const selectedVertical = categoriesData.allCategory.find(
-            (category: any) => category._id === vertid,
-          );
-          setVertical(selectedVertical);
+    if (!vertid) return;
+    const fetchVerticalData = async () => {
+      try {
+        const [categoriesData, subcategoriesData, subproductsData, allbento] =
+          await Promise.all([
+            fetchData("http://localhost:4000/api/category"),
+            fetchData("http://localhost:4000/api/subcategory"),
+            fetchData("http://localhost:4000/api/subproduct"),
+            fetchData("http://localhost:4000/api/utils/get-bento"),
+          ]);
 
-          const subcategoriesData = await fetchSubcategories();
-          const subproductsData = await fetchSubproducts();
+        if (!categoriesData || !subcategoriesData || !subproductsData) return;
 
-          const filteredProducts = subproductsData.subproducts.filter(
-            (product: any) => product.category._id === vertid,
-          );
-          setFilteredProducts(filteredProducts);
+        setAllvert(categoriesData.allCategory);
+        const selectedVertical = categoriesData.allCategory.find(
+          (category: Category) => category._id === vertid,
+        );
 
-          const subcategoryProductMap = subcategoriesData.subcategories.map(
-            (subcategory: any) => {
-              return {
-                name: subcategory.name,
-                products: filteredProducts.filter(
-                  (product: any) => product.subcategory._id === subcategory._id,
-                ),
-              };
-            },
-          );
+        if (!selectedVertical) return;
+        setVertical(selectedVertical);
 
-          setGroupedSubcategories(subcategoryProductMap);
-          console.log("Selected Vertical:", subcategoryProductMap);
-          console.log("Filtered Products:", filteredProducts);
-          console.log(
-            "Grouped Products by Subcategory:",
-            subcategoryProductMap,
-          );
-        } catch (error) {
-          console.log("Error fetching data:", error);
-        }
-      };
-      fetchData();
-    }
+        const filteredProducts = subproductsData.subproducts.filter(
+          (product: Product) => product.category._id === vertid,
+        );
+        setBentoData(allbento[0].vertical_bento);
+        const subcategoryProductMap = subcategoriesData.subcategories.map(
+          (subcategory: Subcategory) => ({
+            name: subcategory.name,
+            products: filteredProducts.filter(
+              (product: Product) => product.subcategory._id === subcategory._id,
+            ),
+          }),
+        );
+
+        setGroupedSubcategories(subcategoryProductMap);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchVerticalData();
   }, [vertid]);
-
-  if (!vertical) {
-    return <div>Loading...</div>;
-  }
+  console.log(bentoData);
+  if (!vertical) return <div>Loading...</div>;
 
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-center gap-24">
       <Hero naam={vertical.name} image={vertical.image} />
       <Desc text={vertical.description} naam={vertical.name} />
-      <CategoryProducts categories={groupedSubcategories} />
-      <WhyUS />
+      <VerticalBento
+        allverticals={allvert}
+        currentvert={vertical}
+        categories={groupedSubcategories}
+        bentodata={bentoData}
+      />
+      <div id="productcategory" className="h-fit w-full">
+        <CategoryProducts categories={groupedSubcategories} />
+      </div>
     </main>
   );
-}
+};
+
+export default VertTemplate;

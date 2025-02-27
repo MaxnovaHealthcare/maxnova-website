@@ -10,9 +10,7 @@ import twitter from "../../public/images/twitter.png";
 import linkedin from "../../public/images/linkedin.png";
 
 async function getcompanyData() {
-  const res = await fetch(
-    "https://maxnovabackend-38x5s.ondigitalocean.app/api/company",
-  );
+  const res = await fetch("http://localhost:4000/api/company");
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -29,7 +27,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <section className="bg-footer flex w-full flex-col items-center justify-center gap-24 p-12 py-24 text-primary">
+    <section className="bg-footer mt-24 flex w-full flex-col items-center justify-center gap-24 p-12 py-24 text-primary">
       <div className="flex h-fit w-full items-start justify-center gap-24">
         <div className="flex h-fit w-fit flex-col gap-4">
           <h1 className="text-para font-semibold">Explore</h1>

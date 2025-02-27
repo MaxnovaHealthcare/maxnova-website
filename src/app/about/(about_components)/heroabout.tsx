@@ -42,7 +42,7 @@ export default function Hero({ subhead, imagearr }: aboutheroprops) {
         viewport={{ once: true }}
         className="flex h-full w-1/2 flex-col justify-start gap-6 py-24 max-md:w-full max-md:items-center max-md:justify-center max-md:gap-4"
       >
-        <h1 className="font-humane font-bold uppercase max-md:text-center max-md:text-8xl lg:text-max">
+        <h1 className="font-humane font-bold uppercase text-accent2 max-md:text-center max-md:text-8xl lg:text-max">
           WHERE QUALITY IS GUARANTEED
         </h1>
         <p className="text-subhead font-semibold max-md:w-full max-md:text-center">

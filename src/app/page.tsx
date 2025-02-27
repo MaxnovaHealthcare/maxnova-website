@@ -1,16 +1,16 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import HeroSection from "./(home_components)/hero.jsx";
 import WhereQualtiy from "./(home_components)/quality";
 import Showreel from "./(home_components)/showreel";
-
+import { useParams } from "next/navigation";
 import OtherServices from "./ourservices";
 import MarqueeEffect from "./marquee";
 import Testimonial from "./(home_components)/testimonial";
 import FaqSection from "./(home_components)/faq";
 import Certification from "./about/(about_components)/certification";
-import Verticals from "./verticals/verticals";
+import Verticals from "./(home_components)/verticals";
 import AboutBrief from "./(home_components)/about";
 import Numbers from "./(home_components)/numbers";
 
@@ -43,11 +43,27 @@ export default function HomePage() {
   const [services, setServices] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
 
+  const params = useParams();
+  const verticalsRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (
+      typeof window !== "undefined" &&
+      window.location.hash === "#verticals"
+    ) {
+      setTimeout(() => {
+        verticalsRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 750);
+    }
+  }, [params]);
   useEffect(() => {
     const loadAllData = async () => {
       try {
         const homeDataRes = await fetchData(
-          "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-home",
+          "http://localhost:4000/api/utils/get-home",
         );
 
         if (homeDataRes.length > 0) {
@@ -55,15 +71,9 @@ export default function HomePage() {
         }
 
         const [pcdRes, pvtRes, customRes] = await Promise.all([
-          fetchData(
-            "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-pcd",
-          ),
-          fetchData(
-            "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-pvt",
-          ),
-          fetchData(
-            "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-custom",
-          ),
+          fetchData("http://localhost:4000/api/utils/get-pcd"),
+          fetchData("http://localhost:4000/api/utils/get-pvt"),
+          fetchData("http://localhost:4000/api/utils/get-custom"),
         ]);
 
         const transformedServices = [
@@ -127,7 +137,7 @@ export default function HomePage() {
       <section className="w-full bg-primary">
         <Numbers numbs={homedata.numbs} sindex={0} eindex={3} />
       </section>
-      <section className="w-full bg-primary">
+      <section id="verticals" className="w-full bg-primary">
         <Verticals />
       </section>
       <section className="w-full bg-primary px-4">
@@ -136,7 +146,6 @@ export default function HomePage() {
       <section className="w-full bg-primary">
         <OtherServices />
       </section>
-
       <section className="w-full bg-primary">
         <WhereQualtiy
           subhead_quality={homedata.subhead_quality}
