@@ -8,7 +8,7 @@ import ProductCard from "../productcard";
 async function getProductData(id: string) {
   try {
     const res = await fetch(
-      `https://maxnovabackend-38x5s.ondigitalocean.app/api/product/${id || ""}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_API}/api/product/${id || ""}`,
     );
     if (!res.ok) {
       throw new Error(`Failed to fetch data: ${res.statusText}`);

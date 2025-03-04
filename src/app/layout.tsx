@@ -33,7 +33,7 @@ export default function RootLayout({
         <ContactContextProvider>
           <Nav />
           <Link
-            href={`https://wa.me/${process.env.WHATSAPP_API_KEY}`}
+            href={`https://wa.me/+917082210621`}
             target="_blank"
             rel="noopener noreferrer"
             className="fixed bottom-10 right-10 z-50 flex h-16 w-16 items-center justify-center"

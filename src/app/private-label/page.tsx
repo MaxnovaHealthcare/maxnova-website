@@ -10,6 +10,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 interface PvtData {
   head_pvt: string;
+  image_hero_pvt: string;
   image_pvt: string;
   image_alt_pvt: string;
   text_pvt: string;
@@ -23,7 +24,7 @@ interface Step {
 
 async function getPvtData(): Promise<PvtData[]> {
   const res = await fetch(
-    "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-pvt",
+    `${process.env.NEXT_PUBLIC_BACKEND_API}/api/utils/get-pvt`,
   );
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -102,7 +103,7 @@ export default function PrivateLabelPage() {
             {secondPart}
           </motion.h1>
           <Image
-            src={pvtData?.image_pvt || ""}
+            src={pvtData?.image_hero_pvt || ""}
             alt={pvtData?.image_alt_pvt || ""}
             fill
             className="absolute top-0 z-0 object-cover brightness-90 filter"
@@ -136,7 +137,7 @@ export default function PrivateLabelPage() {
         </motion.div>
         <HorizontalScrollCarousel steps={pvtData?.steps || []} />
       </section>
-      <section className="flex min-h-screen flex-col items-start justify-start px-4 max-md:-mt-20">
+      <section className="flex min-h-screen flex-col items-start justify-start px-4 py-24">
         <ServiceBento />
       </section>
       <section className="flex min-h-screen flex-col items-start justify-start px-4">

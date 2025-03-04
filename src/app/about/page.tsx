@@ -7,13 +7,14 @@ import Certification from "./(about_components)/certification";
 import Numbers from "../(home_components)/numbers";
 import VisMis from "./(about_components)/mission";
 import Showreel from "../(home_components)/showreel";
+// import Map from "./(about_components)/map";
 import HorizontalScrollCarousel from "../horizontal-scroll";
 import { motion } from "framer-motion";
 
 async function getAboutData() {
   try {
     const res = await fetch(
-      "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-about",
+      `${process.env.NEXT_PUBLIC_BACKEND_API}/api/utils/get-about`,
     );
     if (!res.ok) {
       throw new Error(`Failed to fetch data: ${res.statusText}`);
@@ -29,7 +30,7 @@ async function getAboutData() {
 async function getHomeData() {
   try {
     const res = await fetch(
-      "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-home",
+      `${process.env.NEXT_PUBLIC_BACKEND_API}/api/utils/get-home`,
     );
     if (!res.ok) {
       throw new Error(`Failed to fetch data: ${res.statusText}`);
@@ -134,6 +135,30 @@ export default function AboutPage() {
         <HorizontalScrollCarousel steps={aboutData?.values || []} />
       </section>
       <Certification />
+      <section className="flex w-full flex-col items-center justify-center gap-4">
+        <motion.h1
+          initial={{ y: -100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+          className="font-humane font-bold uppercase text-accent2 max-md:text-8xl lg:text-max"
+        >
+          Find us here
+        </motion.h1>
+
+        <div className="flex w-full gap-8 px-4">
+          <iframe
+            className="w-full rounded-xl"
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d62234.183275580755!2d76.749839!3d30.3929382!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390fb5e3c0b4b035%3A0xddb4968a13aebb2c!2sMaxnova%20Healthcare%20%E2%80%93%20Contract%20Manufacturer%20for%20Ayurveda%2C%20Nutraceuticals%2C%20Cosmetics%20%26%20Dermaceuticals!5e1!3m2!1sen!2sin!4v1741066321698!5m2!1sen!2sin"
+          ></iframe>
+          <iframe
+            className="w-full rounded-xl"
+            height="450"
+            src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3865.7712786443158!2d76.77867507559039!3d30.987056674462618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzDCsDU5JzEzLjQiTiA3NsKwNDYnNTIuNSJF!5e1!3m2!1sen!2sin!4v1741067411455!5m2!1sen!2sin"
+          >
+            Our Office
+          </iframe>
+        </div>
+      </section>
     </main>
   );
 }

@@ -43,14 +43,10 @@ export default function OtherServices() {
     const loadAllData = async () => {
       try {
         const [pcdRes, pvtRes, customRes] = await Promise.all([
+          fetchData(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/utils/get-pcd`),
+          fetchData(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/utils/get-pvt`),
           fetchData(
-            "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-pcd",
-          ),
-          fetchData(
-            "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-pvt",
-          ),
-          fetchData(
-            "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-custom",
+            `${process.env.NEXT_PUBLIC_BACKEND_API}/api/utils/get-custom`,
           ),
         ]);
 

@@ -26,7 +26,7 @@ export default function Nav() {
       try {
         setIsLoading(true);
         const res = await fetch(
-          "https://maxnovabackend-38x5s.ondigitalocean.app/api/category",
+          `${process.env.NEXT_PUBLIC_BACKEND_API}/api/category`,
         );
 
         if (!res.ok) {

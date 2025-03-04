@@ -29,7 +29,7 @@ export default function Verticals() {
     async function fetchCategories() {
       try {
         const res = await fetch(
-          `https://maxnovabackend-38x5s.ondigitalocean.app/api/category`,
+          `${process.env.NEXT_PUBLIC_BACKEND_API}/api/category`,
         );
         if (!res.ok) throw new Error("Failed to fetch categories");
 

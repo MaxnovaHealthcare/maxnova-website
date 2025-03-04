@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -53,17 +54,13 @@ export default function ServiceBento() {
 
     const loadData = async () => {
       try {
-        // Fetch both data sources in parallel
         const [categoriesData, bentoResponse] = await Promise.all([
+          fetchData(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/category`),
           fetchData(
-            "https://maxnovabackend-38x5s.ondigitalocean.app/api/category",
-          ),
-          fetchData(
-            "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-bento",
+            `${process.env.NEXT_PUBLIC_BACKEND_API}/api/utils/get-bento`,
           ),
         ]);
 
-        // Process categories data
         const categoriesWithIcons = categoriesData.allCategory.map(
           (category: any, index: number) => ({
             ...category,
@@ -106,16 +103,22 @@ export default function ServiceBento() {
         <h1 className="z-[1] font-humane text-max font-bold text-primary">
           WE HAVE R&D FEATURED APPROACH
         </h1>
-        {bentoData?.box1_image && (
-          <Image
-            src={bentoData.box1_image}
-            fill
+        {bentoData?.box1_image.endsWith(".svg") ? (
+          <img
+            src={bentoData?.box1_image}
             alt="box1_image"
-            className="absolute right-0 top-0 z-[-1] h-full w-full object-cover brightness-90 filter"
+            className="z-[-1] h-full w-full object-contain brightness-90 filter"
+          />
+        ) : (
+          <Image
+            src={bentoData?.box1_image || ""}
+            fill
+            className="z-[-1] h-full w-full object-cover brightness-90 filter"
+            unoptimized
+            alt="box1_image"
           />
         )}
       </div>
-
       {verticals.map((vertical) => (
         <div
           key={vertical._id}
@@ -151,12 +154,21 @@ export default function ServiceBento() {
       <div className="relative col-span-1 row-span-1 flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl border bg-accent1 px-4 py-8 text-accent2">
         <div className="relative flex h-fit w-full items-center justify-start">
           <div className="relative h-[2.5rem] w-[2.5rem] overflow-hidden">
-            <Image
-              priority
-              src={bentoData?.value1_image || ""}
-              fill
-              alt="value1_image"
-            />
+            {bentoData?.value1_image.endsWith(".svg") ? (
+              <img
+                src={bentoData?.value1_image}
+                alt="value1_image"
+                className="h-full w-full object-contain"
+              />
+            ) : (
+              <Image
+                src={bentoData?.value1_image || ""}
+                fill
+                unoptimized
+                className="h-full w-full object-contain"
+                alt="value1_image"
+              />
+            )}
           </div>
         </div>
         <div className="flex h-fit w-full flex-col items-start justify-center text-accent2">
@@ -169,12 +181,21 @@ export default function ServiceBento() {
       <div className="relative col-span-1 row-span-1 flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl border bg-accent1 px-4 py-8 text-accent2">
         <div className="relative flex h-fit w-full items-center justify-start">
           <div className="relative h-[2.5rem] w-[2.5rem] overflow-hidden">
-            <Image
-              priority
-              src={bentoData?.value2_image || ""}
-              fill
-              alt="value1_image"
-            />
+            {bentoData?.value2_image.endsWith(".svg") ? (
+              <img
+                src={bentoData?.value2_image}
+                alt="value2_image"
+                className="h-full w-full object-contain"
+              />
+            ) : (
+              <Image
+                src={bentoData?.value2_image || ""}
+                fill
+                unoptimized
+                alt="value2_image"
+                className="h-full w-full object-contain"
+              />
+            )}
           </div>
         </div>
         <div className="flex h-fit w-full flex-col items-start justify-center text-accent2">
@@ -199,13 +220,21 @@ export default function ServiceBento() {
             Contact Us
           </button>
         </div>
-        <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
-          <Image
-            src={bentoData?.contact_image || ""}
-            alt="Contact visual"
-            fill
-            className="h-full w-full rounded-3xl object-cover"
-          />
+        <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-2xl">
+          {bentoData?.value1_image.endsWith(".svg") ? (
+            <img
+              src={bentoData?.contact_image}
+              alt="contact_image"
+              className="h-full w-full object-contain"
+            />
+          ) : (
+            <Image
+              src={bentoData?.contact_image || ""}
+              fill
+              unoptimized
+              alt="contact_image"
+            />
+          )}
         </div>
       </div>
       {open && <ContactPage className="" onClick={toggleContact} />}

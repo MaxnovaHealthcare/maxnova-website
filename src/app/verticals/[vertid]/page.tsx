@@ -233,17 +233,11 @@ const VertTemplate: React.FC = () => {
       try {
         const [categoriesData, subcategoriesData, subproductsData, allbento] =
           await Promise.all([
+            fetchData(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/category`),
+            fetchData(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/subcategory`),
+            fetchData(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/subproduct`),
             fetchData(
-              "https://maxnovabackend-38x5s.ondigitalocean.app/api/category",
-            ),
-            fetchData(
-              "https://maxnovabackend-38x5s.ondigitalocean.app/api/subcategory",
-            ),
-            fetchData(
-              "https://maxnovabackend-38x5s.ondigitalocean.app/api/subproduct",
-            ),
-            fetchData(
-              "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-bento",
+              `${process.env.NEXT_PUBLIC_BACKEND_API}/api/utils/get-bento`,
             ),
           ]);
 

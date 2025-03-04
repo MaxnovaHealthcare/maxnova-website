@@ -61,7 +61,7 @@ export default function HorizontalScrollCarousel({
           {steps.map((card, index) => (
             <div
               key={index}
-              className="flex h-[44rem] w-[28rem] flex-col items-start justify-between overflow-hidden rounded-3xl border border-accent1 p-6 max-md:min-h-[36rem] max-md:w-[95vw]"
+              className="flex h-[40rem] w-[28rem] flex-col items-start justify-between overflow-hidden rounded-3xl border border-accent1 p-6 max-md:min-h-[36rem] max-md:w-[95vw]"
             >
               <div className="flex h-fit w-full flex-col items-start justify-start">
                 <p className="font-humane text-[3rem] uppercase">

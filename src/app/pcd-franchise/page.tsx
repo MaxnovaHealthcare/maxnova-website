@@ -7,10 +7,11 @@ import { motion, useTransform, useScroll } from "framer-motion";
 import ServiceBento from "../service-bento";
 import Image from "next/image";
 import OtherServices from "../ourservices";
+import CTAButtons from "../buttons";
 
 async function getPCDData() {
   const res = await fetch(
-    "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-pcd",
+    `${process.env.NEXT_PUBLIC_BACKEND_API}/api/utils/get-pcd`,
   );
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -19,9 +20,7 @@ async function getPCDData() {
 }
 
 async function getData() {
-  const res = await fetch(
-    "https://maxnovabackend-38x5s.ondigitalocean.app/api/company",
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/company`);
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -32,6 +31,7 @@ export default function PCDFranchisePage() {
   const [data, setData] = useState(null);
   const [pcddata, setpcdData] = useState<{
     head_pcd: string;
+    image_hero_pcd: string;
     image_pcd: string;
     image_alt_pcd: string;
   } | null>(null);
@@ -86,12 +86,12 @@ export default function PCDFranchisePage() {
   const y1 = useTransform(
     scrollYProgress,
     [0, 1],
-    getWindowWidth() < 768 ? [0, 1] : [0, 150],
+    getWindowWidth() < 768 ? [0, 1] : [-100, 200],
   );
   const y2 = useTransform(
     scrollYProgress,
     [0, 1],
-    getWindowWidth() < 768 ? [0, 1] : [0, -500],
+    getWindowWidth() < 768 ? [0, 1] : [100, -200],
   );
   return (
     <main className="bg-prim z-0 flex min-h-screen w-full snap-y flex-col">
@@ -104,7 +104,7 @@ export default function PCDFranchisePage() {
           className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-3xl bg-accent1 text-primary"
         >
           <Image
-            src={pcddata?.image_pcd ?? "/image_alt_pcd"}
+            src={pcddata?.image_hero_pcd ?? "/image_alt_pcd"}
             alt={pcddata?.image_alt_pcd ?? "image_alt_pcd"}
             fill
             className="absolute left-0 top-0 z-0 border-none object-cover brightness-90 filter"
@@ -151,18 +151,18 @@ export default function PCDFranchisePage() {
         )}
         <div
           ref={gallery}
-          className="flex h-fit w-full items-center justify-center space-x-16 max-md:m-0 max-md:flex-col max-md:gap-12 max-md:space-x-0 max-md:p-0 lg:my-12"
+          className="flex h-fit w-full items-center justify-center gap-16 space-x-16 max-md:m-0 max-md:flex-col max-md:gap-12 max-md:space-x-0 max-md:p-0 lg:my-12"
         >
           <motion.div
             style={{ y: y1 }}
-            className="flex h-fit w-full flex-col items-center justify-center space-y-48 max-md:m-0 max-md:gap-12 max-md:space-y-0 max-md:p-0 lg:-mt-12"
+            className="flex h-fit w-fit flex-col items-center justify-center space-y-48 max-md:m-0 max-md:gap-12 max-md:space-y-0 max-md:p-0 lg:-mt-12"
           >
             {(data as any)?.allCompany?.map((brand: any, index: number) =>
               index % 2 === 0 ? (
                 <motion.div
-                  initial={{ y: -100, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 1, duration: 0.5 }}
+                  initial={{ y: 100 }}
+                  whileInView={{ y: 0 }}
+                  transition={{ duration: 0.5 }}
                   viewport={{ once: true }}
                   className="flex h-fit w-fit items-center justify-center max-md:w-full"
                   key={index}
@@ -179,14 +179,14 @@ export default function PCDFranchisePage() {
           </motion.div>
           <motion.div
             style={{ y: y2 }}
-            className="flex h-fit w-full flex-col items-center justify-center space-y-48 max-md:m-0 max-md:space-y-12 max-md:p-0 lg:-mt-12"
+            className="flex h-fit w-fit flex-col items-center justify-center space-y-48 max-md:m-0 max-md:space-y-12 max-md:p-0 lg:-mt-12"
           >
             {(data as any)?.allCompany?.map((brand: any, index: number) =>
               index % 2 !== 0 ? (
                 <motion.div
-                  initial={{ y: 100, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 1, duration: 0.5 }}
+                  initial={{ y: -100 }}
+                  whileInView={{ y: 0 }}
+                  transition={{ duration: 0.5 }}
                   viewport={{ once: true }}
                   className="flex w-fit items-center justify-center max-md:w-full"
                   key={index}
@@ -203,7 +203,7 @@ export default function PCDFranchisePage() {
           </motion.div>
         </div>
       </section>
-      <section className="flex min-h-screen flex-col items-start justify-start px-4">
+      <section className="flex min-h-screen flex-col items-start justify-start px-4 py-24">
         <ServiceBento />
       </section>
       <section className="flex min-h-screen flex-col items-start justify-start px-4">
@@ -227,13 +227,21 @@ function BrandsCards({
   return (
     <Link
       href={`/pcd-franchise/${id}`}
-      className="relative flex h-[40rem] w-[27.5rem] flex-col flex-wrap items-center justify-center overflow-hidden rounded-3xl border-2 border-accent1 bg-accent1/10 p-8 max-md:h-[36rem] max-md:w-full max-md:px-4"
+      className="relative flex h-[32rem] w-[22rem] flex-col items-center justify-between overflow-hidden rounded-3xl border-2 border-accent1 bg-accent1/10 p-12 px-6"
     >
-      <img src={image} alt={desc} className="z-0 h-auto w-[75%] object-cover" />
-
-      <h1 className="z-[1] flex flex-wrap text-wrap font-humane text-8xl font-medium uppercase">
-        {naam}
-      </h1>
+      <div className="relative flex h-[90%] w-full items-center justify-center py-6">
+        <img
+          src={image}
+          alt={desc}
+          className="h-auto max-h-[90%] w-auto object-cover"
+        />
+      </div>
+      <div className="relative flex h-[10%] w-full flex-col items-center justify-center gap-4">
+        <CTAButtons
+          text={`Explore Product Range`}
+          cta={`/pcd-franchise/${id}`}
+        />
+      </div>
     </Link>
   );
 }

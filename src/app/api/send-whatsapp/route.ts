@@ -5,27 +5,27 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { fullName, phone, email, message, category } = body;
 
-    if (!fullName || !phone || !email || !message) {
+    if (!fullName || !phone || !email) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 },
       );
     }
 
-    const phoneNumberId = process.env.WHATSAPP_PHONE_NUMBER_ID;
-    const apiToken = process.env.WHATSAPP_API_TOKEN;
-    const templateName = process.env.WHATSAPP_TEMPLATE_NAME;
+    const apiToken = process.env.NEXT_PUBLIC_WHATSAPP_API_TOKEN;
+    const templateName = "pcd_franchise";
 
-    if (!phoneNumberId || !apiToken || !templateName) {
+    if (!apiToken) {
       console.error("Missing required environment variables");
       return NextResponse.json(
         { error: "Server configuration error" },
         { status: 500 },
       );
     }
-    const recipientPhone = process.env.BUSINESS_PHONE_NUMBER || "919034061629";
+    const recipientPhone =
+      process.env.NEXT_PUBLIC_WHATSAPP_BUISNESS_NUMBER || "919034061629";
     const response = await fetch(
-      `https://graph.facebook.com/v18.0/${phoneNumberId}/messages`,
+      `https://graph.facebook.com/v18.0/7082210621`,
       {
         method: "POST",
         headers: {

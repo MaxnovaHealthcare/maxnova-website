@@ -10,6 +10,7 @@ import { motion, useTransform, useScroll } from "framer-motion";
 
 interface CustData {
   head_custom: string;
+  image_hero_custom: string;
   image_custom: string;
   image_alt_custom: string;
   text_custom: string;
@@ -23,7 +24,7 @@ interface Step {
 
 async function getCustData(): Promise<CustData[]> {
   const res = await fetch(
-    "https://maxnovabackend-38x5s.ondigitalocean.app/api/utils/get-custom",
+    `${process.env.NEXT_PUBLIC_BACKEND_API}/api/utils/get-custom`,
   );
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -104,7 +105,7 @@ export default function CustomFormulationsPage() {
             {secondPart}
           </motion.h1>
           <Image
-            src={custData?.image_custom || ""}
+            src={custData?.image_hero_custom || ""}
             alt={custData?.image_alt_custom || ""}
             fill
             className="absolute top-0 z-0 object-cover brightness-90 filter"
@@ -138,7 +139,7 @@ export default function CustomFormulationsPage() {
         </motion.div>
         <HorizontalScrollCarousel steps={custData?.steps || []} />
       </section>
-      <section className="-mt-24 flex min-h-screen flex-col items-start justify-start px-4 max-md:-mt-20">
+      <section className="flex min-h-screen flex-col items-start justify-start px-4 py-24">
         <ServiceBento />
       </section>
       <section className="flex min-h-screen flex-col items-start justify-start px-4">

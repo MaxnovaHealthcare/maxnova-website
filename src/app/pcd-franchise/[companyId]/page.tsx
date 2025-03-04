@@ -34,14 +34,12 @@ export default function PCDFranchisePage() {
       try {
         const [products, company, categories] = await Promise.all([
           fetchData(
-            `https://maxnovabackend-38x5s.ondigitalocean.app/api/product/company/${companyId}`,
+            `${process.env.NEXT_PUBLIC_BACKEND_API}/api/product/company/${companyId}`,
           ),
           fetchData(
-            `https://maxnovabackend-38x5s.ondigitalocean.app/api/company/${companyId}`,
+            `${process.env.NEXT_PUBLIC_BACKEND_API}/api/company/${companyId}`,
           ),
-          fetchData(
-            "https://maxnovabackend-38x5s.ondigitalocean.app/api/category",
-          ),
+          fetchData(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/category`),
         ]);
 
         if (products) setProductData(products);
