@@ -25,34 +25,34 @@ export default function PageLoader({
         }
         return Promise.resolve();
       });
+
       await Promise.all(imagePromises);
       setIsLoading(false);
     };
-    preloadImages();
-    const minLoadTime = setTimeout(() => {
-      setAnimationCompleted(true);
-    }, 5000);
 
-    return () => clearTimeout(minLoadTime);
+    preloadImages();
   }, []);
 
   useEffect(() => {
     setIsLoading(true);
+    setAnimationCompleted(false);
+
     const minLoadTime = setTimeout(() => {
       setAnimationCompleted(true);
       setIsLoading(false);
-    }, 3000);
+    }, loadingTexts.length * 1000);
 
     return () => clearTimeout(minLoadTime);
   }, [pathname]);
 
   return isLoading || !animationCompleted ? <Loading /> : children;
 }
+
 const loadingTexts = [
-  "Picking Formulations...",
-  "Starting Manufacturing...",
-  "Printing Labels...",
-  "Finalizing Product...",
+  "Picking Formulations ...",
+  "Starting Manufacturing ...",
+  "Printing Labels ...",
+  "Finalizing Products ...",
 ];
 
 const letterVariants = {
@@ -60,9 +60,9 @@ const letterVariants = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.05, duration: 0.4 },
+    transition: { delay: i * 0.25, duration: 0.25 },
   }),
-  exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
+  exit: { opacity: 0, y: -20, transition: { duration: 0.25 } },
 };
 
 export function Loading() {
@@ -71,7 +71,7 @@ export function Loading() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTextIndex((prev) => (prev + 1) % loadingTexts.length);
-    }, 2000); // Each text stays for 2 seconds
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);
@@ -89,9 +89,9 @@ export function Loading() {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -50 }}
         transition={{ duration: 0.75 }}
-        className="absolute flex gap-1 text-center font-humane text-9xl uppercase text-primary"
+        className="absolute flex gap-1 text-center font-humane text-9xl font-medium uppercase text-primary max-md:text-6xl"
       >
-        {loadingTexts[currentTextIndex].split("").map((char, i) => (
+        {loadingTexts[currentTextIndex].split(" ").map((char, i) => (
           <motion.span
             key={i}
             variants={letterVariants}
@@ -101,6 +101,7 @@ export function Loading() {
             custom={i}
           >
             {char}
+            <br />
           </motion.span>
         ))}
       </motion.div>

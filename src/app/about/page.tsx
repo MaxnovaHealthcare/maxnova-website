@@ -52,7 +52,7 @@ export default function AboutPage() {
   }, [fetchAllData]);
 
   return (
-    <main className="bg-prim z-0 m-0 flex min-h-screen w-full flex-col items-center justify-center">
+    <main className="bg-prim z-0 m-0 flex min-h-screen w-full flex-col">
       {error ? (
         <p className="text-red-500">{error}</p>
       ) : (
@@ -69,8 +69,10 @@ export default function AboutPage() {
               image_alt_about={aboutData?.image_alt_about ?? ""}
             />
           </section>
-          <Numbers numbs={homeData?.numbs ?? []} sindex={3} eindex={6} />
-          <section className="w-full px-4">
+          <section className="z-[5] -mb-24 h-full w-full overflow-hidden rounded-b-[2.5rem] bg-primary">
+            <Numbers numbs={homeData?.numbs ?? []} sindex={3} eindex={6} />
+          </section>
+          <section className="z-[0] w-full">
             <VisMis
               image_alt_vm={aboutData?.image_alt_vm ?? ""}
               image_vm={aboutData?.image_vm ?? ""}
@@ -80,20 +82,15 @@ export default function AboutPage() {
               text_vm2={aboutData?.text_vm2 ?? ""}
             />
           </section>
-          <section className="w-full px-1">
+          <section className="z-[5] -mt-24 w-full overflow-hidden rounded-t-[2.5rem] bg-primary px-1">
             <Showreel video_name="about" />
           </section>
-          <section className="w-full">
-            <motion.h1
-              initial={{ x: -100, opacity: 0 }}
-              whileInView={{ x: 64, opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              viewport={{ once: true }}
-              className="z-[1] w-3/5 font-humane font-bold uppercase text-accent2 max-md:w-full max-md:text-center max-md:text-8xl lg:-mb-16 lg:text-max"
-            >
-              The values we <br />
+          <section className="relative flex flex-col items-start justify-start px-0 py-24 max-md:py-12">
+            <h1 className="ml-4 font-humane font-bold uppercase text-accent2 max-md:text-8xl lg:text-max">
+              the values we <br />
               admire and follow
-            </motion.h1>
+            </h1>
+
             <HorizontalScrollCarousel steps={aboutData?.values || []} />
           </section>
           <section className="w-full px-4">

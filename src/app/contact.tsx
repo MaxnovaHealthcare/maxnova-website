@@ -104,13 +104,13 @@ export default function ContactPage(props: ContactPageProps) {
         initial={{ scale: 0.95, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="relative flex h-full w-full flex-row-reverse items-center justify-between gap-32 rounded-3xl bg-accent2 p-16 py-24 text-primary max-md:h-fit max-md:flex-col-reverse max-md:gap-12 max-md:overflow-visible max-md:p-4 max-md:pt-8"
+        className="relative flex h-full w-full flex-row-reverse items-center justify-between gap-32 rounded-3xl bg-accent2 p-16 py-24 text-primary max-md:relative max-md:h-fit max-md:flex-col-reverse max-md:gap-12 max-md:overflow-visible max-md:p-4 max-md:pt-8"
       >
         <span
           onClick={onClick}
-          className="absolute top-12 flex h-10 w-10 cursor-pointer items-center justify-center rounded-3xl text-xl font-light max-md:right-4 max-md:top-4 lg:left-12"
+          className="top-4 right-4 absolute z-10 flex h-10 w-10 items-center justify-center rounded-full border border-primary text-min font-bold text-primary transition-all duration-150 hover:cursor-pointer hover:bg-accent3"
         >
-          x
+          ✕
         </span>
         <div className="flex h-full w-[35%] flex-col items-start justify-center gap-6 max-md:hidden">
           <div className="flex h-full w-full flex-col gap-4">

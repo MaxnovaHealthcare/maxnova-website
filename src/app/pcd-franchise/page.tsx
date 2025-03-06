@@ -106,7 +106,7 @@ export default function PCDFranchisePage() {
           className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-3xl bg-accent1 text-primary"
         >
           <Image
-            src={pcdData?.image_hero_pcd ?? "/image_alt_pcd"}
+            src={pcdData?.image_hero_pcd ?? ""}
             alt={pcdData?.image_alt_pcd ?? "image_alt_pcd"}
             fill
             quality={100}
