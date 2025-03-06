@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="flex items-center justify-center">
       <body
-        className={`font-helvetica ${inter.className} flex max-w-[1440px] flex-col items-center justify-center selection:bg-accent1`}
+        className={`font-helvetica ${inter.className} flex max-w-[1440px] flex-col items-center justify-center selection:bg-accent1 max-md:overflow-hidden`}
       >
         <ContactContextProvider>
           <Nav />

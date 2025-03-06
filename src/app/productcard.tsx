@@ -82,12 +82,21 @@ const ProductCard: React.FC<ProductCardProps> = ({
           onClick={() =>
             openModal({ name, subbrand, image, ingredients, usp, category })
           }
-          initial={{ y: isMobile ? -8 : 64, scale: isMobile ? 0.95 : 1 }}
+          initial={{ y: 64, scale: 1 }}
           variants={{
-            hover: isMobile ? { y: -8, scale: 0.9 } : { y: -8, scale: 0.95 },
+            hover: { y: -8, scale: 0.95 },
           }}
           transition={{ duration: 0.3, ease: "easeIn", delay: 0.1 }}
-          className={`absolute bottom-0 h-fit w-fit rounded-full border-2 border-primary bg-accent2 px-6 py-3 text-min font-medium capitalize text-primary max-md:text-sm`}
+          className={`absolute bottom-0 h-fit w-fit rounded-full border-2 border-primary bg-accent2 px-6 py-3 text-min font-medium capitalize text-primary max-md:hidden max-md:text-sm`}
+        >
+          View More
+        </motion.div>
+        <motion.div
+          onClick={() =>
+            openModal({ name, subbrand, image, ingredients, usp, category })
+          }
+          transition={{ duration: 0.3, ease: "easeIn", delay: 0.1 }}
+          className={`z-[1] absolute bottom-0 h-fit w-fit rounded-full border-2 border-primary bg-accent2 px-6 py-3 text-min font-medium capitalize text-primary mb-2 max-md:text-sm md:hidden`}
         >
           View More
         </motion.div>
