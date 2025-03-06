@@ -27,26 +27,24 @@ export default function RootLayout({
       >
         <PageLoader>
           <ContactContextProvider>
-            <div className="flex w-full flex-col items-center">
-              <Nav />
-              <Link
-                href="https://wa.me/+917082210621"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="fixed bottom-10 right-10 z-50 flex h-16 w-16 items-center justify-center"
-              >
-                <Image
-                  src={whastapp}
-                  alt="whatsapp"
-                  fill
-                  quality={100}
-                  priority
-                  className="h-full w-full"
-                />
-              </Link>
-              <main className="w-full">{children}</main>
-              <Footer />
-            </div>
+            <Nav />
+            <Link
+              href="https://wa.me/+917082210621"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="fixed bottom-10 right-10 z-50 flex h-16 w-16 items-center justify-center"
+            >
+              <Image
+                src={whastapp}
+                alt="whatsapp"
+                fill
+                quality={100}
+                priority
+                className="h-full w-full"
+              />
+            </Link>
+            {children}
+            <Footer />
           </ContactContextProvider>
         </PageLoader>
       </body>

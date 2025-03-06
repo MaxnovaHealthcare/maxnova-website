@@ -80,6 +80,7 @@ const CertificateCard = ({
         fill
         quality={100}
         className={`h-full w-full rounded-2xl object-cover ${isActive ? "z-10" : "z-0 blur-[2px]"}`}
+        loading="lazy"
       />
     </motion.div>
   </motion.div>
