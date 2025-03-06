@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function PageLoader({
   children,
@@ -12,6 +12,13 @@ export default function PageLoader({
   const [isLoading, setIsLoading] = useState(true);
   const [animationCompleted, setAnimationCompleted] = useState(false);
   const pathname = usePathname();
+
+  // Reset scroll position when loading is completed
+  useEffect(() => {
+    if (!isLoading && animationCompleted) {
+      window.scrollTo(0, 0);
+    }
+  }, [isLoading, animationCompleted]);
 
   useEffect(() => {
     const preloadImages = async () => {
@@ -45,7 +52,21 @@ export default function PageLoader({
     return () => clearTimeout(minLoadTime);
   }, [pathname]);
 
-  return isLoading || !animationCompleted ? <Loading /> : children;
+  return (
+    <>
+      <AnimatePresence mode="wait">
+        {isLoading || !animationCompleted ? <Loading key="loader" /> : null}
+      </AnimatePresence>
+      <div
+        style={{
+          display: isLoading || !animationCompleted ? "none" : "contents",
+          opacity: isLoading || !animationCompleted ? 0 : 1,
+        }}
+      >
+        {children}
+      </div>
+    </>
+  );
 }
 
 const loadingTexts = [
@@ -79,9 +100,9 @@ export function Loading() {
   return (
     <motion.div
       className="fixed inset-0 z-50 flex items-center justify-center bg-accent1 text-center font-humane text-6xl text-primary"
-      initial={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      exit={{ opacity: 0, transition: { duration: 0.5 } }}
     >
       <motion.div
         key={currentTextIndex}
