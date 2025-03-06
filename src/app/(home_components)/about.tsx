@@ -22,7 +22,6 @@ const AboutBrief: React.FC<AboutBriefProps> = ({
   subhead_about,
   text_about,
 }) => {
-  const about_heading = "Defining Maxnova's Our legacy";
   const ref1 = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref1,

@@ -101,7 +101,7 @@ function AnimatedText({ children, position, delay }) {
   );
 }
 
-const HeroSection = ({ head }) => {
+const HeroSection = () => {
   return (
     <section className="flex h-screen w-full overflow-visible">
       <div className="z-[1] h-screen w-full">

@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "next/navigation";
 
 import HeroSection from "./(home_components)/hero";
-import WhereQualtiy from "./(home_components)/quality";
+import WhereQuality from "./(home_components)/quality";
 import Showreel from "./(home_components)/showreel";
 import OtherServices from "./ourservices";
 import MarqueeEffect from "./marquee";
@@ -15,15 +15,48 @@ import Verticals from "./(home_components)/verticals";
 import AboutBrief from "./(home_components)/about";
 import Numbers from "./(home_components)/numbers";
 
-async function fetchData(url: string) {
-  const res = await fetch(url);
-  if (!res.ok) {
-    throw new Error(`Failed to fetch data from ${url}`);
+const fetchData = async (url: string) => {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Failed to fetch data from ${url}`);
+    return await res.json();
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
   }
-  return res.json();
-}
+};
 
-export default function HomePage() {
+const Hero = () => {
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" && window.innerWidth < 768,
+  );
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return (
+    <section className="w-full bg-accent1">
+      {isMobile ? (
+        <div className="relative flex h-[50vh] flex-col items-center justify-center overflow-hidden">
+          <video
+            className="h-auto w-full scale-[1.2] object-cover"
+            src={`/images/herosection.mp4`}
+            autoPlay
+            muted
+            playsInline
+          />
+        </div>
+      ) : (
+        <HeroSection />
+      )}
+    </section>
+  );
+};
+
+const HomePage = () => {
   const [homeData, setHomeData] = useState<{
     head_hero: string;
     subhead_about: string;
@@ -42,8 +75,6 @@ export default function HomePage() {
   } | null>(null);
 
   const [error, setError] = useState<string | null>(null);
-
-  // If the route changes and we have a hash like #verticals, we scroll to that section
   const params = useParams();
   const verticalsRef = useRef<HTMLElement | null>(null);
 
@@ -63,33 +94,24 @@ export default function HomePage() {
 
   useEffect(() => {
     const loadData = async () => {
-      try {
-        const data = await fetchData(
-          `${process.env.NEXT_PUBLIC_BACKEND_API}/api/utils/get-home`,
-        );
-        if (Array.isArray(data) && data.length > 0) {
-          setHomeData(data[0]);
-        }
-      } catch (err) {
-        console.error("Error fetching home data:", err);
+      const data = await fetchData(
+        `${process.env.NEXT_PUBLIC_BACKEND_API}/api/utils/get-home`,
+      );
+      if (data && Array.isArray(data) && data.length > 0) {
+        setHomeData(data[0]);
+      } else {
         setError("Failed to load home data");
       }
     };
-
     loadData();
   }, []);
 
-  if (error) {
-    return <div className="text-red-500">Error: {error}</div>;
-  }
-
-  if (!homeData) {
-    return <h1>Loading...</h1>;
-  }
+  if (error) return <div className="text-red-500">Error: {error}</div>;
+  if (!homeData) return <h1>Loading...</h1>;
 
   return (
     <main className="z-0 m-0 flex min-h-screen w-full flex-col bg-accent1">
-      <HeroSection head={homeData.head_hero} />
+      <Hero />
       <section className="h-fit w-full rounded-t-[4rem] bg-primary max-md:rounded-t-3xl">
         <AboutBrief
           subhead_about={homeData.subhead_about}
@@ -100,6 +122,7 @@ export default function HomePage() {
           image2_alt_about={homeData.image_alt_about2}
         />
       </section>
+
       <section className="w-full bg-primary">
         <Numbers numbs={homeData.numbs} sindex={0} eindex={3} />
       </section>
@@ -117,7 +140,7 @@ export default function HomePage() {
       </section>
 
       <section className="w-full bg-primary">
-        <WhereQualtiy
+        <WhereQuality
           subhead_quality={homeData.subhead_quality}
           text_quality={homeData.text_quality}
           image_quality={homeData.image_quality}
@@ -146,7 +169,7 @@ export default function HomePage() {
       </section>
     </main>
   );
-}
+};
 
 const testimonials = [
   {
@@ -160,21 +183,9 @@ const testimonials = [
     name: "Jane Doe",
     company: "Company B",
     testimonial:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl velodio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
-    image: "",
-  },
-  {
-    name: "John Doe",
-    company: "Company A",
-    testimonial:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel odio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
     image: "",
   },
-  {
-    name: "Jane Doe",
-    company: "Company B",
-    testimonial:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
-    image: "",
-  },
 ];
+
+export default HomePage;

@@ -5,6 +5,7 @@ import React from "react";
 import Nav from "./nav";
 import Footer from "./footer";
 import Image from "next/image";
+import HeroSection from "./(home_components)/hero.jsx";
 import {
   ContactContextProvider,
   useContactContext,
@@ -27,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="flex items-center justify-center">
       <body
-        className={`font-helvetica ${inter.className} flex max-w-[1440px] flex-col items-center justify-center selection:bg-accent1 max-md:overflow-hidden`}
+        className={`font-helvetica ${inter.className} flex w-screen min-w-[320px] max-w-[1440px] flex-col items-center justify-center overflow-x-hidden selection:bg-accent1`}
       >
         <ContactContextProvider>
           <Nav />

@@ -71,12 +71,10 @@ export default function Nav() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isMenuOpen, isVerticalsOpen]);
-
-  // Fixed order of navigation links
   const navLinks = [
     { href: "/", label: "HOME" },
     { href: "/about", label: "ABOUT" },
-    { type: "verticals" }, // Placeholder for verticals dropdown
+    { type: "verticals" },
     { href: "/pcd-franchise", label: "PCD FRANCHISE" },
     { href: "/private-label", label: "PRIVATE LABEL" },
     { href: "/custom-formulations", label: "CUSTOM FORMULATIONS" },
@@ -96,9 +94,9 @@ export default function Nav() {
           <Image src={hamicon} alt="" className="h-6 w-6" />
         </button>
         <div
-          className={`flex-1 items-center justify-between md:flex ${
+          className={`flex-1 items-center justify-between max-md:flex-col max-md:justify-start max-md:gap-6 max-md:text-center max-md:text-xl md:flex ${
             isMenuOpen
-              ? "absolute left-0 right-0 top-full flex bg-primary p-4 shadow-lg"
+              ? "absolute left-0 right-0 top-16 flex h-fit bg-primary p-4 shadow-lg max-md:p-12"
               : "hidden"
           }`}
         >
@@ -106,7 +104,7 @@ export default function Nav() {
             {navLinks.map((link, index) => {
               if (link.type === "verticals") {
                 return (
-                  <li key="verticals" className="relative">
+                  <li key="verticals" className="relative flex max-md:flex-col">
                     <button
                       className="verticals-button flex items-center gap-1 transition-colors hover:text-accent2"
                       onClick={() => setIsVerticalsOpen(!isVerticalsOpen)}
@@ -126,7 +124,7 @@ export default function Nav() {
                       </svg>
                     </button>
                     {isVerticalsOpen && (
-                      <ul className="verticals-menu absolute left-0 mt-[1.75rem] w-48 rounded-lg border-[#97bbd16e] bg-primary py-2 shadow-lg">
+                      <ul className="verticals-menu absolute left-0 mt-[1.75rem] w-48 rounded-lg border-[#97bbd16e] bg-primary py-2 shadow-lg max-md:relative">
                         {isLoading && (
                           <li className="px-4 py-2 text-gray-500">
                             Loading...
