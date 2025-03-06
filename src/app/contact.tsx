@@ -75,7 +75,6 @@ export default function ContactPage(props: ContactPageProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
     try {
       const response = await fetch("./send-whatsapp-message", {
         method: "POST",
@@ -86,7 +85,7 @@ export default function ContactPage(props: ContactPageProps) {
       });
 
       const result = await response.json();
-      console.log(result);
+
       if (response.ok) {
         alert("Your message was sent successfully!");
       } else {
@@ -111,13 +110,13 @@ export default function ContactPage(props: ContactPageProps) {
           onClick={onClick}
           className="absolute top-12 flex h-10 w-10 cursor-pointer items-center justify-center rounded-3xl text-xl font-light max-md:right-4 max-md:top-4 lg:left-12"
         >
-          ←
+          x
         </span>
         <div className="flex h-full w-[35%] flex-col items-start justify-center gap-6 max-md:hidden">
           <div className="flex h-full w-full flex-col gap-4">
             <h1 className="text-min font-semibold">Contact Us</h1>
-            <h1 className="font-humane font-bold text-primary max-md:text-8xl lg:text-max">
-              WHERE DO WE START?
+            <h1 className="text-pretty font-humane font-bold uppercase text-primary max-md:text-8xl lg:text-max">
+              Get in touch
             </h1>
           </div>
           {contactInfo.map((info, index) => (
@@ -150,9 +149,7 @@ export default function ContactPage(props: ContactPageProps) {
               ? `${data.company_name} > ${data.category_name} > ${data.name}`
               : `General Form`}
           </div>
-          <h1 className="text-subhead font-semibold">
-            {`Let us know why you're getting in touch.`}
-          </h1>
+          <h1 className="text-subhead max-md:text-xl">{`Let us know about your query!`}</h1>
           <form
             className="col-span-2 grid w-full grid-cols-2 gap-8 max-md:grid-cols-1"
             onSubmit={handleSubmit}

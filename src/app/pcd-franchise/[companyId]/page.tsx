@@ -7,7 +7,6 @@ import ProductOverview from "../../product-overview";
 import Image from "next/image";
 import { Download } from "lucide-react";
 
-// Fetch Data Function
 const fetchData = async (url: string) => {
   try {
     const res = await fetch(url);
@@ -66,15 +65,13 @@ export default function PCDFranchisePage() {
     <main className="bg-prim z-0 flex min-h-screen w-full snap-y flex-col">
       <section className="relative flex h-screen min-h-screen w-full flex-col items-center justify-center overflow-hidden p-12 px-6 lg:mt-10 lg:p-12">
         <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-3xl bg-accent1">
-          <h1 className="text-center font-humane font-bold uppercase max-md:text-8xl lg:text-max">
-            {companyData?.name}
-          </h1>
-          <div className="absolute left-1/2 top-1/2 h-fit w-fit max-w-[50%]">
+          <div className="absolute aspect-square h-auto w-[32rem] overflow-visible">
             <Image
               src={companyData?.image ?? ""}
-              alt=""
+              alt={companyData?.name}
               fill
-              className="object-cover"
+              quality={100}
+              className="object-contain"
             />
           </div>
         </div>

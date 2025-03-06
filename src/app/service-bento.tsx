@@ -98,10 +98,10 @@ export default function ServiceBento() {
   }
 
   return (
-    <section className="grid h-fit min-h-[70rem] w-full grid-cols-4 grid-rows-3 items-center justify-center gap-[1rem] px-12">
-      <div className="relative col-span-2 row-span-2 h-full w-full overflow-hidden rounded-2xl border px-4 py-8">
-        <h1 className="z-[1] font-humane text-max font-bold text-primary">
-          WE HAVE R&D FEATURED APPROACH
+    <section className="grid h-fit w-full grid-cols-4 items-center justify-center gap-[1rem] px-6 max-md:w-full max-md:grid-cols-2 max-md:gap-2 max-md:p-0">
+      <div className="relative col-span-2 row-span-2 h-full min-h-[42rem] w-full overflow-hidden rounded-2xl border px-4 py-8 max-md:row-span-1 max-md:h-[32rem]">
+        <h1 className="z-[1] font-humane text-max font-bold uppercase text-primary max-md:text-8xl max-md:leading-[0.9]">
+          Driven by Resilient R&D approach
         </h1>
         {bentoData?.box1_image.endsWith(".svg") ? (
           <img
@@ -113,6 +113,7 @@ export default function ServiceBento() {
           <Image
             src={bentoData?.box1_image || ""}
             fill
+            quality={100}
             className="z-[-1] h-full w-full object-cover brightness-90 filter"
             unoptimized
             alt="box1_image"
@@ -122,7 +123,7 @@ export default function ServiceBento() {
       {verticals.map((vertical) => (
         <div
           key={vertical._id}
-          className="relative col-span-1 row-span-1 flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl border bg-accent1 px-4 py-8 text-accent2"
+          className="relative col-span-1 row-span-1 flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl border bg-accent1 px-4 py-8 text-accent2 max-md:h-[20rem] max-md:px-2 max-md:py-4"
         >
           <div className="relative flex h-fit w-full items-center justify-between">
             <div className="relative h-[2.5rem] w-[2.5rem] overflow-hidden">
@@ -151,7 +152,7 @@ export default function ServiceBento() {
           </div>
         </div>
       ))}
-      <div className="relative col-span-1 row-span-1 flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl border bg-accent1 px-4 py-8 text-accent2">
+      <div className="relative col-span-1 row-span-1 flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl border bg-accent1 px-4 py-8 text-accent2 max-md:h-[20rem] max-md:px-2 max-md:py-4">
         <div className="relative flex h-fit w-full items-center justify-start">
           <div className="relative h-[2.5rem] w-[2.5rem] overflow-hidden">
             {bentoData?.value1_image.endsWith(".svg") ? (
@@ -178,7 +179,7 @@ export default function ServiceBento() {
           <p className="text-min leading-[1.1]">{bentoData?.value1_desc}.</p>
         </div>
       </div>
-      <div className="relative col-span-1 row-span-1 flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl border bg-accent1 px-4 py-8 text-accent2">
+      <div className="relative col-span-1 row-span-1 flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl border bg-accent1 px-4 py-8 text-accent2 max-md:h-[20rem] max-md:px-2 max-md:py-4">
         <div className="relative flex h-fit w-full items-center justify-start">
           <div className="relative h-[2.5rem] w-[2.5rem] overflow-hidden">
             {bentoData?.value2_image.endsWith(".svg") ? (
@@ -205,7 +206,7 @@ export default function ServiceBento() {
           <p className="text-min leading-[1.1]">{bentoData?.value2_desc}.</p>
         </div>
       </div>
-      <div className="relative col-span-2 row-span-1 flex h-full w-full items-center justify-between gap-4 overflow-hidden rounded-2xl border bg-accent2 p-4">
+      <div className="relative col-span-2 row-span-1 flex h-full min-h-[20.5rem] w-full items-center justify-between gap-4 overflow-hidden rounded-2xl border bg-accent2 p-4 max-md:h-[32rem] max-md:flex-col-reverse">
         <div className="flex h-full w-full flex-col items-start justify-between p-0">
           <div className="flex h-fit w-full flex-col items-start justify-between gap-0">
             <p className="text-para text-primary">Let&apos;s Connect</p>
@@ -225,7 +226,7 @@ export default function ServiceBento() {
             <img
               src={bentoData?.contact_image}
               alt="contact_image"
-              className="h-full w-full object-contain"
+              className="h-full w-full object-cover"
             />
           ) : (
             <Image
@@ -233,6 +234,7 @@ export default function ServiceBento() {
               fill
               unoptimized
               alt="contact_image"
+              className="h-full w-full object-cover"
             />
           )}
         </div>

@@ -57,6 +57,7 @@ const ProductOverview = () => {
                 src={product.image ?? ""}
                 alt={product.name}
                 fill
+                quality={100}
                 className="h-full w-full rounded-2xl object-cover"
               />
             </div>

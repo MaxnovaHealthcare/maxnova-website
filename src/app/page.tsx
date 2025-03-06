@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import HeroSection from "./(home_components)/hero.jsx";
+import { useParams } from "next/navigation";
+
+import HeroSection from "./(home_components)/hero";
 import WhereQualtiy from "./(home_components)/quality";
 import Showreel from "./(home_components)/showreel";
-import { useParams } from "next/navigation";
 import OtherServices from "./ourservices";
 import MarqueeEffect from "./marquee";
 import Testimonial from "./(home_components)/testimonial";
@@ -17,13 +18,13 @@ import Numbers from "./(home_components)/numbers";
 async function fetchData(url: string) {
   const res = await fetch(url);
   if (!res.ok) {
-    throw new Error("Failed to fetch data");
+    throw new Error(`Failed to fetch data from ${url}`);
   }
   return res.json();
 }
 
 export default function HomePage() {
-  const [homedata, sethomeData] = useState<{
+  const [homeData, setHomeData] = useState<{
     head_hero: string;
     subhead_about: string;
     text_about: string;
@@ -40,9 +41,9 @@ export default function HomePage() {
     numbs: any[];
   } | null>(null);
 
-  const [services, setServices] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
 
+  // If the route changes and we have a hash like #verticals, we scroll to that section
   const params = useParams();
   const verticalsRef = useRef<HTMLElement | null>(null);
 
@@ -59,118 +60,89 @@ export default function HomePage() {
       }, 750);
     }
   }, [params]);
+
   useEffect(() => {
-    const loadAllData = async () => {
+    const loadData = async () => {
       try {
-        const homeDataRes = await fetchData(
+        const data = await fetchData(
           `${process.env.NEXT_PUBLIC_BACKEND_API}/api/utils/get-home`,
         );
-
-        if (homeDataRes.length > 0) {
-          sethomeData(homeDataRes[0]);
+        if (Array.isArray(data) && data.length > 0) {
+          setHomeData(data[0]);
         }
-
-        const [pcdRes, pvtRes, customRes] = await Promise.all([
-          fetchData(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/utils/get-pcd`),
-          fetchData(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/utils/get-pvt`),
-          fetchData(
-            `${process.env.NEXT_PUBLIC_BACKEND_API}/api/utils/get-custom`,
-          ),
-        ]);
-
-        const transformedServices = [
-          {
-            key: "pcd-franchise",
-            title: "PCD Franchise",
-            text: pcdRes[0]?.text_pcd || "Default PCD text.",
-            image: pcdRes[0]?.image_pcd || "",
-            imageAlt: pcdRes[0]?.image_alt_pcd || "PCD Franchise",
-            href: "/pcd-franchise",
-          },
-          {
-            key: "private-label",
-            title: "Private Label",
-            text: pvtRes[0]?.text_pvt || "Default Private Label text.",
-            image: pvtRes[0]?.image_pvt || "",
-            imageAlt: pvtRes[0]?.image_alt_pvt || "Private Label",
-            href: "/private-label",
-          },
-          {
-            key: "custom-formulations",
-            title: "Custom Formulations",
-            text:
-              customRes[0]?.text_custom || "Default Custom Formulations text.",
-            image: customRes[0]?.image_custom || "",
-            imageAlt: customRes[0]?.image_alt_custom || "Custom Formulations",
-            href: "/custom-formulations",
-          },
-        ];
-
-        setServices(transformedServices);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err) {
+        console.error("Error fetching home data:", err);
+        setError("Failed to load home data");
       }
     };
 
-    loadAllData();
+    loadData();
   }, []);
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="text-red-500">Error: {error}</div>;
   }
 
-  if (!homedata || !services.length) {
-    return <h1>Loading</h1>;
+  if (!homeData) {
+    return <h1>Loading...</h1>;
   }
 
   return (
-    <main className="z-0 m-0 flex min-h-screen w-full snap-y flex-col bg-accent1">
-      <HeroSection head={homedata.head_hero} />
-      <section className="w-full rounded-t-[4rem] bg-primary max-md:rounded-3xl">
+    <main className="z-0 m-0 flex min-h-screen w-full flex-col bg-accent1">
+      <HeroSection head={homeData.head_hero} />
+      <section className="h-fit w-full rounded-t-[4rem] bg-primary max-md:rounded-t-3xl">
         <AboutBrief
-          subhead_about={homedata.subhead_about}
-          text_about={homedata.text_about}
-          image1_about={homedata.image_about1}
-          image1_alt_about={homedata.image_alt_about1}
-          image2_about={homedata.image_about2}
-          image2_alt_about={homedata.image_alt_about2}
+          subhead_about={homeData.subhead_about}
+          text_about={homeData.text_about}
+          image1_about={homeData.image_about1}
+          image1_alt_about={homeData.image_alt_about1}
+          image2_about={homeData.image_about2}
+          image2_alt_about={homeData.image_alt_about2}
         />
       </section>
       <section className="w-full bg-primary">
-        <Numbers numbs={homedata.numbs} sindex={0} eindex={3} />
+        <Numbers numbs={homeData.numbs} sindex={0} eindex={3} />
       </section>
-      <section id="verticals" className="w-full bg-primary">
+
+      <section id="verticals" className="w-full bg-primary" ref={verticalsRef}>
         <Verticals />
       </section>
-      <section className="w-full bg-primary px-4">
-        <Showreel height={"90vh"} />
+
+      <section className="w-full bg-primary">
+        <Showreel video_name="home" />
       </section>
+
       <section className="w-full bg-primary">
         <OtherServices />
       </section>
+
       <section className="w-full bg-primary">
         <WhereQualtiy
-          subhead_quality={homedata.subhead_quality}
-          text_quality={homedata.text_quality}
-          image_quality={homedata.image_quality}
-          image_alt_quality={homedata.image_alt_quality}
+          subhead_quality={homeData.subhead_quality}
+          text_quality={homeData.text_quality}
+          image_quality={homeData.image_quality}
+          image_alt_quality={homeData.image_alt_quality}
         />
       </section>
+
       <section className="w-full bg-accent2 text-primary">
         <MarqueeEffect>
-          <h1 className="mt-4 font-humane text-9xl font-bold uppercase">
-            {homedata.slogan}
+          <h1 className="mt-4 font-humane text-9xl font-bold uppercase max-md:mt-2 max-md:text-7xl max-md:font-medium">
+            {homeData.slogan}
           </h1>
         </MarqueeEffect>
       </section>
-      <section className="w-full bg-primary px-4">
+
+      <section className="w-full bg-primary px-4 py-12">
         <Certification />
       </section>
+
       <section className="w-full bg-primary px-4">
         <Testimonial testimonials={testimonials} />
       </section>
+
       <section className="w-full bg-primary px-4">
-        <FaqSection faqs={homedata.faqs} />
+        <FaqSection faqs={homeData.faqs} />
       </section>
     </main>
   );

@@ -16,7 +16,6 @@ export default function HorizontalScrollCarousel({
   steps,
 }: HorizontalScrollCarouselProps) {
   const targetRef = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress } = useScroll({ target: targetRef });
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -32,6 +31,10 @@ export default function HorizontalScrollCarousel({
     };
   }, []);
 
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start start", "end end"],
+  });
   const x1 = useTransform(
     scrollYProgress,
     [0, 1],
@@ -42,7 +45,6 @@ export default function HorizontalScrollCarousel({
     [0, 1],
     ["2.5%", `-${steps.length * 12.5}%`],
   );
-
   const x = isMobile ? x2 : x1;
 
   const sectionHeight = `${Math.pow(steps.length + 2, 3)}rem`;
@@ -61,19 +63,19 @@ export default function HorizontalScrollCarousel({
           {steps.map((card, index) => (
             <div
               key={index}
-              className="flex h-[40rem] w-[28rem] flex-col items-start justify-between overflow-hidden rounded-3xl border border-accent1 p-6 max-md:min-h-[36rem] max-md:w-[95vw]"
+              className="flex aspect-[3/5] w-[28rem] flex-col items-start justify-between overflow-hidden rounded-3xl border border-accent1 p-6 max-md:w-[24rem]"
             >
               <div className="flex h-fit w-full flex-col items-start justify-start">
-                <p className="font-humane text-[3rem] uppercase">
+                <p className="font-humane text-[3rem] uppercase max-md:text-4xl">
                   {index < 9 ? "0" : ""}
                   {index + 1}
                 </p>
-                <p className="font-humane text-8xl font-medium uppercase">
+                <p className="font-humane text-8xl font-medium uppercase max-md:text-7xl">
                   {card.head}
                 </p>
               </div>
               <div className="flex w-full flex-col items-start justify-start gap-2">
-                <p className="text-[1.1rem] text-para max-md:text-3xl">
+                <p className="text-para max-md:text-min">
                   {card.text.split("*").map((text: string, index: number) => (
                     <span key={index} className="flex flex-col gap-5">
                       {index === 0 ? (

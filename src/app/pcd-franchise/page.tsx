@@ -29,8 +29,9 @@ async function getData() {
 
 export default function PCDFranchisePage() {
   const [data, setData] = useState(null);
-  const [pcddata, setpcdData] = useState<{
+  const [pcdData, setpcdData] = useState<{
     head_pcd: string;
+    text_pcd: string;
     image_hero_pcd: string;
     image_pcd: string;
     image_alt_pcd: string;
@@ -48,12 +49,12 @@ export default function PCDFranchisePage() {
   }, []);
 
   const spaceIndex =
-    pcddata?.head_pcd.lastIndexOf(
+    pcdData?.head_pcd.lastIndexOf(
       " ",
-      Math.floor(pcddata.head_pcd.length / 2),
+      Math.floor(pcdData.head_pcd.length / 2),
     ) ?? 0;
-  const firstPart = pcddata?.head_pcd?.slice(0, spaceIndex);
-  const secondPart = pcddata?.head_pcd.slice(spaceIndex + 1);
+  const firstPart = pcdData?.head_pcd?.slice(0, spaceIndex);
+  const secondPart = pcdData?.head_pcd.slice(spaceIndex + 1);
 
   useEffect(() => {
     getData()
@@ -86,13 +87,14 @@ export default function PCDFranchisePage() {
   const y1 = useTransform(
     scrollYProgress,
     [0, 1],
-    getWindowWidth() < 768 ? [0, 1] : [-100, 200],
+    getWindowWidth() < 768 ? [0, 1] : [100, -200],
   );
   const y2 = useTransform(
     scrollYProgress,
     [0, 1],
-    getWindowWidth() < 768 ? [0, 1] : [100, -200],
+    getWindowWidth() < 768 ? [0, 1] : [-100, 200],
   );
+
   return (
     <main className="bg-prim z-0 flex min-h-screen w-full snap-y flex-col">
       <section className="flex h-screen min-h-screen w-full flex-col items-center justify-center p-12 px-6 max-md:mt-16 max-md:min-h-[75vh] max-md:p-4 lg:mt-10">
@@ -104,9 +106,10 @@ export default function PCDFranchisePage() {
           className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-3xl bg-accent1 text-primary"
         >
           <Image
-            src={pcddata?.image_hero_pcd ?? "/image_alt_pcd"}
-            alt={pcddata?.image_alt_pcd ?? "image_alt_pcd"}
+            src={pcdData?.image_hero_pcd ?? "/image_alt_pcd"}
+            alt={pcdData?.image_alt_pcd ?? "image_alt_pcd"}
             fill
+            quality={100}
             className="absolute left-0 top-0 z-0 border-none object-cover brightness-90 filter"
           />
           <motion.h1
@@ -116,7 +119,7 @@ export default function PCDFranchisePage() {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.5 }}
             viewport={{ once: true }}
-            className="w-fit font-humane font-bold uppercase max-md:text-8xl lg:text-max"
+            className="w-fit text-center font-humane font-bold uppercase max-md:text-8xl max-md:leading-[0.9] lg:text-max"
           >
             {firstPart}
           </motion.h1>
@@ -127,10 +130,35 @@ export default function PCDFranchisePage() {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.5 }}
             viewport={{ once: true }}
-            className="w-fit font-humane font-bold uppercase max-md:text-8xl lg:text-max"
+            className="w-fit text-center font-humane font-bold uppercase max-md:text-8xl max-md:leading-[0.9] lg:text-max"
           >
             {secondPart}
           </motion.h1>
+        </motion.div>
+      </section>
+      <section className="mt-6 flex flex-col items-start justify-center px-0 py-24 max-md:py-12">
+        <motion.div
+          initial={{ y: -100, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+          viewport={{ once: true }}
+          className="z-[1] flex w-full flex-col items-center justify-center gap-4 max-md:px-4"
+        >
+          <h1 className="text-center font-humane font-bold uppercase max-md:text-8xl lg:text-max">
+            PCD Franchise : grow with us
+          </h1>
+          <p className="w-4/5 text-center text-para max-md:w-full">
+            {!pcdData?.text_pcd
+              ? "this is about"
+              : pcdData?.text_pcd.split("|").map((para, index) => (
+                  <React.Fragment key={index}>
+                    {para}
+                    <br />
+                    <br />
+                  </React.Fragment>
+                ))}
+          </p>
+          <CTAButtons cta="../contact" text="enquire now" />
         </motion.div>
       </section>
       <section className="flex h-full min-h-screen w-full flex-col items-center justify-center gap-24 overflow-hidden p-12 max-md:gap-12 max-md:p-4 md:py-36">
@@ -232,7 +260,7 @@ function BrandsCards({
       <div className="relative flex h-[90%] w-full items-center justify-center py-6">
         <img
           src={image}
-          alt={desc}
+          alt={naam}
           className="h-auto max-h-[90%] w-auto object-cover"
         />
       </div>

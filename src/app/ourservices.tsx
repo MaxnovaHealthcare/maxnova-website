@@ -4,7 +4,6 @@ import React, { useEffect, useState, useMemo, useRef } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, useScroll, useTransform } from "framer-motion";
-import Link from "next/link";
 import CTAButtons from "./buttons";
 
 async function fetchData(url: string) {
@@ -52,15 +51,6 @@ export default function OtherServices() {
 
         const transformedServices = [
           {
-            key: "pcd-franchise",
-            title: "PCD Franchise",
-            text: pcdRes[0]?.text_pcd || "Default PCD text.",
-            slogan: pcdRes[0]?.slogan || "Default PCD slogan.",
-            image: pcdRes[0]?.image_pcd || "",
-            imageAlt: pcdRes[0]?.image_alt_pcd || "PCD Franchise",
-            href: "/pcd-franchise",
-          },
-          {
             key: "private-label",
             title: "Private Label",
             text: pvtRes[0]?.text_pvt || "Default Private Label text.",
@@ -80,6 +70,15 @@ export default function OtherServices() {
             imageAlt: customRes[0]?.image_alt_custom || "Custom Formulations",
             href: "/custom-formulations",
           },
+          {
+            key: "pcd-franchise",
+            title: "PCD Franchise",
+            text: pcdRes[0]?.text_pcd || "Default PCD text.",
+            slogan: pcdRes[0]?.slogan || "Default PCD slogan.",
+            image: pcdRes[0]?.image_pcd || "",
+            imageAlt: pcdRes[0]?.image_alt_pcd || "PCD Franchise",
+            href: "/pcd-franchise",
+          },
         ];
 
         setServices(transformedServices);
@@ -96,22 +95,25 @@ export default function OtherServices() {
   }
 
   return (
-    <section className="relative flex h-fit w-full flex-col gap-12 p-12 py-36 max-md:p-4 max-md:px-0 lg:px-10">
+    <section className="relative flex h-fit w-full flex-col gap-12 p-12 py-36 max-md:px-0 max-md:py-24">
       <div className="flex items-center justify-center gap-4">
         <motion.h1
           ref={ref}
           style={{ y: y1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.5, duration: 0.5, ease: "linear" }}
+          transition={{ duration: 0.5, ease: "linear" }}
           className="w-1/2 text-center font-humane text-max font-bold uppercase text-accent2 max-md:w-full max-md:text-center max-md:text-8xl"
         >
-          VIEW OUR <br /> SERVICES
+          OUR <br /> SERVICES
         </motion.h1>
       </div>
-      <motion.div className="grid w-full grid-cols-3 items-center justify-center max-md:w-full max-md:flex-col">
+      <motion.div className="grid w-full grid-cols-3 items-center justify-center max-md:w-full max-md:grid-cols-1 max-md:gap-4 max-md:px-4">
         {filteredServices.map(
           ({ title, image, imageAlt, text, slogan }: any) => (
-            <div key={title} className="flex items-center justify-center">
+            <div
+              key={title}
+              className="flex h-fit w-full items-center justify-center"
+            >
               <ServiceSections
                 href={`../${title.toLowerCase().replace(/ /g, "-")}`}
                 heading={title}
@@ -156,17 +158,16 @@ const ServiceSections = ({
 
   const [first, second] = splitSlogan(slogan);
   return (
-    <div className="relative flex h-[36rem] w-[24rem] items-center justify-center overflow-hidden rounded-3xl">
+    <div className="relative flex aspect-[2/3] w-[24rem] items-center justify-center overflow-hidden rounded-3xl max-md:w-full">
       <Image
         src={image || "/default-image.jpg"}
         alt={imageAlt || "Default Alt Text"}
         width={320}
         height={200}
-        className="h-full w-full rounded-3xl object-cover brightness-[0.8] filter"
+        className="h-full w-full rounded-3xl object-cover"
       />
-      <div className="absolute z-[1] flex h-full w-full flex-col items-center justify-between p-6 py-16 text-primary">
-        <h1 className="text-para font-semibold">{heading}</h1>
-        <p className="text-center font-humane text-[7.5rem] font-normal uppercase leading-[0.9]">
+      <div className="absolute z-[1] flex h-full w-full flex-col items-center justify-between p-6 py-8 text-primary max-md:p-6">
+        <p className="text-center font-humane text-[5rem] font-medium uppercase leading-[0.9]">
           {first}
           <br />
           {second}

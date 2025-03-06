@@ -9,53 +9,50 @@ interface NumbersProps {
   eindex: number;
 }
 
-const Numbers = ({ numbs, sindex, eindex }: NumbersProps) => {
-  const ref1 = useRef(null);
+const Numbers: React.FC<NumbersProps> = ({ numbs, sindex, eindex }) => {
+  const ref1 = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: ref1,
     offset: ["start end", "end start"],
   });
-  const x1 = useTransform(scrollYProgress, [1, 0], [-100, 100]);
-  const x2 = useTransform(scrollYProgress, [1, 0], [100, -100]);
+
+  const x1 = useTransform(scrollYProgress, [1, 0], [-75, 75]);
+  const x2 = useTransform(scrollYProgress, [1, 0], [75, -75]);
 
   const heading = "Our Numbers Reflect Our Success";
-  const spaceIndex =
-    heading.lastIndexOf(" ", Math.floor(heading.length / 2)) ?? 0;
-  const firstPart = heading.slice(0, spaceIndex);
-  const secondPart = heading.slice(spaceIndex + 1);
+  const middleIndex = Math.ceil(heading.split(" ").length / 2);
+  const firstPart = heading.split(" ").slice(0, middleIndex).join(" ");
+  const secondPart = heading.split(" ").slice(middleIndex).join(" ");
+
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    if (!ref1.current) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
+          observer.disconnect();
         }
       },
-      { threshold: 0.1 },
+      { threshold: 0.2 },
     );
 
-    const currentRef = ref1.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
+    observer.observe(ref1.current);
 
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
     <section
       ref={ref1}
-      className="flex w-full flex-col items-center justify-start gap-12 p-12 max-md:m-0 max-md:h-fit max-md:flex-col max-md:px-0 max-md:py-24 lg:px-10"
+      className="flex w-full flex-col items-center justify-start gap-12 p-12 max-md:m-0 max-md:h-fit max-md:flex-col max-md:px-4 max-md:py-24"
     >
       <div className="flex w-full flex-col items-center justify-center gap-0 text-accent2">
         <motion.h1
           style={{ x: x1 }}
-          className="w-fit text-center font-humane font-bold uppercase max-md:text-8xl lg:text-max"
+          className="w-fit text-nowrap text-center font-humane font-bold uppercase max-md:text-8xl lg:text-max"
         >
           {firstPart}
         </motion.h1>
@@ -66,16 +63,19 @@ const Numbers = ({ numbs, sindex, eindex }: NumbersProps) => {
           {secondPart}
         </motion.h1>
       </div>
-      <div className="grid w-full grid-cols-3 items-center justify-between gap-11">
+
+      <div className="grid w-full grid-cols-3 items-center justify-between gap-11 max-md:grid-cols-2 max-md:gap-4">
         {numbs.slice(sindex, eindex).map((num, i) => (
           <div
             key={i}
             className="flex w-full flex-col items-center justify-center rounded-2xl border border-accent2 px-4 py-8 text-accent2"
           >
-            <h1 className="font-humane text-max font-bold">
+            <h1 className="font-humane text-max font-bold max-md:text-[5rem] max-md:leading-[1]">
               {visible ? <CountUp to={num.numb} /> : 0}
             </h1>
-            <p className="text-subhead font-semibold">{num.head}</p>
+            <p className="text-subhead font-semibold max-md:text-xl max-md:font-normal">
+              {num.head}
+            </p>
           </div>
         ))}
       </div>
@@ -87,21 +87,22 @@ const CountUp: React.FC<{ to: number }> = ({ to }) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    let start = 0;
-    const duration = 2000;
-    const increment = to / (duration / 25);
+    let startTime: number | null = null;
 
-    const interval = setInterval(() => {
-      start += increment;
-      if (start >= to) {
-        setCount(to);
-        clearInterval(interval);
-      } else {
-        setCount(Math.ceil(start));
+    const animate = (currentTime: number) => {
+      if (!startTime) startTime = currentTime;
+      const elapsedTime = currentTime - startTime;
+      const duration = 2000;
+      const progress = Math.min(elapsedTime / duration, 1);
+
+      setCount(Math.floor(progress * to));
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
       }
-    }, 30);
+    };
 
-    return () => clearInterval(interval);
+    requestAnimationFrame(animate);
   }, [to]);
 
   return <>{count}</>;

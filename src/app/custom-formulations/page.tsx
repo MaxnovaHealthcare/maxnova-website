@@ -51,8 +51,6 @@ export default function CustomFormulationsPage() {
     fetchData();
   }, []);
 
-  console.log(custData);
-
   const ref1 = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref1,
@@ -63,7 +61,7 @@ export default function CustomFormulationsPage() {
   const spaceIndex =
     custData?.head_custom.lastIndexOf(
       " ",
-      Math.floor(custData.head_custom.length / 2),
+      Math.floor(custData.head_custom.length / 2 + 1),
     ) ?? 0;
   const firstPart = custData?.head_custom.slice(0, spaceIndex);
   const secondPart = custData?.head_custom.slice(spaceIndex + 1);
@@ -89,7 +87,7 @@ export default function CustomFormulationsPage() {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.5 }}
             viewport={{ once: true }}
-            className="z-[1] w-fit font-humane font-bold uppercase max-md:text-8xl lg:text-max"
+            className="z-[1] w-fit text-center font-humane font-bold uppercase max-md:text-8xl lg:text-max"
           >
             {firstPart}
           </motion.h1>
@@ -100,7 +98,7 @@ export default function CustomFormulationsPage() {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.5 }}
             viewport={{ once: true }}
-            className="z-[1] w-fit font-humane font-bold uppercase max-md:text-8xl lg:text-max"
+            className="z-[1] w-fit text-center font-humane font-bold uppercase max-md:text-8xl lg:text-max"
           >
             {secondPart}
           </motion.h1>
@@ -108,12 +106,13 @@ export default function CustomFormulationsPage() {
             src={custData?.image_hero_custom || ""}
             alt={custData?.image_alt_custom || ""}
             fill
+            quality={100}
             className="absolute top-0 z-0 object-cover brightness-90 filter"
           />
         </motion.div>
       </section>
 
-      <section className="mt-6 flex min-h-screen flex-col items-start justify-start p-12 px-0">
+      <section className="mt-6 flex min-h-screen flex-col items-start justify-start px-0 py-24 max-md:py-12">
         <motion.div
           initial={{ y: -100, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
@@ -121,10 +120,10 @@ export default function CustomFormulationsPage() {
           viewport={{ once: true }}
           className="z-[1] flex w-full flex-col items-center justify-center gap-4 max-md:px-4"
         >
-          <h1 className="text-center font-humane font-bold max-md:text-8xl lg:text-max">
-            HOW DOES IT WORK?
+          <h1 className="text-center font-humane font-bold uppercase text-accent2 max-md:text-8xl lg:text-max">
+            Precision crafted products
           </h1>
-          <p className="w-3/5 text-center text-para">
+          <p className="w-4/5 text-center text-para max-md:w-full">
             {!custData?.text_custom
               ? "this is about"
               : custData?.text_custom.split("|").map((para, index) => (

@@ -4,38 +4,39 @@ import React, { useRef } from "react";
 import { motion, useTransform, useScroll } from "framer-motion";
 
 interface ShowreelProps {
-  height: string;
+  video_name: string;
+  link?: string;
 }
 
-export default function Showreel({ height }: ShowreelProps) {
-  const showreelRef = useRef(null);
-
+const Showreel: React.FC<ShowreelProps> = ({ video_name }) => {
+  const showreelRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: showreelRef,
     offset: ["start end", "end start"],
   });
 
-  const size = useTransform(scrollYProgress, [-0.75, 0.25], ["50%", "100%"]);
+  const size = useTransform(scrollYProgress, [-0.5, 0.25], ["50%", "100%"]);
 
   return (
     <section
-      className="my-24 flex w-full flex-col items-center justify-center max-lg:px-10 max-md:p-4 max-md:px-0"
-      style={{ height: `${height}` }}
+      className={`flex w-full flex-col items-center justify-center py-24 max-md:w-full max-md:px-0 max-md:py-12`}
     >
       <motion.div
         ref={showreelRef}
-        className="relative flex items-center justify-center overflow-hidden rounded-3xl bg-secondary text-accent3"
+        className="relative flex items-center justify-center overflow-hidden rounded-3xl bg-secondary text-accent3 max-md:rounded-lg"
         style={{ width: size, height: size }}
       >
-        {/* <video
+        <video
           className="h-auto w-full object-cover"
-          src={"./images/showreel.mov"}
+          src={`/images/${video_name}.mp4`}
           autoPlay
           muted
           loop
-        /> */}
-        abc
+          playsInline
+        />
       </motion.div>
     </section>
   );
-}
+};
+
+export default Showreel;

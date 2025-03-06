@@ -71,7 +71,7 @@ export default function PrivateLabelPage() {
   }
 
   return (
-    <main className="bg-prim z-0 flex min-h-screen w-full snap-y flex-col">
+    <main className="bg-prim z-0 flex min-h-screen w-full flex-col">
       <section className="bg-prim flex h-screen min-h-screen w-full flex-col items-center justify-center p-12 px-6 max-md:mt-16 max-md:min-h-[75vh] max-md:p-4 lg:mt-10">
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
@@ -87,7 +87,7 @@ export default function PrivateLabelPage() {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.5 }}
             viewport={{ once: true }}
-            className="z-[1] w-fit font-humane font-bold uppercase max-md:text-8xl lg:text-max"
+            className="z-[1] w-fit text-center font-humane font-bold uppercase max-md:text-8xl lg:text-max"
           >
             {firstPart}
           </motion.h1>
@@ -98,7 +98,7 @@ export default function PrivateLabelPage() {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.5 }}
             viewport={{ once: true }}
-            className="z-[1] w-fit font-humane font-bold uppercase max-md:text-8xl lg:text-max"
+            className="z-[1] w-fit text-center font-humane font-bold uppercase max-md:text-8xl lg:text-max"
           >
             {secondPart}
           </motion.h1>
@@ -106,12 +106,13 @@ export default function PrivateLabelPage() {
             src={pvtData?.image_hero_pvt || ""}
             alt={pvtData?.image_alt_pvt || ""}
             fill
-            className="absolute top-0 z-0 object-cover brightness-90 filter"
+            quality={100}
+            className="absolute top-0 z-0 object-cover"
           />
         </motion.div>
       </section>
 
-      <section className="mt-6 flex min-h-screen flex-col items-start justify-start p-12 px-0">
+      <section className="mt-6 flex flex-col items-start justify-start px-0 py-24 max-md:py-12">
         <motion.div
           initial={{ y: -100, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
@@ -119,10 +120,10 @@ export default function PrivateLabelPage() {
           viewport={{ once: true }}
           className="z-[1] flex w-full flex-col items-center justify-center gap-4 max-md:px-4"
         >
-          <h1 className="text-center font-humane font-bold max-md:text-8xl lg:text-max">
-            HOW DOES IT WORK?
+          <h1 className="text-center font-humane font-bold uppercase text-accent2 max-md:text-8xl lg:text-max">
+            your vision, our innovation
           </h1>
-          <p className="w-3/5 text-center text-para">
+          <p className="w-4/5 text-center text-para max-md:w-full">
             {!pvtData?.text_pvt
               ? "this is about"
               : pvtData?.text_pvt.split("|").map((para, index) => (

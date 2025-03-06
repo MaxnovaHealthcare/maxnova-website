@@ -51,36 +51,35 @@ export default function DelayedLoading({ children }: { children?: ReactNode }) {
     <>
       <AnimatePresence mode="wait">
         {isLoading || !animationComplete ? (
-          <h1>Loading...</h1>
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-accent1 text-center font-humane text-6xl text-primary"
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              key={currentTextIndex}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -50 }}
+              transition={{ duration: 0.75 }}
+              className="absolute flex gap-1 text-center font-humane text-9xl uppercase text-primary"
+            >
+              {loadingTexts[currentTextIndex].split("").map((char, i) => (
+                <motion.span
+                  key={i}
+                  variants={letterVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  custom={i}
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </motion.div>
+          </motion.div>
         ) : (
-          // <motion.div
-          //   className="fixed inset-0 z-50 flex items-center justify-center bg-accent1 text-center font-humane text-6xl text-primary"
-          //   initial={{ opacity: 1 }}
-          //   animate={{ opacity: 1 }}
-          //   exit={{ opacity: 0 }}
-          // >
-          //   <motion.div
-          //     key={currentTextIndex}
-          //     initial={{ opacity: 0, y: 50 }}
-          //     animate={{ opacity: 1, y: 0 }}
-          //     exit={{ opacity: 0, y: -50 }}
-          //     transition={{ duration: 0.75 }}
-          //     className="absolute flex gap-1 text-center font-humane text-9xl uppercase text-primary"
-          //   >
-          //     {loadingTexts[currentTextIndex].split("").map((char, i) => (
-          //       <motion.span
-          //         key={i}
-          //         variants={letterVariants}
-          //         initial="hidden"
-          //         animate="visible"
-          //         exit="exit"
-          //         custom={i}
-          //       >
-          //         {char}
-          //       </motion.span>
-          //     ))}
-          //   </motion.div>
-          // </motion.div>
           children
         )}
       </AnimatePresence>

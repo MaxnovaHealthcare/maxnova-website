@@ -63,7 +63,7 @@ const CertificateCard = ({
   onClick: (e: React.MouseEvent) => void;
 }) => (
   <motion.div
-    className="relative flex h-[28rem] min-w-[20rem] cursor-pointer items-center justify-center"
+    className="relative flex h-fit w-fit cursor-pointer items-center justify-center"
     onClick={(e: React.MouseEvent) => {
       e.preventDefault();
       onClick(e);
@@ -72,12 +72,13 @@ const CertificateCard = ({
     tabIndex={0}
   >
     <motion.div
-      className={`aspect-[1/1.414] h-auto w-full overflow-hidden rounded-2xl border filter transition-transform duration-500 ${isActive ? "scale-100" : "scale-90"} `}
+      className={`aspect-[1/1.414] h-auto w-[20rem] overflow-hidden rounded-2xl border filter transition-transform duration-500 max-md:w-[16rem] ${isActive ? "scale-100" : "scale-90"} `}
     >
       <Image
         src={certificate.image}
         alt={certificate.image_alt}
         fill
+        quality={100}
         className={`h-full w-full rounded-2xl object-cover ${isActive ? "z-10" : "z-0 blur-[2px]"}`}
         loading="lazy"
       />
@@ -107,7 +108,6 @@ const Certified = () => {
   const rightImageRef = useRef<HTMLDivElement>(null);
   const { certificates, error, loading } = useCertificates();
 
-  // Use scrollLeft instead of scrollIntoView for better control
   const handleCardClick = useCallback(
     (index: number, event?: React.MouseEvent) => {
       if (event) event.preventDefault();
@@ -133,18 +133,16 @@ const Certified = () => {
   if (certificates.length === 0) return <EmptyState />;
 
   return (
-    <main className="flex min-h-screen w-full flex-col items-center justify-center gap-6 overflow-hidden bg-primary p-4 md:flex-row">
-      {/* Left Section */}
-      <div className="flex h-[30rem] w-full flex-col justify-between gap-5 md:w-[50%]">
+    <main className="flex w-full flex-col items-center justify-center gap-6 overflow-hidden bg-primary md:flex-row py-24 max-md:py-2">
+      <div className="flex h-[30rem] w-full flex-col justify-between gap-6 max-md:h-fit max-md:w-full max-md:py-4 md:w-[50%]">
         <motion.h1
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.5 }}
-          className="font-humane font-bold text-accent2 max-md:text-8xl lg:text-max"
+          className="font-humane font-bold uppercase text-accent2 max-md:text-8xl lg:text-max"
         >
-          YOU CAN TRUST ON US, WE ARE AUTHENTIC
+          Your Trusted Partner
         </motion.h1>
-
         <AnimatePresence mode="wait">
           <motion.h2
             key={certificates[currentIndex]?.id}
@@ -152,16 +150,15 @@ const Certified = () => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 50, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="text-subhead"
+            className="text-subhead max-md:w-full max-md:text-center max-md:text-xl max-md:font-semibold"
           >
             {certificates[currentIndex]?.text}
           </motion.h2>
         </AnimatePresence>
       </div>
 
-      {/* Right Image Scroller */}
       <div
-        className="scrollbar-none relative flex h-fit w-full overflow-x-auto p-4 md:p-12"
+        className="scrollbar-none relative flex h-fit w-full overflow-x-auto max-md:w-screen max-md:p-4 md:p-12"
         ref={rightImageRef}
         aria-label="Certificate Gallery"
         style={{ scrollSnapType: "x mandatory", scrollBehavior: "smooth" }}

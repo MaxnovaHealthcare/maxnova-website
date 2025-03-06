@@ -54,6 +54,7 @@ const Hero: React.FC<{ image: string; naam: string }> = ({ image, naam }) => (
         src={image}
         alt={naam}
         fill
+        quality={100}
         className="absolute h-full w-full object-cover brightness-[0.75] filter"
       />
       <h1 className="z-[1] w-fit font-humane font-bold uppercase text-primary max-md:text-8xl lg:text-max">
@@ -67,10 +68,10 @@ const Hero: React.FC<{ image: string; naam: string }> = ({ image, naam }) => (
 const Desc: React.FC<{ text: string; naam: string }> = ({ text, naam }) => (
   <section className="flex flex-col items-start justify-start p-6 px-0 py-12">
     <div className="z-[1] flex w-full flex-col items-center justify-center gap-4 max-md:px-4">
-      <h1 className="text-center font-humane font-bold text-accent2 max-md:text-8xl lg:text-max">
-        HOW DOES IT WORK?
+      <h1 className="text-center font-humane font-bold uppercase text-accent2 max-md:text-8xl lg:text-max">
+        Understanding {naam}
       </h1>
-      <p className="w-4/5 text-center text-para">
+      <p className="w-4/5 text-center text-para max-md:w-full">
         {text
           ? text.split("|").map((para, index) => (
               <Fragment key={index}>
@@ -89,7 +90,7 @@ const CategoryProducts: React.FC<{ categories: GroupedSubcategory[] }> = ({
   categories,
 }) => (
   <section className="flex min-h-screen w-full flex-col items-center justify-center gap-12">
-    <h1 className="text-center font-humane text-max font-bold uppercase text-accent2">
+    <h1 className="text-center font-humane text-max font-bold uppercase text-accent2 max-md:text-8xl max-md:leading-[0.9]">
       Our Products <br /> in this Category
     </h1>
     {categories.length > 0 ? (
@@ -106,19 +107,18 @@ const CategoryProducts: React.FC<{ categories: GroupedSubcategory[] }> = ({
   </section>
 );
 
-// Category List Component
 const CategoryList: React.FC<{ heading: string; products: Product[] }> = ({
   heading,
   products,
 }) =>
   products.length > 0 && (
-    <div className="flex h-fit w-full items-start border-b border-accent1 py-12">
-      <div className="sticky top-12 flex min-h-[24rem] w-1/5 items-center justify-start px-4">
-        <h1 className="text-wrap font-humane text-9xl font-extralight uppercase">
+    <div className="flex h-fit w-full items-start border-b border-accent1 py-12 max-md:flex-col">
+      <div className="sticky top-12 flex min-h-[24rem] w-1/5 items-center justify-start px-4 max-md:top-16 max-md:h-fit max-md:min-h-0 max-md:w-full max-md:items-center max-md:justify-center max-md:border-b-2 max-md:border-accent1 max-md:bg-primary max-md:py-4">
+        <h1 className="text-pretty text-center font-humane text-8xl font-extralight uppercase">
           {heading}
         </h1>
       </div>
-      <div className="grid h-fit w-4/5 grid-cols-3 items-start justify-between gap-6 border-l border-accent1 px-4">
+      <div className="grid h-fit w-4/5 grid-cols-3 items-start justify-between gap-6 border-l border-accent1 px-4 max-md:w-full max-md:grid-cols-1 max-md:border-0">
         {products.map((product) => (
           <ListCard key={product._id} product={product} />
         ))}
@@ -126,11 +126,11 @@ const CategoryList: React.FC<{ heading: string; products: Product[] }> = ({
     </div>
   );
 
-// List Card Component
+
 const ListCard: React.FC<{ product: Product }> = ({ product }) => (
   <div className="flex h-[24rem] w-full flex-col items-center justify-between gap-6 overflow-hidden rounded-3xl border border-accent1 px-4 py-4">
-    <p className="text-subhead">{product.name}</p>
-    <ul className="flex h-full w-full flex-col items-start justify-start gap-2 text-left text-para">
+    <p className="text-subhead max-md:text-xl">{product.name}</p>
+    <ul className="flex h-full w-full flex-col items-start justify-start gap-2 text-left text-para max-md:text-min">
       {product.features.map((feature, index) => (
         <li key={index}>{feature}</li>
       ))}
@@ -164,6 +164,7 @@ const VerticalBento: React.FC<{
         <Image
           src={bentodata?.box1_image}
           fill
+          quality={100}
           alt="box1_image"
           className="absolute right-0 top-0 h-full w-full bg-accent1 object-cover brightness-90 filter"
         />
@@ -271,7 +272,6 @@ const VertTemplate: React.FC = () => {
     };
     fetchVerticalData();
   }, [vertid]);
-  console.log(bentoData);
   if (!vertical) return <div>Loading...</div>;
 
   return (

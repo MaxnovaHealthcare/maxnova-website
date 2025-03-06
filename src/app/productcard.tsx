@@ -63,6 +63,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             src={image}
             alt={name}
             fill
+            quality={100}
             className="h-full w-full object-cover"
           />
         </motion.div>
