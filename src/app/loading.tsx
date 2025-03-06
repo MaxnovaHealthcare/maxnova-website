@@ -1,9 +1,53 @@
 "use client";
 
-import React, { useEffect, useState, ReactNode } from "react";
+import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
+export default function PageLoader({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [animationCompleted, setAnimationCompleted] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const preloadImages = async () => {
+      const imageElements = document.querySelectorAll("img");
+      const imagePromises = Array.from(imageElements).map((img) => {
+        if (!img.complete) {
+          return new Promise((resolve) => {
+            img.onload = resolve;
+            img.onerror = resolve;
+          });
+        }
+        return Promise.resolve();
+      });
+      await Promise.all(imagePromises);
+      setIsLoading(false);
+    };
+    preloadImages();
+    const minLoadTime = setTimeout(() => {
+      setAnimationCompleted(true);
+    }, 5000);
+
+    return () => clearTimeout(minLoadTime);
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const minLoadTime = setTimeout(() => {
+      setAnimationCompleted(true);
+      setIsLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(minLoadTime);
+  }, [pathname]);
+
+  return isLoading || !animationCompleted ? <Loading /> : children;
+}
 const loadingTexts = [
   "Picking Formulations...",
   "Starting Manufacturing...",
@@ -21,68 +65,45 @@ const letterVariants = {
   exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
 };
 
-export default function DelayedLoading({ children }: { children?: ReactNode }) {
-  const pathname = usePathname();
-  const [isLoading, setIsLoading] = useState(false);
-  const [animationComplete, setAnimationComplete] = useState(false);
+export function Loading() {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
 
   useEffect(() => {
-    setIsLoading(true);
-    setAnimationComplete(false);
-    setCurrentTextIndex(0);
-  }, [pathname]);
+    const interval = setInterval(() => {
+      setCurrentTextIndex((prev) => (prev + 1) % loadingTexts.length);
+    }, 2000); // Each text stays for 2 seconds
 
-  useEffect(() => {
-    if (isLoading && currentTextIndex < loadingTexts.length - 1) {
-      const timeoutId = setTimeout(() => {
-        setCurrentTextIndex((prev) => prev + 1);
-      }, 150);
-      return () => clearTimeout(timeoutId);
-    } else if (isLoading && currentTextIndex === loadingTexts.length - 1) {
-      setTimeout(() => {
-        setAnimationComplete(true);
-        setIsLoading(false);
-      }, 150);
-    }
-  }, [isLoading, currentTextIndex]);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <>
-      <AnimatePresence mode="wait">
-        {isLoading || !animationComplete ? (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-accent1 text-center font-humane text-6xl text-primary"
-            initial={{ opacity: 1 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+    <motion.div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-accent1 text-center font-humane text-6xl text-primary"
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <motion.div
+        key={currentTextIndex}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -50 }}
+        transition={{ duration: 0.75 }}
+        className="absolute flex gap-1 text-center font-humane text-9xl uppercase text-primary"
+      >
+        {loadingTexts[currentTextIndex].split("").map((char, i) => (
+          <motion.span
+            key={i}
+            variants={letterVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            custom={i}
           >
-            <motion.div
-              key={currentTextIndex}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -50 }}
-              transition={{ duration: 0.75 }}
-              className="absolute flex gap-1 text-center font-humane text-9xl uppercase text-primary"
-            >
-              {loadingTexts[currentTextIndex].split("").map((char, i) => (
-                <motion.span
-                  key={i}
-                  variants={letterVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  custom={i}
-                >
-                  {char}
-                </motion.span>
-              ))}
-            </motion.div>
-          </motion.div>
-        ) : (
-          children
-        )}
-      </AnimatePresence>
-    </>
+            {char}
+          </motion.span>
+        ))}
+      </motion.div>
+    </motion.div>
   );
 }

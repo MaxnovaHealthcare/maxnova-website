@@ -186,6 +186,76 @@ const testimonials = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel odio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
     image: "",
   },
+  {
+    name: "Jane Doe",
+    company: "Company B",
+    testimonial:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel odio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
+    image: "",
+  },
+  {
+    name: "Jane Doe",
+    company: "Company B",
+    testimonial:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel odio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
+    image: "",
+  },
+  {
+    name: "Jane Doe",
+    company: "Company B",
+    testimonial:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel odio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
+    image: "",
+  },
+  {
+    name: "Jane Doe",
+    company: "Company B",
+    testimonial:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel odio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
+    image: "",
+  },
+  {
+    name: "Jane Doe",
+    company: "Company B",
+    testimonial:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel odio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
+    image: "",
+  },
+  {
+    name: "Jane Doe",
+    company: "Company B",
+    testimonial:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel odio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
+    image: "",
+  },
+  {
+    name: "Jane Doe",
+    company: "Company B",
+    testimonial:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel odio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
+    image: "",
+  },
+  {
+    name: "Jane Doe",
+    company: "Company B",
+    testimonial:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel odio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
+    image: "",
+  },
+  {
+    name: "Jane Doe",
+    company: "Company B",
+    testimonial:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel odio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
+    image: "",
+  },
+  {
+    name: "Jane Doe",
+    company: "Company B",
+    testimonial:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel odio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
+    image: "",
+  },
 ];
 
 export default HomePage;
