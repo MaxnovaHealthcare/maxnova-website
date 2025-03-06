@@ -34,7 +34,7 @@ const ProductOverview = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed left-0 top-0 z-[50] flex h-full w-full items-center justify-center overflow-hidden bg-accent1/20 bg-fixed px-16 pb-2 pt-[5.25rem] text-primary filter backdrop-blur"
+        className="fixed left-0 top-0 z-[50] flex h-full w-full items-center justify-center overflow-hidden bg-accent1/20 bg-fixed px-16 pb-2 pt-[5.25rem] text-primary filter backdrop-blur max-md:p-0"
         onClick={closeModal}
       >
         <motion.div
@@ -42,17 +42,17 @@ const ProductOverview = () => {
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.95, opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="relative flex h-full w-full overflow-x-hidden overflow-y-visible rounded-3xl bg-accent2 p-6"
+          className="relative flex h-full w-full overflow-x-hidden overflow-y-visible rounded-3xl bg-accent2 p-6 max-md:flex-col max-md:gap-16 max-md:p-2 max-md:pb-8 max-md:pt-16"
           onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
         >
           <button
-            className="absolute right-4 top-4 z-10 h-10 w-10 rounded-full border border-primary text-min font-bold text-primary transition-all duration-150 hover:cursor-pointer hover:bg-accent3"
+            className="absolute right-4 top-4 z-10 h-10 w-10 rounded-full border border-primary text-min font-bold text-primary transition-all duration-150 hover:cursor-pointer hover:bg-accent3 max-md:fixed"
             onClick={closeModal}
           >
             ✕
           </button>
-          <div className="sticky top-6 flex h-fit w-1/3 items-start justify-start px-6">
-            <div className="relative aspect-[2/3] h-auto w-full overflow-hidden rounded-2xl">
+          <div className="sticky top-6 flex h-fit w-1/3 items-start justify-start px-6 max-md:relative max-md:w-full max-md:px-4">
+            <div className="relative aspect-[2/3] h-auto w-full overflow-hidden rounded-2xl max-md:aspect-[4/5]">
               <Image
                 src={product.image ?? ""}
                 alt={product.name}
@@ -62,7 +62,7 @@ const ProductOverview = () => {
               />
             </div>
           </div>
-          <div className="flex h-fit w-2/3 flex-col px-6">
+          <div className="flex h-fit w-2/3 flex-col px-6 max-md:w-full">
             <div className="flex flex-col">
               <p className="text-para">{product.subbrand}</p>
               <h2 className="font-humane text-[8.5rem] font-semibold uppercase leading-[0.9]">

@@ -126,7 +126,6 @@ const CategoryList: React.FC<{ heading: string; products: Product[] }> = ({
     </div>
   );
 
-
 const ListCard: React.FC<{ product: Product }> = ({ product }) => (
   <div className="flex h-[24rem] w-full flex-col items-center justify-between gap-6 overflow-hidden rounded-3xl border border-accent1 px-4 py-4">
     <p className="text-subhead max-md:text-xl">{product.name}</p>
@@ -147,10 +146,10 @@ const VerticalBento: React.FC<{
 }> = ({ allverticals, currentvert, categories, bentodata }) => {
   const directions: ("right" | "left")[] = ["right", "left", "right", "left"];
   return (
-    <section className="grid h-fit min-h-[45rem] w-full grid-cols-2 grid-rows-2 items-center justify-center gap-[1rem] px-12">
-      <div className="relative col-span-1 row-span-2 flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl px-4 py-8 text-primary">
-        <h1 className="z-[1] flex flex-col gap-2 font-humane text-max font-bold uppercase">
-          <span className="font-helvetica text-para font-normal capitalize">
+    <section className="grid h-fit min-h-[45rem] w-full grid-cols-2 grid-rows-2 items-center justify-center gap-[1rem] px-12 max-md:grid-cols-1 max-md:grid-rows-4 max-md:px-2">
+      <div className="relative col-span-1 row-span-2 flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl px-4 py-8 text-primary max-md:col-span-2">
+        <h1 className="z-[1] flex flex-col gap-2 font-humane text-max font-bold uppercase max-md:text-9xl max-md:leading-[0.9]">
+          <span className="font-helvetica text-para font-normal capitalize max-md:text-min">
             We Offer You
           </span>
           an extensive product range
@@ -169,12 +168,12 @@ const VerticalBento: React.FC<{
           className="absolute right-0 top-0 h-full w-full bg-accent1 object-cover brightness-90 filter"
         />
       </div>
-      <div className="relative col-span-1 row-span-1 flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-2xl bg-accent2">
+      <div className="relative col-span-1 row-span-1 flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-2xl bg-accent2 max-md:col-span-2 max-md:row-span-1">
         <div className="absolute left-0 top-0 z-[1] flex h-full w-full flex-col items-start justify-end gap-1 bg-gradient-to-t from-[#97BBD1] from-[5%] to-transparent px-4 py-4">
           <p className="text-para font-normal text-primary">
             {currentvert.name}:
           </p>
-          <h1 className="font-humane text-[6rem] font-bold uppercase leading-[0.9] text-primary">
+          <h1 className="font-humane text-[6rem] font-bold uppercase leading-[0.9] text-primary max-md:text-7xl max-md:leading-[0.9]">
             {currentvert.slogan}
           </h1>
         </div>
@@ -191,8 +190,8 @@ const VerticalBento: React.FC<{
           </MarqueeEffect>
         ))}
       </div>
-      <div className="col-span-1 row-span-1 flex h-full w-full flex-col items-start justify-between rounded-2xl border-2 border-accent2 p-4">
-        <h2 className="text-wrap font-humane text-[6rem] font-bold uppercase leading-[0.9] text-accent2">
+      <div className="col-span-1 row-span-1 flex h-full w-full flex-col items-start justify-between rounded-2xl border-2 border-accent2 p-4 max-md:col-span-2 max-md:row-span-1">
+        <h2 className="text-wrap font-humane text-[6rem] font-bold uppercase leading-[0.9] text-accent2 max-md:text-7xl max-md:leading-[0.9]">
           Other Verticals
         </h2>
         <div className="grid h-fit w-full grid-cols-2 items-center justify-between gap-4">
@@ -201,7 +200,7 @@ const VerticalBento: React.FC<{
               <Link
                 href={`/verticals/${vertical._id}`}
                 key={vertical._id}
-                className="flex w-fit items-center justify-center text-nowrap rounded-full bg-accent2 px-4 py-3 text-para font-semibold text-primary transition-colors md:mt-0 md:w-auto"
+                className="col-span-1 flex w-fit items-center justify-center text-nowrap rounded-full bg-accent2 px-4 py-3 text-para font-semibold text-primary transition-colors max-md:col-span-1 max-md:w-full max-md:text-min md:mt-0 md:w-auto"
               >
                 {vertical.name}
               </Link>
@@ -209,7 +208,7 @@ const VerticalBento: React.FC<{
           )}
           <Link
             href={`/#verticals`}
-            className="flex w-full items-center justify-center text-nowrap rounded-full border border-accent2 px-4 py-3 text-para font-semibold text-accent2 transition-colors"
+            className="col-span-1 flex w-full items-center justify-center text-nowrap rounded-full border border-accent2 px-4 py-3 text-para font-semibold text-accent2 transition-colors max-md:w-full max-md:text-min"
           >
             View All Verticals
           </Link>

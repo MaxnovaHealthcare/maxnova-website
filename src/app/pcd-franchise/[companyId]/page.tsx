@@ -65,7 +65,7 @@ export default function PCDFranchisePage() {
     <main className="bg-prim z-0 flex min-h-screen w-full snap-y flex-col">
       <section className="relative flex h-screen min-h-screen w-full flex-col items-center justify-center overflow-hidden p-12 px-6 lg:mt-10 lg:p-12">
         <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-3xl bg-accent1">
-          <div className="absolute aspect-square h-auto w-[32rem] overflow-visible">
+          <div className="absolute aspect-square h-auto w-[32rem] overflow-visible max-md:w-[16rem]">
             <Image
               src={companyData?.image ?? ""}
               alt={companyData?.name}
@@ -80,7 +80,7 @@ export default function PCDFranchisePage() {
         <h1 className="text-center font-humane font-bold uppercase max-md:text-8xl lg:text-max">
           What is {companyData?.name}?
         </h1>
-        <p className="text-center font-helvetica text-para">
+        <p className="w-4/5 text-center font-helvetica text-para max-md:w-full">
           {companyData?.description}
         </p>
       </section>
@@ -88,7 +88,7 @@ export default function PCDFranchisePage() {
         <h1 className="text-center font-humane font-bold uppercase max-md:text-8xl lg:text-max">
           Products
         </h1>
-        <div className="flex h-fit w-full items-center justify-between px-12">
+        <div className="flex h-fit w-full items-center justify-between px-12 max-md:flex-col max-md:gap-4 max-md:px-4">
           <h1 className="text-head font-medium">
             {currentCategory === "all"
               ? "All Products"
@@ -132,7 +132,7 @@ const ProductGrid: React.FC<{ productData: any[] }> = ({ productData }) =>
       No products as of now <br /> We are working hard on this one!
     </h1>
   ) : (
-    <div className="grid h-fit w-full grid-cols-3 items-center justify-between gap-4 max-md:grid-cols-2 max-md:px-2">
+    <div className="grid h-fit w-full grid-cols-3 items-center justify-between gap-4 max-md:grid-cols-2 max-md:gap-2 max-md:px-2">
       {productData.map((product, index) => (
         <div
           key={index}
