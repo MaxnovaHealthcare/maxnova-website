@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "next/navigation";
-
 import HeroSection from "./(home_components)/hero";
 import WhereQuality from "./(home_components)/quality";
 import Showreel from "./(home_components)/showreel";
@@ -27,11 +26,26 @@ const fetchData = async (url: string) => {
 };
 
 const Hero = () => {
+  const [useThreeJS, setUseThreeJS] = useState(false);
   const [isMobile, setIsMobile] = useState(
     typeof window !== "undefined" && window.innerWidth < 768,
   );
 
+  const isWebGLSupported = () => {
+    if (typeof window === "undefined") return false;
+    try {
+      const canvas = document.createElement("canvas");
+      return !!(
+        window.WebGLRenderingContext &&
+        (canvas.getContext("webgl") || canvas.getContext("experimental-webgl"))
+      );
+    } catch (e) {
+      return false;
+    }
+  };
+
   useEffect(() => {
+    setUseThreeJS(isWebGLSupported());
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -39,7 +53,7 @@ const Hero = () => {
 
   return (
     <section className="w-full bg-accent1">
-      {isMobile ? (
+      {isMobile || !useThreeJS ? (
         <div className="relative flex h-[50vh] flex-col items-center justify-center overflow-hidden">
           <video
             className="h-auto w-full scale-[1.2] object-cover"
@@ -107,24 +121,26 @@ const HomePage = () => {
   }, []);
 
   if (error) return <div className="text-red-500">Error: {error}</div>;
-  if (!homeData) return <h1>Loading...</h1>;
-
   return (
     <main className="z-0 m-0 flex min-h-screen w-full flex-col bg-accent1">
       <Hero />
       <section className="h-fit w-full rounded-t-[4rem] bg-primary max-md:rounded-t-3xl">
         <AboutBrief
-          subhead_about={homeData.subhead_about}
-          text_about={homeData.text_about}
-          image1_about={homeData.image_about1}
-          image1_alt_about={homeData.image_alt_about1}
-          image2_about={homeData.image_about2}
-          image2_alt_about={homeData.image_alt_about2}
+          subhead_about={homeData?.subhead_about || ""}
+          text_about={homeData?.text_about || ""}
+          image1_about={homeData?.image_about1 || ""}
+          image1_alt_about={homeData?.image_alt_about1 || ""}
+          image2_about={homeData?.image_about2 || ""}
+          image2_alt_about={homeData?.image_alt_about2 || ""}
         />
       </section>
 
       <section className="w-full bg-primary">
-        <Numbers numbs={homeData.numbs} sindex={0} eindex={3} />
+        <Numbers
+          numbs={Array.isArray(homeData?.numbs) ? homeData.numbs : []}
+          sindex={0}
+          eindex={3}
+        />
       </section>
 
       <section id="verticals" className="w-full bg-primary" ref={verticalsRef}>
@@ -141,17 +157,17 @@ const HomePage = () => {
 
       <section className="w-full bg-primary">
         <WhereQuality
-          subhead_quality={homeData.subhead_quality}
-          text_quality={homeData.text_quality}
-          image_quality={homeData.image_quality}
-          image_alt_quality={homeData.image_alt_quality}
+          subhead_quality={homeData?.subhead_quality || ""}
+          text_quality={homeData?.text_quality || ""}
+          image_quality={homeData?.image_quality || ""}
+          image_alt_quality={homeData?.image_alt_quality || ""}
         />
       </section>
 
       <section className="w-full bg-accent2 text-primary">
         <MarqueeEffect>
           <h1 className="mt-4 font-humane text-9xl font-bold uppercase max-md:mt-2 max-md:text-7xl max-md:font-medium">
-            {homeData.slogan}
+            {homeData?.slogan}
           </h1>
         </MarqueeEffect>
       </section>
@@ -165,14 +181,13 @@ const HomePage = () => {
       </section>
 
       <section className="w-full bg-primary px-4">
-        <FaqSection faqs={homeData.faqs} />
+        <FaqSection faqs={Array.isArray(homeData?.faqs) ? homeData.faqs : []} />
       </section>
     </main>
   );
 };
 
 const testimonials = [
-
   {
     name: "Jane Doe",
     company: "Company B",

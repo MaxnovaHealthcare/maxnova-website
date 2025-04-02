@@ -26,26 +26,28 @@ export default function RootLayout({
         className={`font-helvetica ${inter.className} flex w-screen min-w-[320px] max-w-[1440px] flex-col items-center justify-center overflow-x-hidden selection:bg-accent1`}
       >
         <PageLoader>
-          <ContactContextProvider>
-            <Nav />
-            <Link
-              href="https://wa.me/+917082210621"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="fixed bottom-10 right-10 z-50 flex h-16 w-16 items-center justify-center"
-            >
-              <Image
-                src={whastapp}
-                alt="whatsapp"
-                fill
-                quality={100}
-                priority
-                className="h-full w-full"
-              />
-            </Link>
-            {children}
-            <Footer />
-          </ContactContextProvider>
+          <div id="page-content" className="h-full w-full">
+            <ContactContextProvider>
+              <Nav />
+              <Link
+                href="https://wa.me/+917082210621"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="fixed bottom-10 right-10 z-50 flex h-16 w-16 items-center justify-center"
+              >
+                <Image
+                  src={whastapp}
+                  alt="whatsapp"
+                  fill
+                  quality={100}
+                  priority
+                  className="h-full w-full"
+                />
+              </Link>
+              {children}
+              <Footer />
+            </ContactContextProvider>
+          </div>
         </PageLoader>
       </body>
     </html>

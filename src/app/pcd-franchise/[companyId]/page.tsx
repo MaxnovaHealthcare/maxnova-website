@@ -84,21 +84,21 @@ export default function PCDFranchisePage() {
           {companyData?.description}
         </p>
       </section>
-      <section className="flex min-h-screen flex-col items-center justify-center gap-24">
+      <section className="flex min-h-screen flex-col items-center justify-center gap-6 md:gap-24">
         <h1 className="text-center font-humane font-bold uppercase max-md:text-8xl lg:text-max">
           Products
         </h1>
         <div className="flex h-fit w-full items-center justify-between px-12 max-md:flex-col max-md:gap-4 max-md:px-4">
-          <h1 className="text-head font-medium">
+          <h1 className="w-full text-head font-medium">
             {currentCategory === "all"
               ? "All Products"
               : `All Products for ${currentCategory}`}
           </h1>
-          <div className="flex gap-4">
+          <div className="flex w-full items-center justify-around gap-4 md:justify-end md:gap-4">
             <a
               href={companyData?.catalog || "#"}
               download
-              className={`flex items-center justify-center gap-2 rounded-full bg-accent2 px-6 py-3 text-primary ${
+              className={`flex items-center justify-center gap-2 rounded-full bg-accent2 px-6 py-3 text-sm text-primary md:text-base ${
                 !companyData?.catalog ? "pointer-events-none opacity-50" : ""
               }`}
             >
@@ -106,7 +106,7 @@ export default function PCDFranchisePage() {
             </a>
             <select
               defaultValue="all"
-              className="bg-prim flex items-center justify-center rounded-full border border-accent1 px-4 py-3"
+              className="bg-prim flex items-center justify-center rounded-full border border-accent1 px-4 py-3 text-sm md:text-base"
               onChange={(e) => setCurrentCategory(e.target.value)}
             >
               <option value="all">All Categories</option>
@@ -132,7 +132,7 @@ const ProductGrid: React.FC<{ productData: any[] }> = ({ productData }) =>
       No products as of now <br /> We are working hard on this one!
     </h1>
   ) : (
-    <div className="grid h-fit w-full grid-cols-3 items-center justify-between gap-4 max-md:grid-cols-2 max-md:gap-2 max-md:px-2">
+    <div className="grid h-fit w-full grid-cols-3 items-center justify-between gap-12 max-md:grid-cols-2 max-md:gap-8 max-md:px-2">
       {productData.map((product, index) => (
         <div
           key={index}

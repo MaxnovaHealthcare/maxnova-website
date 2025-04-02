@@ -81,7 +81,7 @@ export default function Nav() {
   ];
 
   return (
-    <header className="fixed top-0 z-50 flex w-screen items-center justify-center border-b-2 border-[#97bbd16e] bg-[#97bbd12b] font-helvetica font-semibold">
+    <header className="fixed top-0 z-[9999] flex w-screen items-center justify-center border-b-2 border-[#97bbd16e] bg-[#97bbd12b] font-helvetica font-semibold">
       <nav className="flex w-full max-w-[1440px] items-center justify-between py-3 font-semibold text-secondary backdrop-blur-md transition-all duration-300 max-xl:px-6 lg:px-12">
         <Link href="/" className="flex w-auto items-center">
           <Image src={logo} alt="MAXNOVA" className="h-8 w-auto" priority />

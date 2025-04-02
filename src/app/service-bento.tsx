@@ -96,10 +96,17 @@ export default function ServiceBento() {
       </section>
     );
   }
+  const rowspan =
+    verticals.length % 2 !== 0
+      ? `row-span-${Math.ceil((verticals.length + 1) / 2)}`
+      : `row-span-${Math.ceil(verticals.length / 2)}`;
 
+  console.log(rowspan);
   return (
     <section className="grid h-fit w-full grid-cols-4 items-center justify-center gap-[1rem] px-6 max-md:w-full max-md:grid-cols-2 max-md:gap-2 max-md:p-0">
-      <div className="relative col-span-2 row-span-2 h-full min-h-[42rem] w-full overflow-hidden rounded-2xl border px-4 py-8 max-md:row-span-1 max-md:h-[32rem]">
+      <div
+        className={`${rowspan} relative col-span-2 h-full w-full overflow-hidden rounded-2xl border px-4 py-8 max-md:h-[32rem]`}
+      >
         <h1 className="z-[1] font-humane text-max font-bold uppercase text-primary max-md:text-8xl max-md:leading-[0.9]">
           Driven by Resilient R&D approach
         </h1>
@@ -120,10 +127,10 @@ export default function ServiceBento() {
           />
         )}
       </div>
-      {verticals.map((vertical) => (
+      {verticals.map((vertical, index) => (
         <div
-          key={vertical._id}
-          className="relative col-span-1 row-span-1 flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl border bg-accent1 px-4 py-8 text-accent2 max-md:h-[20rem] max-md:px-2 max-md:py-4"
+          key={index}
+          className={`relative min-h-[20.5rem] ${verticals.length % 2 !== 0 && index == verticals.length - 1 ? "col-span-2" : "col-span-1"} row-span-1 flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl border bg-accent1 px-4 py-8 text-accent2 max-md:h-[20rem] max-md:px-2 max-md:py-4`}
         >
           <div className="relative flex h-fit w-full items-center justify-between">
             <div className="relative h-[2.5rem] w-[2.5rem] overflow-hidden">
@@ -152,7 +159,7 @@ export default function ServiceBento() {
           </div>
         </div>
       ))}
-      <div className="relative col-span-1 row-span-1 flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl border bg-accent1 px-4 py-8 text-accent2 max-md:h-[20rem] max-md:px-2 max-md:py-4">
+      <div className="relative col-span-2 row-span-1 flex h-full min-h-[16rem] w-full flex-col justify-between overflow-hidden rounded-2xl border-2 border-accent2 px-4 py-8 text-accent2 max-md:h-[20rem] max-md:px-2 max-md:py-4 md:col-span-1 md:min-h-[20.5rem]">
         <div className="relative flex h-fit w-full items-center justify-start">
           <div className="relative h-[2.5rem] w-[2.5rem] overflow-hidden">
             {bentoData?.value1_image.endsWith(".svg") ? (
@@ -179,7 +186,7 @@ export default function ServiceBento() {
           <p className="text-min leading-[1.1]">{bentoData?.value1_desc}.</p>
         </div>
       </div>
-      <div className="relative col-span-1 row-span-1 flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl border bg-accent1 px-4 py-8 text-accent2 max-md:h-[20rem] max-md:px-2 max-md:py-4">
+      <div className="relative col-span-2 row-span-1 flex h-full min-h-[20rem] w-full flex-col justify-between overflow-hidden rounded-2xl border-2 border-accent2 bg-primary px-4 py-8 text-accent2 max-md:h-[20rem] max-md:px-2 max-md:py-4 md:col-span-1 md:min-h-[20.5rem]">
         <div className="relative flex h-fit w-full items-center justify-start">
           <div className="relative h-[2.5rem] w-[2.5rem] overflow-hidden">
             {bentoData?.value2_image.endsWith(".svg") ? (

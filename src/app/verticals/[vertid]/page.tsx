@@ -200,7 +200,7 @@ const VerticalBento: React.FC<{
               <Link
                 href={`/verticals/${vertical._id}`}
                 key={vertical._id}
-                className="col-span-1 flex w-fit items-center justify-center text-nowrap rounded-full bg-accent2 px-4 py-3 text-para font-semibold text-primary transition-colors max-md:col-span-1 max-md:w-full max-md:text-min md:mt-0 md:w-auto"
+                className="col-span-1 flex w-fit items-center justify-center text-nowrap rounded-full bg-accent2 px-4 py-3 text-para font-semibold text-primary transition-colors max-md:col-span-1 max-md:w-full max-md:text-xs md:mt-0 md:w-auto"
               >
                 {vertical.name}
               </Link>
@@ -208,7 +208,7 @@ const VerticalBento: React.FC<{
           )}
           <Link
             href={`/#verticals`}
-            className="col-span-1 flex w-full items-center justify-center text-nowrap rounded-full border border-accent2 px-4 py-3 text-para font-semibold text-accent2 transition-colors max-md:w-full max-md:text-min"
+            className="col-span-1 flex w-full items-center justify-center text-nowrap rounded-full border border-accent2 px-4 py-3 text-para font-semibold text-accent2 transition-colors max-md:w-full max-md:text-xs"
           >
             View All Verticals
           </Link>
@@ -247,7 +247,6 @@ const VertTemplate: React.FC = () => {
         const selectedVertical = categoriesData.allCategory.find(
           (category: Category) => category._id === vertid,
         );
-
         if (!selectedVertical) return;
         setVertical(selectedVertical);
 

@@ -34,7 +34,7 @@ const ProductOverview = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed left-0 top-0 z-[50] flex h-full w-full items-center justify-center overflow-hidden bg-accent1/20 bg-fixed px-16 pb-2 pt-[5.25rem] text-primary filter backdrop-blur max-md:p-0"
+        className="fixed left-0 top-0 z-[50] flex h-full w-full items-center justify-center overflow-hidden bg-accent1/20 bg-fixed px-16 pb-2 pt-[5.25rem] text-primary filter backdrop-blur max-md:p-2 max-md:px-2 max-md:pt-2"
         onClick={closeModal}
       >
         <motion.div
@@ -42,11 +42,11 @@ const ProductOverview = () => {
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.95, opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="relative flex h-full w-full overflow-x-hidden overflow-y-visible rounded-3xl bg-accent2 p-6 max-md:flex-col max-md:gap-16 max-md:p-2 max-md:pb-8 max-md:pt-16"
+          className="relative flex h-full w-full overflow-x-hidden overflow-y-visible rounded-3xl bg-accent2 p-6 max-md:mt-32 max-md:flex-col max-md:gap-16 max-md:p-2 max-md:pb-20 max-md:pt-16"
           onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
         >
           <button
-            className="absolute right-4 top-4 z-10 h-10 w-10 rounded-full border border-primary text-min font-bold text-primary transition-all duration-150 hover:cursor-pointer hover:bg-accent3 max-md:fixed"
+            className="absolute right-4 top-4 z-10 h-10 w-10 rounded-full border border-primary text-min font-bold text-primary transition-all duration-150 hover:cursor-pointer hover:bg-accent3"
             onClick={closeModal}
           >
             ✕
@@ -87,7 +87,7 @@ const ProductOverview = () => {
                   <span className="font-semibold">Ingredients:</span>
                   <div className="flex flex-wrap gap-2">
                     {product.ingredients
-                      ?.split(", ")
+                      ?.split(",")
                       .map((ingredient, index) => (
                         <p
                           key={index}

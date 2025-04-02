@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { AnimatePresence, delay, motion } from "framer-motion";
 
 export default function PageLoader({
   children,
@@ -11,41 +11,68 @@ export default function PageLoader({
 }) {
   const [isLoading, setIsLoading] = useState(true);
   const [animationCompleted, setAnimationCompleted] = useState(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
   const pathname = usePathname();
+  const firstLoad = useRef(true);
 
   useEffect(() => {
-    const preloadImages = async () => {
-      const imageElements = document.querySelectorAll("img");
-      const imagePromises = Array.from(imageElements).map((img) => {
-        if (!img.complete) {
-          return new Promise((resolve) => {
-            img.onload = resolve;
-            img.onerror = resolve;
-          });
-        }
-        return Promise.resolve();
-      });
+    document.body.classList.add("loading");
 
-      await Promise.all(imagePromises);
-      setIsLoading(false);
-    };
+    if (firstLoad.current) {
+      const preloadImages = async () => {
+        const imageElements = document.querySelectorAll("img");
+        const imagePromises = Array.from(imageElements).map((img) => {
+          if (!img.complete) {
+            return new Promise((resolve) => {
+              img.onload = resolve;
+              img.onerror = resolve;
+            });
+          }
+          return Promise.resolve();
+        });
 
-    preloadImages();
+        await Promise.all(imagePromises);
+
+        setTimeout(() => {
+          setIsLoading(false);
+          setAnimationCompleted(true);
+          setIsInitialLoad(true);
+          firstLoad.current = false;
+
+          setTimeout(() => {
+            document.body.classList.remove("loading");
+          }, 300);
+        }, 3000);
+      };
+      preloadImages();
+    }
   }, []);
 
   useEffect(() => {
-    setIsLoading(true);
-    setAnimationCompleted(false);
+    if (!firstLoad.current) {
+      document.body.classList.add("loading");
+      setIsLoading(true);
+      setAnimationCompleted(false);
+      setIsInitialLoad(false);
 
-    const minLoadTime = setTimeout(() => {
-      setAnimationCompleted(true);
-      setIsLoading(false);
-    }, loadingTexts.length * 1000);
+      const transitionTimeout = setTimeout(() => {
+        setAnimationCompleted(true);
+        setIsLoading(false);
 
-    return () => clearTimeout(minLoadTime);
+        setTimeout(() => {
+          document.body.classList.remove("loading");
+        }, 300);
+      }, 500);
+
+      return () => clearTimeout(transitionTimeout);
+    }
   }, [pathname]);
 
-  return isLoading || !animationCompleted ? <Loading /> : children;
+  if (!isLoading && animationCompleted) {
+    return children;
+  }
+
+  return isInitialLoad ? <Loading /> : <BlackScreen />;
 }
 
 const loadingTexts = [
@@ -67,10 +94,16 @@ const letterVariants = {
 
 export function Loading() {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [cycleComplete, setCycleComplete] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTextIndex((prev) => (prev + 1) % loadingTexts.length);
+      setCurrentTextIndex((prev) => {
+        if (prev + 1 === loadingTexts.length) {
+          setCycleComplete(true);
+        }
+        return (prev + 1) % loadingTexts.length;
+      });
     }, 1000);
 
     return () => clearInterval(interval);
@@ -106,5 +139,19 @@ export function Loading() {
         ))}
       </motion.div>
     </motion.div>
+  );
+}
+
+function BlackScreen() {
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        className="fixed inset-0 z-50 flex items-center justify-center bg-accent1 text-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 2, ease: "easeInOut" }}
+      />
+    </AnimatePresence>
   );
 }

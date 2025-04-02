@@ -108,7 +108,7 @@ export default function ContactPage(props: ContactPageProps) {
       >
         <span
           onClick={onClick}
-          className="top-4 right-4 absolute z-10 flex h-10 w-10 items-center justify-center rounded-full border border-primary text-min font-bold text-primary transition-all duration-150 hover:cursor-pointer hover:bg-accent3"
+          className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-primary text-min font-bold text-primary transition-all duration-150 hover:cursor-pointer hover:bg-accent3"
         >
           ✕
         </span>
@@ -180,7 +180,13 @@ export default function ContactPage(props: ContactPageProps) {
               </div>
             ))}
             <div className="flex w-full items-center justify-start gap-4">
-              <CTAButtons text="Submit" cta="#" />
+              <Link
+                // onClick={onClick}
+                className={`h-fit w-fit rounded-full bg-accent1 px-6 py-2 text-[1.1rem] font-medium capitalize text-primary`}
+                href="#"
+              >
+                Submit
+              </Link>
             </div>
           </form>
         </div>
