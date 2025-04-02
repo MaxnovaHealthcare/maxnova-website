@@ -27,6 +27,7 @@ interface Category {
   image: string;
   description: string;
   slogan: string;
+  bentoimage: string;
 }
 
 interface GroupedSubcategory {
@@ -142,8 +143,7 @@ const VerticalBento: React.FC<{
   allverticals: Category[];
   currentvert: Category;
   categories: GroupedSubcategory[];
-  bentodata: any;
-}> = ({ allverticals, currentvert, categories, bentodata }) => {
+}> = ({ allverticals, currentvert, categories }) => {
   const directions: ("right" | "left")[] = ["right", "left", "right", "left"];
   return (
     <section className="grid h-fit min-h-[45rem] w-full grid-cols-2 grid-rows-2 items-center justify-center gap-[1rem] px-12 max-md:grid-cols-1 max-md:grid-rows-4 max-md:px-2">
@@ -161,7 +161,7 @@ const VerticalBento: React.FC<{
           Our Procuct Categories
         </Link>
         <Image
-          src={bentodata?.box1_image}
+          src={currentvert.bentoimage}
           fill
           quality={100}
           alt="box1_image"
@@ -225,7 +225,6 @@ const VertTemplate: React.FC = () => {
   const [groupedSubcategories, setGroupedSubcategories] = useState<
     GroupedSubcategory[]
   >([]);
-  const [bentoData, setBentoData] = useState();
 
   useEffect(() => {
     if (!vertid) return;
@@ -253,7 +252,6 @@ const VertTemplate: React.FC = () => {
         const filteredProducts = subproductsData.subproducts.filter(
           (product: Product) => product.category._id === vertid,
         );
-        setBentoData(allbento[0].vertical_bento);
         const subcategoryProductMap = subcategoriesData.subcategories.map(
           (subcategory: Subcategory) => ({
             name: subcategory.name,
@@ -280,7 +278,6 @@ const VertTemplate: React.FC = () => {
         allverticals={allvert}
         currentvert={vertical}
         categories={groupedSubcategories}
-        bentodata={bentoData}
       />
       <div id="productcategory" className="h-fit w-full">
         <CategoryProducts categories={groupedSubcategories} />

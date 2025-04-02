@@ -107,7 +107,7 @@ export default function OtherServices() {
           OUR <br /> SERVICES
         </motion.h1>
       </div>
-      <motion.div className="grid w-full grid-cols-3 items-center justify-center max-md:w-full max-md:grid-cols-1 max-md:gap-4 max-md:px-4">
+      <motion.div className="grid w-full grid-cols-3 items-center justify-center gap-6 max-md:w-full max-md:grid-cols-1 max-md:gap-4 max-md:px-4">
         {filteredServices.map(
           ({ title, image, imageAlt, text, slogan }: any) => (
             <div
@@ -158,7 +158,7 @@ const ServiceSections = ({
 
   const [first, second] = splitSlogan(slogan);
   return (
-    <div className="relative flex aspect-[2/3] w-[24rem] items-center justify-center overflow-hidden rounded-3xl max-md:w-full">
+    <div className="relative flex aspect-[2/3] w-full max-w-[24rem] items-center justify-center overflow-hidden rounded-3xl max-md:w-full">
       <Image
         src={image || "/default-image.jpg"}
         alt={imageAlt || "Default Alt Text"}

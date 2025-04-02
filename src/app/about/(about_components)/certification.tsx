@@ -3,12 +3,14 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, useScroll, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface Certificate {
   id: string;
   image: string;
   image_alt: string;
   text: string;
+  desc: string;
 }
 
 const useCertificates = () => {
@@ -108,32 +110,40 @@ const Certified = () => {
   const rightImageRef = useRef<HTMLDivElement>(null);
   const { certificates, error, loading } = useCertificates();
 
-  const handleCardClick = useCallback(
-    (index: number, event?: React.MouseEvent) => {
-      if (event) event.preventDefault();
-      setCurrentIndex(index);
+  const handleCardClick = useCallback((index: number) => {
+    setCurrentIndex(index);
+    if (rightImageRef.current) {
+      const container = rightImageRef.current;
+      const cardWidth = container.children[index]?.clientWidth || 0;
+      const scrollPosition =
+        index * cardWidth - container.clientWidth / 2 + cardWidth / 2;
+      container.scrollTo({
+        left: scrollPosition,
+        behavior: "smooth",
+      });
+    }
+  }, []);
 
-      if (rightImageRef.current) {
-        const container = rightImageRef.current;
-        const cardWidth = container.children[index]?.clientWidth || 0;
-        const scrollPosition =
-          index * cardWidth - container.clientWidth / 2 + cardWidth / 2;
+  const handleNext = () => {
+    if (certificates.length > 0) {
+      handleCardClick((currentIndex + 1) % certificates.length);
+    }
+  };
 
-        container.scrollTo({
-          left: scrollPosition,
-          behavior: "smooth",
-        });
-      }
-    },
-    [],
-  );
+  const handlePrev = () => {
+    if (certificates.length > 0) {
+      handleCardClick(
+        (currentIndex - 1 + certificates.length) % certificates.length,
+      );
+    }
+  };
 
   if (loading) return <LoadingState />;
   if (error) return <ErrorState error={error} />;
   if (certificates.length === 0) return <EmptyState />;
 
   return (
-    <main className="flex w-full flex-col items-center justify-center gap-6 overflow-hidden bg-primary md:flex-row py-24 max-md:py-2">
+    <main className="flex w-full flex-col items-center justify-center gap-6 overflow-hidden bg-primary py-24 max-md:py-2 md:flex-row">
       <div className="flex h-[30rem] w-full flex-col justify-between gap-6 max-md:h-fit max-md:w-full max-md:py-4 md:w-[50%]">
         <motion.h1
           initial={{ y: -100, opacity: 0 }}
@@ -144,33 +154,53 @@ const Certified = () => {
           Your Trusted Partner
         </motion.h1>
         <AnimatePresence mode="wait">
-          <motion.h2
+          <motion.div
             key={certificates[currentIndex]?.id}
             initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 50, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="text-subhead max-md:w-full max-md:text-center max-md:text-xl max-md:font-semibold"
+            className="flex w-full flex-col gap-2 max-md:w-full md:gap-4"
           >
-            {certificates[currentIndex]?.text}
-          </motion.h2>
+            <h2 className="text-pretty text-subhead font-semibold max-md:w-full max-md:text-center max-md:text-xl">
+              {certificates[currentIndex]?.text}
+            </h2>
+            <p className="text-pretty text-para font-normal max-md:w-full max-md:text-center max-md:text-sm">
+              {certificates[currentIndex]?.desc}
+            </p>
+          </motion.div>
         </AnimatePresence>
       </div>
-
-      <div
-        className="scrollbar-none relative flex h-fit w-full overflow-x-auto max-md:w-screen max-md:p-4 md:p-12"
-        ref={rightImageRef}
-        aria-label="Certificate Gallery"
-        style={{ scrollSnapType: "x mandatory", scrollBehavior: "smooth" }}
-      >
-        {certificates.map((certificate, index) => (
-          <CertificateCard
-            key={certificate.id || `cert-${index}`}
-            certificate={certificate}
-            isActive={currentIndex === index}
-            onClick={(e) => handleCardClick(index, e)}
-          />
-        ))}
+      <div className="relative flex h-fit w-full flex-col items-center justify-center overflow-x-hidden">
+        <div
+          className="scrollbar-none relative flex h-fit w-full overflow-x-auto max-md:w-screen max-md:p-4 md:p-12"
+          ref={rightImageRef}
+          aria-label="Certificate Gallery"
+          style={{ scrollSnapType: "x mandatory", scrollBehavior: "smooth" }}
+        >
+          {certificates.map((certificate, index) => (
+            <CertificateCard
+              key={certificate.id || index}
+              certificate={certificate}
+              isActive={currentIndex === index}
+              onClick={() => handleCardClick(index)}
+            />
+          ))}
+        </div>
+        <div className="flex w-fit gap-4">
+          <button
+            onClick={handlePrev}
+            className="h-fit w-fit rounded-full bg-accent2 p-4 text-primary"
+          >
+            <ChevronLeft />
+          </button>
+          <button
+            onClick={handleNext}
+            className="h-fit w-fit rounded-full bg-accent2 p-4 text-primary"
+          >
+            <ChevronRight />
+          </button>
+        </div>
       </div>
     </main>
   );
