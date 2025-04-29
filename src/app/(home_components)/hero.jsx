@@ -104,8 +104,9 @@ function AnimatedText({ children, position, delay }) {
 const HeroSection = () => {
   return (
     <section className="flex h-screen w-full overflow-visible">
-      <div className="z-[1] h-screen w-full">
+      <div className="z-[1] flex h-screen w-full items-center justify-center">
         <Canvas
+          className="h-full w-full"
           dpr={[1, 10]}
           shadows
           camera={{ position: [0, 0, 0], fov: 22.5 }}

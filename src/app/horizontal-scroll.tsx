@@ -40,7 +40,7 @@ export default function HorizontalScrollCarousel({
     ["0", `-${steps.length * (isMobile ? 24 : 28)}rem`],
   );
 
-  const containerHeight = `${steps.length * 28 * 2}rem`;
+  const containerHeight = `${steps.length * 28 * 1.5}rem`;
 
   return (
     <section
@@ -56,7 +56,7 @@ export default function HorizontalScrollCarousel({
           {steps.map((card, index) => (
             <div
               key={index}
-              className="flex aspect-[3/5] w-[28rem] flex-shrink-0 flex-col items-start justify-between overflow-hidden rounded-3xl border border-accent1 p-6 max-md:w-[24rem]"
+              className="flex aspect-[3.5/5] w-[28rem] flex-shrink-0 flex-col items-start justify-between overflow-hidden rounded-3xl border border-accent1 p-6 max-md:w-[24rem]"
             >
               <div className="flex h-fit w-full flex-col items-start justify-start">
                 <p className="font-humane text-4xl uppercase md:text-[3rem]">

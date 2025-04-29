@@ -59,7 +59,7 @@ export default function Verticals() {
         transition={{ delay: 0.5, duration: 0.5, ease: "linear" }}
         className="z-[3] font-humane text-max font-bold uppercase text-accent2 max-md:w-full max-md:text-center max-md:text-8xl"
       >
-        Diverse Operations <br /> across Various Verticals
+        Specialized Solutions for <br />Every Industry We Serve
       </motion.h1>
 
       <div className="flex w-full items-center justify-center">

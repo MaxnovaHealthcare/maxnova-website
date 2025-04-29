@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import { useParams } from "next/navigation";
 import HeroSection from "./(home_components)/hero";
 import WhereQuality from "./(home_components)/quality";
@@ -52,7 +53,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="w-full bg-accent1">
+    <section className="w-full bg-accent1 relative h-full flex justify-center items-center">
       {isMobile || !useThreeJS ? (
         <div className="relative flex h-[50vh] flex-col items-center justify-center overflow-hidden">
           <video
@@ -66,6 +67,14 @@ const Hero = () => {
       ) : (
         <HeroSection />
       )}
+      <motion.p
+        initial={{ opacity: 0, y: "100%" }}
+        animate={{ opacity: 1, y: "0%" }}
+        transition={{ duration: 0.75, delay: 2 }}
+        className="absolute bottom-4 md:bottom-8 z-[1] w-full text-pretty text-center text-head font-semibold text-white max-md:text-xl"
+      >
+        Build Your Brand. We'll Handle the Science.
+      </motion.p>
     </section>
   );
 };
@@ -165,7 +174,7 @@ const HomePage = () => {
       </section>
 
       <section className="w-full bg-accent2 text-primary">
-        <MarqueeEffect>
+        <MarqueeEffect >
           <h1 className="mt-4 font-humane text-9xl font-bold uppercase max-md:mt-2 max-md:text-7xl max-md:font-medium">
             {homeData?.slogan}
           </h1>

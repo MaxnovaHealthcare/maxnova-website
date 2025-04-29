@@ -30,7 +30,7 @@ const VisMis: React.FC<VisMisProps> = ({
   return (
     <section
       ref={ref}
-      className="relative flex w-full flex-col items-center justify-center gap-12"
+      className="relative flex w-full flex-col items-center justify-center gap-12 bg-accent2"
     >
       <div className="relative grid w-full grid-cols-2 items-center justify-center gap-12 p-12 py-36 max-md:grid-cols-1 max-md:px-4">
         <motion.h1
@@ -43,13 +43,8 @@ const VisMis: React.FC<VisMisProps> = ({
         >
           Our vision empowers our mission
         </motion.h1>
-        <Image
-          src={image_vm}
-          alt={image_alt_vm}
-          fill
-          className="absolute z-[-1] h-full w-full object-cover brightness-[0.8] filter"
-        />
-        <div className="flex h-full w-full flex-col justify-center gap-6 rounded-3xl border-2 border-accent1 bg-accent2/50 p-8 text-primary filter backdrop-blur-xl max-md:w-full max-md:gap-2 max-md:p-4">
+
+        <div className="flex h-full w-full flex-col justify-center gap-6 rounded-3xl border-2 border-accent1 p-8 text-primary filter backdrop-blur-xl max-md:w-full max-md:gap-2 max-md:p-4">
           <h1 className="text-subhead font-semibold max-md:text-xl">
             {subhead_vm1}
           </h1>
@@ -64,7 +59,7 @@ const VisMis: React.FC<VisMisProps> = ({
           </p>
         </div>
 
-        <div className="flex h-full w-full flex-col justify-center gap-6 rounded-3xl border-2 border-accent1 bg-accent2/50 p-8 text-primary filter backdrop-blur-xl max-md:w-full max-md:gap-2 max-md:p-4">
+        <div className="flex h-full w-full flex-col justify-center gap-6 rounded-3xl border-2 border-accent1 p-8 text-primary filter backdrop-blur-xl max-md:w-full max-md:gap-2 max-md:p-4">
           <h1 className="text-subhead font-semibold max-md:text-xl">
             {subhead_vm2}
           </h1>
@@ -77,6 +72,14 @@ const VisMis: React.FC<VisMisProps> = ({
               </React.Fragment>
             )) || "This is about"}
           </p>
+        </div>
+        <div className="border-accent1 relative h-full w-full overflow-hidden rounded-3xl border-2">
+          <Image
+            src={image_vm}
+            alt={image_alt_vm}
+            fill
+            className="h-full w-full object-cover brightness-[0.8] filter"
+          />
         </div>
       </div>
     </section>

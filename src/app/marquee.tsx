@@ -55,7 +55,7 @@ function MarqueeEffect({
         },
       );
 
-      return controls.stop;
+      return;
     }
   }, [isHovered, x, moveDistance, animationDuration, direction]);
 

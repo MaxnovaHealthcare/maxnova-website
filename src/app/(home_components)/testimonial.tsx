@@ -119,11 +119,10 @@ const Testimonial: React.FC<TestimonialProps> = ({ testimonials = [] }) => {
       )}
       <div className="sticky top-0 flex h-full w-1/2 flex-col items-start justify-start space-y-6 max-md:h-fit max-md:w-full">
         <h2 className="font-humane text-max uppercase text-accent2 max-md:text-8xl max-md:leading-[1]">
-          What Our Clients <br /> Say About Us
+          More Than a <br /> Manufacturer
         </h2>
         <p className="text-subhead max-md:text-xl">
-          Discover the success stories of our happy customers who’ve experienced
-          remarkable results with our services!
+          We believe in building trust through every interaction, not just through the products we make. That's what keeps our clients coming back and what keeps their customers coming back to them. Here's what some of our clients have shared about working with Maxnova.
         </p>
       </div>
     </section>

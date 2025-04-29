@@ -47,7 +47,7 @@ const WhereQuality: React.FC<WhereQualityProps> = ({
           transition={{ duration: 0.5, delay: 1.25, ease: "easeOut" }}
           className="z-[1] w-3/4 font-humane text-max font-bold uppercase text-accent2 max-md:w-full max-md:text-center max-md:text-8xl lg:-mb-16"
         >
-          Uncompromising Product Quality
+          Built Right, From the Start
         </motion.h1>
 
         <motion.div
