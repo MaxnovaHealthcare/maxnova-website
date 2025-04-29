@@ -122,8 +122,7 @@ const Testimonial: React.FC<TestimonialProps> = ({ testimonials = [] }) => {
           More Than a <br /> Manufacturer
         </h2>
         <p className="text-subhead max-md:text-xl">
-          We believe in building trust through every interaction, not just through the products we make. That's what keeps our clients coming back and what keeps their customers coming back to them. Here's what some of our clients have shared about working with Maxnova.
-        </p>
+          {`We believe in building trust through every interaction, not just through the products we make. That's what keeps our clients coming back and what keeps their customers coming back to them. Here's what some of our clients have shared about working with Maxnova.`}        </p>
       </div>
     </section>
   );

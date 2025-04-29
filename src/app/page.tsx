@@ -73,7 +73,7 @@ const Hero = () => {
         transition={{ duration: 0.75, delay: 2 }}
         className="absolute bottom-4 md:bottom-8 z-[1] w-full text-pretty text-center text-head font-semibold text-white max-md:text-xl"
       >
-        Build Your Brand. We'll Handle the Science.
+        {`Build Your Brand. We'll Handle the Science.`}
       </motion.p>
     </section>
   );
