@@ -15,7 +15,7 @@ export default function FaqSection({ faqs }: FaqSectionProps) {
   });
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
-  const memoizedFaqs = useMemo(() => faqs, [faqs]); // Prevents unnecessary re-renders
+  const memoizedFaqs = useMemo(() => faqs, [faqs]);
 
   return (
     <section

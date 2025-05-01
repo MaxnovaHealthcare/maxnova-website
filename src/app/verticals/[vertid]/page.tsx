@@ -39,7 +39,7 @@ interface GroupedSubcategory {
 const fetchData = async (url: string) => {
   try {
     const res = await fetch(url);
-    if (!res.ok) throw new Error(`Failed to fetch data from ${url}`);
+    if (!res.ok) throw new Error(`Failed to fetch data from ${ url }`);
     return res.json();
   } catch (error) {
     console.error(error);
@@ -52,14 +52,14 @@ const Hero: React.FC<{ image: string; naam: string }> = ({ image, naam }) => (
   <section className="bg-prim flex h-screen min-h-screen w-full flex-col items-center justify-center p-12 px-6 max-md:mt-16 max-md:min-h-[75vh] max-md:p-4 lg:mt-10">
     <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-3xl bg-accent1 text-primary">
       <Image
-        src={image}
-        alt={naam}
+        src={ image }
+        alt={ naam }
         fill
-        quality={100}
+        quality={ 100 }
         className="absolute h-full w-full object-cover brightness-[0.75] filter"
       />
       <h1 className="z-[1] w-fit font-humane font-bold uppercase text-primary max-md:text-8xl lg:text-max">
-        {naam || "Vertical Name"}
+        { naam || "Vertical Name" }
       </h1>
     </div>
   </section>
@@ -70,17 +70,17 @@ const Desc: React.FC<{ text: string; naam: string }> = ({ text, naam }) => (
   <section className="flex flex-col items-start justify-start p-6 px-0 py-12">
     <div className="z-[1] flex w-full flex-col items-center justify-center gap-4 max-md:px-4">
       <h1 className="text-center font-humane font-bold uppercase text-accent2 max-md:text-8xl lg:text-max">
-        Understanding {naam}
+        Understanding { naam }
       </h1>
       <p className="w-4/5 text-center text-para max-md:w-full">
-        {text
+        { text
           ? text.split("|").map((para, index) => (
-              <Fragment key={index}>
-                {para}
-                <br />
-              </Fragment>
-            ))
-          : `This is about ${naam}`}
+            <Fragment key={ index }>
+              { para }
+              <br />
+            </Fragment>
+          ))
+          : `This is about ${ naam }` }
       </p>
     </div>
   </section>
@@ -94,16 +94,16 @@ const CategoryProducts: React.FC<{ categories: GroupedSubcategory[] }> = ({
     <h1 className="text-center font-humane text-max font-bold uppercase text-accent2 max-md:text-8xl max-md:leading-[0.9]">
       Our Products <br /> in this Category
     </h1>
-    {categories.length > 0 ? (
+    { categories.length > 0 ? (
       categories.map(
         ({ name, products }) =>
           products.length > 0 && (
-            <CategoryList key={name} heading={name} products={products} />
+            <CategoryList key={ name } heading={ name } products={ products } />
           ),
       )
     ) : (
       <p className="text-para">No products available in this category.</p>
-    )}
+    ) }
     <CTAButtons cta="/pcd-franchise" text="View Products" />
   </section>
 );
@@ -116,24 +116,24 @@ const CategoryList: React.FC<{ heading: string; products: Product[] }> = ({
     <div className="flex h-fit w-full items-start border-b border-accent1 py-12 max-md:flex-col">
       <div className="sticky top-12 flex min-h-[24rem] w-1/5 items-center justify-start px-4 max-md:top-16 max-md:h-fit max-md:min-h-0 max-md:w-full max-md:items-center max-md:justify-center max-md:border-b-2 max-md:border-accent1 max-md:bg-primary max-md:py-4">
         <h1 className="text-pretty text-center font-humane text-8xl font-extralight uppercase">
-          {heading}
+          { heading }
         </h1>
       </div>
       <div className="grid h-fit w-4/5 grid-cols-3 items-start justify-between gap-6 border-l border-accent1 px-4 max-md:w-full max-md:grid-cols-1 max-md:border-0">
-        {products.map((product) => (
-          <ListCard key={product._id} product={product} />
-        ))}
+        { products.map((product) => (
+          <ListCard key={ product._id } product={ product } />
+        )) }
       </div>
     </div>
   );
 
 const ListCard: React.FC<{ product: Product }> = ({ product }) => (
   <div className="flex h-[24rem] w-full flex-col items-center justify-between gap-6 overflow-hidden rounded-3xl border border-accent1 px-4 py-4">
-    <p className="text-subhead max-md:text-xl">{product.name}</p>
+    <p className="text-subhead max-md:text-xl">{ product.name }</p>
     <ul className="flex h-full w-full flex-col items-start justify-start gap-2 text-left text-para max-md:text-min">
-      {product.features.map((feature, index) => (
-        <li key={index}>{feature}</li>
-      ))}
+      { product.features.map((feature, index) => (
+        <li key={ index }>{ feature }</li>
+      )) }
     </ul>
   </div>
 );
@@ -155,15 +155,15 @@ const VerticalBento: React.FC<{
           an extensive product range
         </h1>
         <Link
-          href={`/verticals/${currentvert._id}/#productcategory`}
-          className="z-[1] flex w-fit items-center justify-center text-nowrap rounded-full border border-accent2 px-4 py-4 text-para font-semibold text-accent2 transition-colors"
+          href={ `/verticals/${ currentvert._id }/#productcategory` }
+          className="z-[1] flex w-fit items-center justify-center bg-accent2/75 text-nowrap rounded-full border border-primary px-4 py-4 text-para font-semibold text-primary transition-colors"
         >
-          Our Procuct Categories
+          Our Product Categories
         </Link>
         <Image
-          src={currentvert.bentoimage}
+          src={ currentvert.bentoimage }
           fill
-          quality={100}
+          quality={ 100 }
           alt="box1_image"
           className="absolute right-0 top-0 h-full w-full bg-accent1 object-cover brightness-90 filter"
         />
@@ -171,43 +171,43 @@ const VerticalBento: React.FC<{
       <div className="relative col-span-1 row-span-1 flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-2xl bg-accent2 max-md:col-span-2 max-md:row-span-1">
         <div className="absolute left-0 top-0 z-[1] flex h-full w-full flex-col items-start justify-end gap-1 bg-gradient-to-t from-[#97BBD1] from-[5%] to-transparent px-4 py-4">
           <p className="text-para font-normal text-primary">
-            {currentvert.name}:
+            { currentvert.name }:
           </p>
           <h1 className="font-humane text-[6rem] font-bold uppercase leading-[0.9] text-primary max-md:text-7xl max-md:leading-[0.9]">
-            {currentvert.slogan}
+            { currentvert.slogan }
           </h1>
         </div>
-        {directions.map((direction, index) => (
-          <MarqueeEffect key={index} direction={direction} speed={5}>
-            {categories.map(({ name }) => (
+        { directions.map((direction, index) => (
+          <MarqueeEffect key={ index } direction={ direction } speed={ 5 }>
+            { categories.map(({ name }) => (
               <h1
-                key={name}
+                key={ name }
                 className="font-humane text-[5rem] font-semibold uppercase leading-[1] text-accent1"
               >
-                {name}
+                { name }
               </h1>
-            ))}
+            )) }
           </MarqueeEffect>
-        ))}
+        )) }
       </div>
       <div className="col-span-1 row-span-1 flex h-full w-full flex-col items-start justify-between rounded-2xl border-2 border-accent2 p-4 max-md:col-span-2 max-md:row-span-1">
         <h2 className="text-wrap font-humane text-[6rem] font-bold uppercase leading-[0.9] text-accent2 max-md:text-7xl max-md:leading-[0.9]">
           Other Verticals
         </h2>
         <div className="grid h-fit w-full grid-cols-2 items-center justify-between gap-4">
-          {allverticals.map((vertical) =>
+          { allverticals.map((vertical) =>
             vertical._id !== currentvert._id ? (
               <Link
-                href={`/verticals/${vertical._id}`}
-                key={vertical._id}
+                href={ `/verticals/${ vertical._id }` }
+                key={ vertical._id }
                 className="col-span-1 flex w-fit items-center justify-center text-nowrap rounded-full bg-accent2 px-4 py-3 text-para font-semibold text-primary transition-colors max-md:col-span-1 max-md:w-full max-md:text-xs md:mt-0 md:w-auto"
               >
-                {vertical.name}
+                { vertical.name }
               </Link>
             ) : null,
-          )}
+          ) }
           <Link
-            href={`/#verticals`}
+            href={ `/#verticals` }
             className="col-span-1 flex w-full items-center justify-center text-nowrap rounded-full border border-accent2 px-4 py-3 text-para font-semibold text-accent2 transition-colors max-md:w-full max-md:text-xs"
           >
             View All Verticals
@@ -232,11 +232,11 @@ const VertTemplate: React.FC = () => {
       try {
         const [categoriesData, subcategoriesData, subproductsData, allbento] =
           await Promise.all([
-            fetchData(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/category`),
-            fetchData(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/subcategory`),
-            fetchData(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/subproduct`),
+            fetchData(`${ process.env.NEXT_PUBLIC_BACKEND_API }/api/category`),
+            fetchData(`${ process.env.NEXT_PUBLIC_BACKEND_API }/api/subcategory`),
+            fetchData(`${ process.env.NEXT_PUBLIC_BACKEND_API }/api/subproduct`),
             fetchData(
-              `${process.env.NEXT_PUBLIC_BACKEND_API}/api/utils/get-bento`,
+              `${ process.env.NEXT_PUBLIC_BACKEND_API }/api/utils/get-bento`,
             ),
           ]);
 
@@ -272,15 +272,15 @@ const VertTemplate: React.FC = () => {
 
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-center gap-24">
-      <Hero naam={vertical.name} image={vertical.image} />
-      <Desc text={vertical.description} naam={vertical.name} />
+      <Hero naam={ vertical.name } image={ vertical.image } />
+      <Desc text={ vertical.description } naam={ vertical.name } />
       <VerticalBento
-        allverticals={allvert}
-        currentvert={vertical}
-        categories={groupedSubcategories}
+        allverticals={ allvert }
+        currentvert={ vertical }
+        categories={ groupedSubcategories }
       />
       <div id="productcategory" className="h-fit w-full">
-        <CategoryProducts categories={groupedSubcategories} />
+        <CategoryProducts categories={ groupedSubcategories } />
       </div>
     </main>
   );

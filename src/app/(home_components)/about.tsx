@@ -42,9 +42,7 @@ const AboutBrief: React.FC<AboutBriefProps> = ({
           style={{ x: x1 }}
           className="font-humane font-bold uppercase text-accent2 max-md:text-8xl max-md:leading-[0.9] md:text-max"
         >
-          Defining
-          <br />
-          Our legacy
+          Built Right for<br /> the Brands of Today
         </motion.h1>
       </div>
       <div className="flex w-full flex-row max-md:flex-col-reverse max-md:items-center max-md:justify-center max-md:gap-0">

@@ -144,19 +144,19 @@ export default function PCDFranchisePage() {
           viewport={{ once: true }}
           className="z-[1] flex w-full flex-col items-center justify-center gap-4 max-md:px-4"
         >
-          <h1 className="text-center font-humane font-bold uppercase max-md:text-8xl lg:text-max">
+          <h1 className="text-center text-accent2 font-humane font-bold uppercase max-md:text-8xl lg:text-max">
             PCD Franchise : grow with us
           </h1>
           <p className="w-4/5 text-center text-para max-md:w-full">
             {!pcdData?.text_pcd
               ? "this is about"
               : pcdData?.text_pcd.split("|").map((para, index) => (
-                  <React.Fragment key={index}>
-                    {para}
-                    <br />
-                    <br />
-                  </React.Fragment>
-                ))}
+                <React.Fragment key={index}>
+                  {para}
+                  <br />
+                  <br />
+                </React.Fragment>
+              ))}
           </p>
           <CTAButtons cta="../contact" text="enquire now" />
         </motion.div>

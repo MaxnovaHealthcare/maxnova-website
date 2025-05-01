@@ -18,7 +18,7 @@ import Numbers from "./(home_components)/numbers";
 const fetchData = async (url: string) => {
   try {
     const res = await fetch(url);
-    if (!res.ok) throw new Error(`Failed to fetch data from ${url}`);
+    if (!res.ok) throw new Error(`Failed to fetch data from ${ url }`);
     return await res.json();
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -54,11 +54,11 @@ const Hero = () => {
 
   return (
     <section className="w-full bg-accent1 relative h-full flex justify-center items-center">
-      {isMobile || !useThreeJS ? (
+      { isMobile || !useThreeJS ? (
         <div className="relative flex h-[50vh] flex-col items-center justify-center overflow-hidden">
           <video
             className="h-auto w-full scale-[1.2] object-cover"
-            src={`/images/herosection.mp4`}
+            src={ `/images/herosection.mp4` }
             autoPlay
             muted
             playsInline
@@ -66,14 +66,14 @@ const Hero = () => {
         </div>
       ) : (
         <HeroSection />
-      )}
+      ) }
       <motion.p
-        initial={{ opacity: 0, y: "100%" }}
-        animate={{ opacity: 1, y: "0%" }}
-        transition={{ duration: 0.75, delay: 2 }}
+        initial={ { opacity: 0, y: "100%" } }
+        animate={ { opacity: 1, y: "0%" } }
+        transition={ { duration: 0.75, delay: 2 } }
         className="absolute bottom-4 md:bottom-8 z-[1] w-full text-pretty text-center text-head font-semibold text-white max-md:text-xl"
       >
-        {`Build Your Brand. We'll Handle the Science.`}
+        { `Build Your Brand. We'll Handle the Science.` }
       </motion.p>
     </section>
   );
@@ -118,7 +118,7 @@ const HomePage = () => {
   useEffect(() => {
     const loadData = async () => {
       const data = await fetchData(
-        `${process.env.NEXT_PUBLIC_BACKEND_API}/api/utils/get-home`,
+        `${ process.env.NEXT_PUBLIC_BACKEND_API }/api/utils/get-home`,
       );
       if (data && Array.isArray(data) && data.length > 0) {
         setHomeData(data[0]);
@@ -129,30 +129,30 @@ const HomePage = () => {
     loadData();
   }, []);
 
-  if (error) return <div className="text-red-500">Error: {error}</div>;
+  if (error) return <div className="text-red-500">Error: { error }</div>;
   return (
     <main className="z-0 m-0 flex min-h-screen w-full flex-col bg-accent1">
       <Hero />
       <section className="h-fit w-full rounded-t-[4rem] bg-primary max-md:rounded-t-3xl">
         <AboutBrief
-          subhead_about={homeData?.subhead_about || ""}
-          text_about={homeData?.text_about || ""}
-          image1_about={homeData?.image_about1 || ""}
-          image1_alt_about={homeData?.image_alt_about1 || ""}
-          image2_about={homeData?.image_about2 || ""}
-          image2_alt_about={homeData?.image_alt_about2 || ""}
+          subhead_about={ homeData?.subhead_about || "" }
+          text_about={ homeData?.text_about || "" }
+          image1_about={ homeData?.image_about1 || "" }
+          image1_alt_about={ homeData?.image_alt_about1 || "" }
+          image2_about={ homeData?.image_about2 || "" }
+          image2_alt_about={ homeData?.image_alt_about2 || "" }
         />
       </section>
 
       <section className="w-full bg-primary">
         <Numbers
-          numbs={Array.isArray(homeData?.numbs) ? homeData.numbs : []}
-          sindex={0}
-          eindex={3}
+          numbs={ Array.isArray(homeData?.numbs) ? homeData.numbs : [] }
+          sindex={ 0 }
+          eindex={ 3 }
         />
       </section>
 
-      <section id="verticals" className="w-full bg-primary" ref={verticalsRef}>
+      <section id="verticals" className="w-full bg-primary" ref={ verticalsRef }>
         <Verticals />
       </section>
 
@@ -166,17 +166,17 @@ const HomePage = () => {
 
       <section className="w-full bg-primary">
         <WhereQuality
-          subhead_quality={homeData?.subhead_quality || ""}
-          text_quality={homeData?.text_quality || ""}
-          image_quality={homeData?.image_quality || ""}
-          image_alt_quality={homeData?.image_alt_quality || ""}
+          subhead_quality={ homeData?.subhead_quality || "" }
+          text_quality={ homeData?.text_quality || "" }
+          image_quality={ homeData?.image_quality || "" }
+          image_alt_quality={ homeData?.image_alt_quality || "" }
         />
       </section>
 
       <section className="w-full bg-accent2 text-primary">
         <MarqueeEffect >
           <h1 className="mt-4 font-humane text-9xl font-bold uppercase max-md:mt-2 max-md:text-7xl max-md:font-medium">
-            {homeData?.slogan}
+            { homeData?.slogan }
           </h1>
         </MarqueeEffect>
       </section>
@@ -186,11 +186,11 @@ const HomePage = () => {
       </section>
 
       <section className="w-full bg-primary px-4">
-        <Testimonial testimonials={testimonials} />
+        <Testimonial testimonials={ testimonials } />
       </section>
 
       <section className="w-full bg-primary px-4">
-        <FaqSection faqs={Array.isArray(homeData?.faqs) ? homeData.faqs : []} />
+        <FaqSection faqs={ Array.isArray(homeData?.faqs) ? homeData.faqs : [] } />
       </section>
     </main>
   );
@@ -198,60 +198,53 @@ const HomePage = () => {
 
 const testimonials = [
   {
-    name: "Jane Doe",
-    company: "Company B",
-    testimonial:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel odio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
-    image: "",
+    "name": "Dr. Tarang",
+    "company": "Nascent Derm",
+    "testimonial": "I've been working with Maxnova for years, and the experience has always been smooth. The product quality is excellent, packaging is reliable, and the team is responsive and professional. I trust them completely and look forward to continuing our partnership."
   },
   {
-    name: "Jane Doe",
-    company: "Company B",
-    testimonial:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel odio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
-    image: "",
+    "name": "Dr. N. S. Shreyas",
+    "company": "Padmashree Enterprises",
+    "testimonial": "I've been working with Maxnova for years and have always found their products reliable and well-packaged. Their staff is responsive, and their customer care has consistently met expectations. I'm happy with the overall experience."
   },
   {
-    name: "Jane Doe",
-    company: "Company B",
-    testimonial:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel odio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
-    image: "",
+    "name": "Mancode Team",
+    "company": "Mancode",
+    "testimonial": "Our experience with Maxnova has been excellent. The product they manufacture for us is exceptional. They are well-designed, efficiently produced, and consistently appreciated by our customers."
   },
   {
-    name: "Jane Doe",
-    company: "Company B",
-    testimonial:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel odio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
-    image: "",
+    "name": "Mr. Saksham Batra",
+    "company": "Auraeceutics Aesthetic Healthcare",
+    "testimonial": "We're proud to be associated with Maxnova. Their focus on science, packaging, and innovative product combinations stands out. The quality is top-notch, and their support, especially during new launches, has been incredibly prompt and helpful."
+  }, {
+    "name": "Ritika Suryavanshi",
+    "company": "Herbal Glow Essentials",
+    "testimonial": "I came in with just an idea and a lot of questions. Maxnova guided me through every step and helped turn it into something real. The process was smooth, and the final product turned out better than I imagined."
   },
   {
-    name: "Jane Doe",
-    company: "Company B",
-    testimonial:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel odio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
-    image: "",
+    "name": "Amitesh Chauhan",
+    "company": "AyuraVeda Skincare",
+    "testimonial": "Working with Maxnova felt like having an in-house R&D team. I never had to chase updates, everything was transparent and on track. I could focus on building the brand, while they handled the backend."
   },
   {
-    name: "Jane Doe",
-    company: "Company B",
-    testimonial:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel odio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
-    image: "",
+    "name": "Nivriti Botanicals",
+    "company": "Cosmetic Brand",
+    "testimonial": "Professional, fast, and never cutting corners. We've worked with other manufacturers, but Maxnova stood out. They care deeply about what goes into the product, and it shows in every stage of their work."
   },
   {
-    name: "Jane Doe",
-    company: "Company B",
-    testimonial:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel odio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
-    image: "",
+    "name": "Sandeep Bhargava",
+    "company": "NutraVibe Labs",
+    "testimonial": "Their quality speaks for itself. From sourcing to packaging, every detail was handled with care. Our customers love the product, and we’re already preparing for the next launch with Maxnova."
   },
   {
-    name: "Jane Doe",
-    company: "Company B",
-    testimonial:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nisl vel odio posuere tincidunt. Nullam nec erat ut mi fermentum ultricies.",
-    image: "",
+    "name": "Meenal Deshmukh",
+    "company": "PurelyU Personal Care",
+    "testimonial": "It felt more like a partnership than a transaction. Maxnova didn’t just manufacture our product, they helped shape it. The team was responsive, thoughtful, and truly invested in getting it right."
+  },
+  {
+    "name": "Harshita Menon",
+    "company": "Wellnest Naturals",
+    "testimonial": "They made a complex process feel simple. As a first-time brand, we expected it to be overwhelming, but Maxnova made it clear and manageable. They handled the technical side with ease and kept us fully in the loop."
   },
 ];
 
