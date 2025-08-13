@@ -5,7 +5,6 @@ import React from "react";
 export default function PrivacyPolicyPage() {
   return (
     <main className="bg-prim z-0 m-0 flex min-h-screen w-full flex-col">
-      {/* Hero Section */}
       <section className="relative flex h-[60vh] w-full items-center justify-center bg-gradient-to-b from-primary to-accent1">
         <div className="container mx-auto px-4 text-center">
           <h1 className="font-helvetica text-6xl font-bold text-white max-md:text-4xl lg:text-8xl">
@@ -17,11 +16,9 @@ export default function PrivacyPolicyPage() {
         </div>
       </section>
 
-      {/* Privacy Policy Content */}
       <section className="container mx-auto w-full max-w-4xl px-4 py-16">
         <div className="prose prose-lg max-w-none">
           <div className="space-y-8 text-secondary">
-            {/* Introduction */}
             <div>
               <h2 className="mb-4 font-helvetica text-head font-bold text-accent2">
                 1. Introduction
@@ -41,7 +38,6 @@ export default function PrivacyPolicyPage() {
               </p>
             </div>
 
-            {/* Who We Are */}
             <div>
               <h2 className="mb-4 font-helvetica text-head font-bold text-accent2">
                 2. Who We Are (Data Controller)
@@ -63,7 +59,6 @@ export default function PrivacyPolicyPage() {
               </div>
             </div>
 
-            {/* What Personal Data We Collect */}
             <div>
               <h2 className="mb-4 font-helvetica text-head font-bold text-accent2">
                 3. What Personal Data We Collect and Why
@@ -118,7 +113,6 @@ export default function PrivacyPolicyPage() {
               </div>
             </div>
 
-            {/* How We Use Your Personal Data */}
             <div>
               <h2 className="mb-4 font-helvetica text-head font-bold text-accent2">
                 4. How We Use Your Personal Data
@@ -153,7 +147,6 @@ export default function PrivacyPolicyPage() {
               </ul>
             </div>
 
-            {/* Legal Basis for Processing */}
             <div>
               <h2 className="mb-4 font-helvetica text-head font-bold text-accent2">
                 5. Legal Basis for Processing Your Data
@@ -180,7 +173,6 @@ export default function PrivacyPolicyPage() {
               </ul>
             </div>
 
-            {/* Data Sharing and Disclosure */}
             <div>
               <h2 className="mb-4 font-helvetica text-head font-bold text-accent2">
                 6. Data Sharing and Disclosure
@@ -209,7 +201,6 @@ export default function PrivacyPolicyPage() {
               </ul>
             </div>
 
-            {/* International Data Transfers */}
             <div>
               <h2 className="mb-4 font-helvetica text-head font-bold text-accent2">
                 7. International Data Transfers
@@ -224,8 +215,6 @@ export default function PrivacyPolicyPage() {
                 European Commission.
               </p>
             </div>
-
-            {/* Your Rights Under GDPR */}
             <div>
               <h2 className="mb-4 font-helvetica text-head font-bold text-accent2">
                 8. Your Rights Under GDPR
@@ -278,7 +267,6 @@ export default function PrivacyPolicyPage() {
               </p>
             </div>
 
-            {/* Data Security */}
             <div>
               <h2 className="mb-4 font-helvetica text-head font-bold text-accent2">
                 9. Data Security
@@ -292,7 +280,6 @@ export default function PrivacyPolicyPage() {
               </p>
             </div>
 
-            {/* Data Retention */}
             <div>
               <h2 className="mb-4 font-helvetica text-head font-bold text-accent2">
                 10. Data Retention
@@ -304,8 +291,6 @@ export default function PrivacyPolicyPage() {
                 requirements.
               </p>
             </div>
-
-            {/* Cookies and Tracking Technologies */}
             <div>
               <h2 className="mb-4 font-helvetica text-head font-bold text-accent2">
                 11. Cookies and Tracking Technologies
@@ -319,8 +304,6 @@ export default function PrivacyPolicyPage() {
                 site.
               </p>
             </div>
-
-            {/* Children's Privacy */}
             <div>
               <h2 className="mb-4 font-helvetica text-head font-bold text-accent2">
                 12. Children's Privacy
@@ -331,8 +314,6 @@ export default function PrivacyPolicyPage() {
                 under 16.
               </p>
             </div>
-
-            {/* Contact Information */}
             <div className="mt-8 rounded-lg bg-accent1/10 p-6">
               <h3 className="mb-2 font-helvetica text-subhead font-semibold text-accent2">
                 Contact Us
@@ -355,8 +336,6 @@ export default function PrivacyPolicyPage() {
                 Baldev Nagar, Ambala, Haryana 134007
               </p>
             </div>
-
-            {/* Last Updated */}
             <div className="mt-8 border-t border-secondary/20 pt-8 text-center text-min text-secondary/60">
               <p className="font-helvetica">Last updated: 12th August 2025</p>
             </div>
