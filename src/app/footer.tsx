@@ -10,7 +10,7 @@ import twitter from "../../public/images/twitter.png";
 import linkedin from "../../public/images/linkedin.png";
 
 async function getcompanyData() {
-  const res = await fetch(`${ process.env.NEXT_PUBLIC_BACKEND_API }/api/company`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/company`);
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -42,36 +42,42 @@ export default function Footer() {
         <div className="flex h-fit w-fit flex-col gap-4">
           <h1 className="text-para font-semibold">PCD Franchise</h1>
           <div className="flex flex-col gap-2 text-min">
-            { (data as any)?.allCompany?.map((brand: any, index: number) => (
+            {(data as any)?.allCompany?.map((brand: any, index: number) =>
               brand?._id && brand?.name ? (
                 <Links
-                  key={ index }
-                  link={ `/pcd-franchise/${ brand._id }` }
-                  text={ brand.name }
+                  key={index}
+                  link={`/pcd-franchise/${brand._id}`}
+                  text={brand.name}
                 />
-              ) : null
-            )) }
+              ) : null,
+            )}
           </div>
         </div>
         <div className="flex h-fit w-fit flex-col gap-4">
-          <h1 className="text-para font-semibold">Other Services</h1>
+          <h1 className="text-para font-semibold"> Other Services</h1>
           <div className="flex flex-col gap-2 text-min">
             <Links link="/custom-formulations" text="Custom Formulations" />
-            <Links link="/private-label" text="Private Labels" />
+            <Links link="/private-label" text="Private Label" />
+          </div>
+        </div>
+        <div className="flex h-fit w-fit flex-col gap-4">
+          <h1 className="text-para font-semibold">Legal</h1>
+          <div className="flex flex-col gap-2 text-min">
+            <Links link="/privacy-policy" text="Privacy Policy" />
           </div>
         </div>
       </div>
       <div className="flex h-fit w-full flex-col items-center justify-center gap-4">
-        <Image src={ logo } alt="Logo" className="h-auto w-40" />
+        <Image src={logo} alt="Logo" className="h-auto w-40" />
         <p className="text-min">
-          © 2024 Maxnova Healthcare. All rights reserved
+          © 2025 Maxnova Healthcare. All rights reserved
         </p>
         <div className="flex w-fit gap-2">
           <Link
-            href={ "https://www.facebook.com/MaxnovaHealthcareAmbala" }
+            href={"https://www.facebook.com/MaxnovaHealthcareAmbala"}
             className="h-fit w-fit"
           >
-            <Image src={ facebook } alt="Facebook" width={ 24 } height={ 24 } />
+            <Image src={facebook} alt="Facebook" width={24} height={24} />
           </Link>
           <Link
             href={
@@ -79,15 +85,15 @@ export default function Footer() {
             }
             className="h-fit w-fit"
           >
-            <Image src={ instagram } alt="Instagram" width={ 24 } height={ 24 } />
+            <Image src={instagram} alt="Instagram" width={24} height={24} />
           </Link>
-          <Link href={ "https://x.com/maxnovahealth" } className="h-fit w-fit">
-            <Image src={ twitter } alt="Twitter" width={ 24 } height={ 24 } />
+          <Link href={"https://x.com/maxnovahealth"} className="h-fit w-fit">
+            <Image src={twitter} alt="Twitter" width={24} height={24} />
           </Link>
           <Link
-            href={ "https://www.linkedin.com/in/maxnova-healthcare-959579163/" }
+            href={"https://www.linkedin.com/in/maxnova-healthcare-959579163/"}
           >
-            <Image src={ linkedin } alt="LinkedIn" width={ 24 } height={ 24 } />
+            <Image src={linkedin} alt="LinkedIn" width={24} height={24} />
           </Link>
         </div>
       </div>
@@ -103,10 +109,10 @@ interface LinkProps {
 function Links({ link, text }: LinkProps) {
   return (
     <Link
-      href={ link }
+      href={link}
       className="h-fit w-full font-helvetica text-min text-primary hover:font-medium hover:text-accent1 max-md:text-center"
     >
-      { text }
+      {text}
     </Link>
   );
 }
