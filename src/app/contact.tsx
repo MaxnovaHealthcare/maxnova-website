@@ -103,7 +103,7 @@ export default function ContactPage(props: ContactPageProps) {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         className="fixed left-0 top-0 z-[50] flex h-full w-full items-center justify-center overflow-hidden bg-accent1/20 bg-fixed px-16 pb-2 pt-[5.25rem] text-primary filter backdrop-blur max-md:p-2 max-md:px-2 max-md:pt-2"
-        onClick={onclick}
+        onClick={onClick || undefined}
       >
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}

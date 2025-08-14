@@ -24,12 +24,12 @@ export default function PrivacyPolicyPage() {
                 1. Introduction
               </h2>
               <p className="font-helvetica text-para leading-relaxed text-secondary">
-                Welcome to Maxnova Healthcare ("we," "us," or "our"). We are
-                committed to protecting the privacy and security of your
-                personal information. This Privacy Policy outlines how we
-                collect, use, disclose, and safeguard your data when you visit
-                our website, https://maxnovahealthcare.com, and interact with
-                our services.
+                Welcome to Maxnova Healthcare (&ldquo;we,&rdquo;
+                &ldquo;us,&rdquo; or &ldquo;our&rdquo;). We are committed to
+                protecting the privacy and security of your personal
+                information. This Privacy Policy outlines how we collect, use,
+                disclose, and safeguard your data when you visit our website,
+                https://maxnovahealthcare.com, and interact with our services.
               </p>
               <p className="mt-4 font-helvetica text-para leading-relaxed text-secondary">
                 We process your data in compliance with the General Data
@@ -306,7 +306,7 @@ export default function PrivacyPolicyPage() {
             </div>
             <div>
               <h2 className="mb-4 font-helvetica text-head font-bold text-accent2">
-                12. Children's Privacy
+                12. Children&apos;s Privacy
               </h2>
               <p className="font-helvetica text-para leading-relaxed text-secondary">
                 Our services are not intended for use by children under the age
